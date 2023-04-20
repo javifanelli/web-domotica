@@ -2,7 +2,7 @@ const mysql = require('mysql');
 
 const configMysql = {
     connectionLimit: 10,
-    host: '192.168.0.60',
+    host: '192.168.0.60', //Acá se debe poner la IP local de la máquina donde se está corriendo
     port: '3306',
     user: 'root',
     password: 'userpass',
