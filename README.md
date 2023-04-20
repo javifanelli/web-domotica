@@ -10,6 +10,8 @@ Primero deben instalarse los complementos de Angular e Ionic en el editor de có
 ### Siguientes pasos
 Una vez cargados los complementos, se debe correr el comando *docker compose up* en una consola nueva. Por un navegador, en una pestaña nueva se debe ingresar a la dirección *http://localhost:8100/*, donde aparecerá la página de logueo. Ahí se deben ingresar los datos: "test" para el campo *Username* y "1234" para *Password*. Luego, se puede empezar a navegar por la aplicación.
 
+Para bajar la aplicación, se debe apretar la combinación de teclas *ctrl+c*. Notar que si se hacen cambios en el Backend se debe reiniciar el contenedor o bajar la aplicación y luego volver a levantarla con *docker compose up*.
+
 ## Proyecto basado en
 
 [Web App Full Stack Base](https://github.com/PedroRosito/dam-docker)
