@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@angular/cli": "^15.2.6",
+    "@angular/core": "^15.2.8",
+    "@angular/platform-browser-dynamic": "^15.2.8",
+    "@ionic/angular": "^7.0.3",
+    "jsonwebtoken": "^9.0.0"
+  }
+}

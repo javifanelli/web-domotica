@@ -48,7 +48,7 @@ app.get('/', function(req, res, next) {
     res.send({'mensaje': 'Hola DAM'}).status(200);
 });
 
-app.get('/devices/', auth, function(req, res, next) {
+app.get('/devices/', function(req, res, next) {
     pool.query('Select * from Devices', function(err, result, fields) {
         if (err) {
             res.send(err).status(400);

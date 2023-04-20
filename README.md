@@ -1,9 +1,12 @@
 Web app full stack con Ionic como frontend
 ==========================================
+## Desarrollo de aplicaciones multiplataforma - TP final
+Trabajo práctico final para la materia Desarrollo de aplicaciones multiplataforma de la especialización de IoT, FIUBA. Realizado por César Javier Fanelli
+
 
 ## Proyecto basado en
 
-[Web App Full Stack Base](https://github.com/mramos88/app-fullstack-base-2022-i07)
+[Web App Full Stack Base](https://github.com/PedroRosito/dam-docker)
 
 ## Licencia 📄
 
