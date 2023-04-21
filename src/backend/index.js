@@ -17,7 +17,7 @@ var corsOptions = {
 // DECLARE JWT-secret
 const JWT_Secret = 'your_secret_key';
 
-var testUser = { username: 'test', password: '1234' };
+var testUser = { username: 'javier', password: 'ceiot' };
 
 const auth = function (req, res, next) {
     let autHeader = (req.headers.authorization || '')
