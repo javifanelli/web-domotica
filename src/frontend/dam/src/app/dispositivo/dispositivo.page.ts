@@ -9,53 +9,16 @@ import { NgFor } from '@angular/common';
   templateUrl: './dispositivo.page.html',
   styleUrls: ['./dispositivo.page.scss'],
 })
-export class DispositivoPage implements OnInit, OnDestroy {
 
-  observable$: Observable<any>
-  /* subscription: Subscription */
+ export class DispositivoPage implements OnInit, OnDestroy  {
 
-  constructor(private dispositivoService: DispositivoService, private actRout: ActivatedRoute) {
-    this.observable$ = interval(1000)
-
-    /* this.subscription = this.observable$.subscribe((integer) => {
-      console.log(integer)
-    }) */
-  }
+  constructor(private dispositivoService: DispositivoService, private actRout: ActivatedRoute) {}
 
   async ngOnInit() {
-    //this.subscription.unsubscribe()
     let dispositivos = await this.dispositivoService.getListadoDispositivos()
     console.log(dispositivos)
-    
-    //NgFor(dispositivos.id)
-    
-   
-     /* this.dispositivoService.getListadoDispositivos()
-       .then((res) => {
-         console.log(res)
-       })
-       .catch((error) => {
-         console.log(error)
-       }) */
   }
 
-  /* ionViewWillEnter () {
-    console.log(Number(this.actRout.snapshot.paramMap.get('id')))
-  } */
+  ngOnDestroy(): void {}
 
-
-  /* subscribe() {
-    this.subscription = this.observable$.subscribe((integer) => {
-        console.log(integer)
-    })
-  } */
-
- /*  unsubscribe() {
-    this.subscription.unsubscribe()
-  } */
-
-  ngOnDestroy(): void {
-    /* this.subscription.unsubscribe() */
-  }
-
-}
+} 
