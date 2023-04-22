@@ -12,6 +12,12 @@ Una vez cargados los complementos, se debe correr el comando *docker compose up*
 
 Para bajar la aplicación, se debe apretar la combinación de teclas *ctrl+c*. Notar que si se hacen cambios en el Backend se debe reiniciar el contenedor o bajar la aplicación y luego volver a levantarla con *docker compose up*.
 
+### Notas
+Se modificaron algunos valores que estaban en el dump de las tablas, como el nombre de los sensores y las fechas de medición.
+
+### Solución de problemas
+En caso de no poder ver la base de datos actualizada, primero se debe bajar el contenedor con *docker compose down* o con las teclas ctrl+c. Luego se debe borrar la carpeta "data" dentro de "db" con permisos de administrador (en Linux se debe correr el comando *sudo rm -r data*) y volver a correr el contenedor con *dcoker compose up --build*.
+
 ## Proyecto basado en
 
 [Web App Full Stack Base](https://github.com/PedroRosito/dam-docker)

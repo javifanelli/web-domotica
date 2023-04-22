@@ -35,12 +35,12 @@ CREATE TABLE `Dispositivos` (
 -- Volcado de datos para la tabla `Dispositivos`
 
 INSERT INTO `Dispositivos` (`dispositivoId`, `nombre`, `ubicacion`, `electrovalvulaId`) VALUES
-(1, 'Sensor 1', 'Patio', 1),
-(2, 'Sensor 2', 'Cocina', 2),
-(3, 'Sensor 3', 'Jardin Delantero', 3),
-(4, 'Sensor 4', 'Living', 4),
-(5, 'Sensor 5', 'Habitacion 1', 5),
-(6, 'Sensor 6', 'Habitacion 2', 6);
+(1, 'Sensor 1', 'Patio1', 1),
+(2, 'Sensor 2', 'Patio2', 2),
+(3, 'Sensor 3', 'Jardin1', 3),
+(4, 'Sensor 4', 'Jardin2', 4),
+(5, 'Sensor 5', 'Jardin3', 5),
+(6, 'Sensor 6', 'Jardin4', 6);
 
 
 -- Estructura de tabla para la tabla `Electrovalvulas`
@@ -53,12 +53,12 @@ CREATE TABLE `Electrovalvulas` (
 -- Volcado de datos para la tabla `Electrovalvulas`
 
 INSERT INTO `Electrovalvulas` (`electrovalvulaId`, `nombre`) VALUES
-(1, 'eLPatio'),
-(2, 'eLCocina'),
-(3, 'eLJardinDelantero'),
-(4, 'eLLiving'),
-(5, 'eLHabitacion1'),
-(6, 'eLHabitacion2');
+(1, 'eLPatio1'),
+(2, 'eLPatio2'),
+(3, 'eLJardin1'),
+(4, 'eLJardin2'),
+(5, 'eLJardin3'),
+(6, 'eLJardin4');
 
 -- Estructura de tabla para la tabla `Log_Riegos`
 
@@ -81,17 +81,17 @@ CREATE TABLE `Mediciones` (
 -- Volcado de datos para la tabla `Mediciones`
 
 INSERT INTO `Mediciones` (`medicionId`, `fecha`, `valor`, `dispositivoId`) VALUES
-(1, '2020-11-26 21:19:41', '60', 1),
-(2, '2020-11-26 21:19:41', '40', 1),
-(3, '2020-11-26 21:19:41', '30', 2),
-(4, '2020-11-26 21:19:41', '50', 3),
-(5, '2020-11-26 21:19:41', '33', 5),
-(6, '2020-11-26 21:19:41', '17', 4),
-(7, '2020-11-26 21:19:41', '29', 6),
-(8, '2020-11-26 21:19:41', '20', 1),
-(9, '2020-11-26 21:19:41', '44', 4),
-(10, '2020-11-26 21:19:41', '61', 5),
-(11, '2020-11-26 21:19:41', '12', 2);
+(1, '2023-04-20 21:19:41', '60', 1),
+(2, '2023-04-20 21:19:41', '40', 1),
+(3, '2023-04-20 21:19:41', '30', 2),
+(4, '2023-04-20 21:19:41', '50', 3),
+(5, '2023-04-20 21:19:41', '33', 5),
+(6, '2023-04-20 21:19:41', '17', 4),
+(7, '2023-04-20 21:19:41', '29', 6),
+(8, '2023-04-20 22:19:41', '20', 1),
+(9, '2023-04-20 22:19:41', '44', 4),
+(10, '2023-04-20 22:19:41', '61', 5),
+(11, '2023-04-20 22:19:41', '12', 2);
 
 
 -- Indices de la tabla `Dispositivos`
