@@ -2,12 +2,12 @@
 
 var PORT    = 3000;
 
-const cors = require('cors');
-const jwt = require('jsonwebtoken');
-
 var express = require('express');
 var app     = express();
 var pool   = require('./mysql-connector');
+const cors = require('cors');
+const jwt = require('jsonwebtoken');
+
 
 var corsOptions = {
     origin: '*',
