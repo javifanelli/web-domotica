@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { firstValueFrom } from 'rxjs';
+import { Observable } from 'rxjs';
+import { Dispositivo } from '../interfaces/dispositivo';
+import { Medicion } from '../interfaces/medicion';
+import { Riegos } from '../interfaces/riegos';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DispositivoService {
+  private URLServer = 'http://localhost:8000';
+  constructor(private _http: HttpClient) {}
 
-  constructor(private _http: HttpClient) { }
-
-  getListadoDispositivos (): Promise<any> {
-    return firstValueFrom(this._http.get('http://localhost:8000/devices'))
+  getListaDisp (): Observable<Dispositivo[]> {
+    return this._http.get<Dispositivo[]>(this.URLServer + '/devices');
   }
 }

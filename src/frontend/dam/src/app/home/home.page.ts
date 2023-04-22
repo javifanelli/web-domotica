@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { IonicModule } from '@ionic/angular';
 import { ListaDispComponent } from '../listadisp/listadisp.component';
 
 @Component({
@@ -7,7 +8,6 @@ import { ListaDispComponent } from '../listadisp/listadisp.component';
   styleUrls: ['home.page.scss'],
   
 })
-
 
 export class HomePage {
   constructor () {}
