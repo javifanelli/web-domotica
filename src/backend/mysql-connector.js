@@ -1,6 +1,7 @@
 var mysql = require('mysql');
 
-var connection = mysql.createConnection({
+var configMysql = mysql.createConnection({
+    connectionLimit: 10,
     host: 'mysql-server',
     port: '3306',
     user: 'root',
@@ -8,13 +9,26 @@ var connection = mysql.createConnection({
     database: 'riegos'
 });
 
+const pool = mysql.createPool(configMysql);
 
-connection.connect(function(err) {
+pool.getConnection((err, connection) => {
     if (err) {
-        console.error('Error while connect to DB: ' + err.stack);
+        switch (err.code) {
+            case 'PROTOCOL_CONNECTION_LOST':
+                console.error('La conexion a la DB se cerró.');
+                break;
+            case 'ER_CON_COUNT_ERROR':
+                console.error('La base de datos tiene muchas conexiones');
+                break;
+            case 'ECONNREFUSED':
+                console.error('La conexion fue rechazada');
+        }
+        if (connection) {
+            console.log(connection)
+            connection.release();
+        }
         return;
     }
-    console.log('Connected to DB under thread ID: ' + connection.threadId);
 });
 
-module.exports = connection;
+module.exports = pool;

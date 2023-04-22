@@ -1,8 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { DispositivoService } from '../services/dispositivo.service';
-import { Observable, Subscription, interval } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
-import { NgFor } from '@angular/common';
+import * as Highcharts from 'highcharts';
+
+import { DispositivoService } from '../services/dispositivo.service';
 
 @Component({
   selector: 'app-dispositivo',
@@ -10,7 +13,7 @@ import { NgFor } from '@angular/common';
   styleUrls: ['./dispositivo.page.scss'],
 })
 
- export class DispositivoPage implements OnInit, OnDestroy  {
+ export class DispositivoPage implements OnInit  {
 
   constructor(private dispositivoService: DispositivoService, private actRout: ActivatedRoute) {}
 
@@ -19,6 +22,6 @@ import { NgFor } from '@angular/common';
     console.log(dispositivos)
   }
 
-  ngOnDestroy(): void {}
-
+  
+ 
 } 
