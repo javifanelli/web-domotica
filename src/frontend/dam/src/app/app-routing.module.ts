@@ -13,11 +13,11 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
-  {
+  /* {
     path: 'dispositivo',
     loadChildren: () => import('./dispositivo/dispositivo.module').then( m => m.DispositivoPageModule),
     canActivate: [AuthGuard]
-  },
+  }, */
   {
     path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginModule)

@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-
 import { ActivatedRoute } from '@angular/router';
 import { RouterLink } from '@angular/router';
-/* import * as Highcharts from 'highcharts';
+import * as Highcharts from 'highcharts';
 declare var require: any;
 require('highcharts/highcharts-more')(Highcharts);
-require('highcharts/modules/solid-gauge')(Highcharts); */
+require('highcharts/modules/solid-gauge')(Highcharts);
 import { Dispositivo } from '../interfaces/dispositivo';
 import { DispositivoService } from '../services/dispositivo.service';
 
@@ -92,15 +91,15 @@ import { DispositivoService } from '../services/dispositivo.service';
         plotBands: [{
             from: 0,
             to: 10,
-            color: '#55BF3B' // green
+            color: '#55BF3B' // verde
         }, {
             from: 10,
             to: 30,
-            color: '#DDDF0D' // yellow
+            color: '#DDDF0D' // amarillo
         }, {
             from: 30,
             to: 100,
-            color: '#DF5353' // red
+            color: '#DF5353' // rojo
         }]
     }
     ,
