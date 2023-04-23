@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HomeService } from '../services/home.service';
 import { ListaDispComponent } from '../listadisp/listadisp.component';
 
 @Component({
@@ -9,5 +10,9 @@ import { ListaDispComponent } from '../listadisp/listadisp.component';
 })
 
 export class HomePage {
-  constructor () {}
+  /* constructor () {} */
+
+  constructor(private _homeService: HomeService) {}
+
+
 }

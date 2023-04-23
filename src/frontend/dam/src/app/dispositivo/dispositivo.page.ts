@@ -18,7 +18,7 @@ import { DispositivoService } from '../services/dispositivo.service';
   constructor(private dispositivoService: DispositivoService, private actRout: ActivatedRoute) {}
 
   async ngOnInit() {
-    let dispositivos = await this.dispositivoService.getListadoDispositivos()
+    let dispositivos = await this.dispositivoService.getListaDisp()
     console.log(dispositivos)
   }
 

@@ -10,16 +10,16 @@ import { DispositivoService } from '../services/dispositivo.service';
   templateUrl: './listadisp.component.html',
   styleUrls: ['./listadisp.component.scss'],
 })
-export class ListaDispComponent  implements OnInit {
+export class ListaDispComponent implements OnInit {
 
-  constructor (){}
-  /* constructor(private deviceService: DeviceService) {}
-  devices?: Device[];*/
+  
+  constructor(private deviceService: DispositivoService) {}
+  devices?: Dispositivo[];
 
   ngOnInit(): void {
-    /* this.deviceService.getDevices().subscribe(data => {
+      this.deviceService.getListaDisp().subscribe(data => {
       this.devices = data;
-    })  */
+    })  
 
 }
 }
