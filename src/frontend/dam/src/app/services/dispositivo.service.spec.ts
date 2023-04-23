@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+// some legacy browsers (IE11, various SmartTVs) choke on 204import { TestBed } from '@angular/core/testing';
 
 import { DispositivoService } from './dispositivo.service';
 

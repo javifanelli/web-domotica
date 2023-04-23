@@ -11,7 +11,7 @@ const jwt = require('jsonwebtoken');
 
 var corsOptions = {
     origin: '*',
-    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+    optionsSuccessStatus: 200
 }
 
 // DECLARE JWT-secret
@@ -33,7 +33,7 @@ const auth = function (req, res, next) {
         }
     })
     next()
-}
+} 
 
 // to parse application/json
 app.use(express.json()); 
@@ -43,17 +43,6 @@ app.use(express.static('/home/node/app/static/'));
 app.use(cors(corsOptions));
 
 //=======[ Main module code ]==================================================
-
-/* app.get('/home/', function(req, res, next) {
-    pool.query('Select * from Dispositivos', function(err, result, fields) {
-        if (err) {
-            res.send(err).status(400);
-            return;
-        }
-        res.send(result);
-    });
-}); */
-
 app.post('/authenticate', (req, res) => {
 
     if (req.body) {
@@ -80,7 +69,7 @@ app.post('/authenticate', (req, res) => {
 });
 
 app.get('/dispositivos/', function(req, res, next) {
-    utils.query('SELECT * FROM Dispositivos', function(err, rta, field) {
+    pool.query('SELECT * FROM Dispositivos', function(err, rta, field) {
         if (err) {
             res.send(err).status(400);
             return;
@@ -89,9 +78,8 @@ app.get('/dispositivos/', function(req, res, next) {
     }); 
 });
 
-/* app.get('/prueba', auth, function(req, res) {
-    res.send({ meesage: "Todo ok mando data" })
-}) */
+
+
 
 app.listen(PORT, function(req, res) {
     console.log("NodeJS API running correctly");
