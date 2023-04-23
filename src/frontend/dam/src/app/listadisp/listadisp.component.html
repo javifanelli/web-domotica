@@ -1,7 +1,7 @@
 <ion-card>
   <ion-card-header>
-    <ion-card-title>Sensors</ion-card-title>
-    <ion-card-subtitle>Clic <ion-icon name="create-outline"></ion-icon> button to see more info</ion-card-subtitle>
+    <ion-card-title>Sensores</ion-card-title>
+    <!-- <ion-card-subtitle>Clic <ion-icon name="create-outline"></ion-icon> button to see more info</ion-card-subtitle> -->
   </ion-card-header>
   <ion-card-content>
     <ion-grid [fixed]="true">
@@ -12,13 +12,13 @@
         <ion-col>Id electroválvula</ion-col>
         <ion-col>Acciones</ion-col>
       </ion-row>
-      <ion-row *ngFor="let device of devices">
-        <ion-col>{{ device.dispositivoId }}</ion-col>
-        <ion-col>{{ device.nombre }}</ion-col>
-        <ion-col>{{ device.ubicacion }}</ion-col>
-        <ion-col>{{ device.electrovalvulaId }}</ion-col>
+      <ion-row *ngFor="let Dispositivo of devices">
+        <ion-col>{{ Dispositivo.dispositivoId }}</ion-col>
+        <ion-col>{{ Dispositivo.nombre }}</ion-col>
+        <ion-col>{{ Dispositivo.ubicacion }}</ion-col>
+        <ion-col>{{ Dispositivo.electrovalvulaId }}</ion-col>
         <ion-col>
-          <ion-button appHighlight [routerLink]="'/device/' + device.dispositivoId"><ion-icon name="create-outline"></ion-icon></ion-button>
+          <ion-button appHighlight [routerLink]="'/device/' + Dispositivo.dispositivoId"><ion-icon name="create-outline"></ion-icon></ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>

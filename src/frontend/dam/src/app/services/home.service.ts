@@ -14,7 +14,7 @@ export class HomeService {
 
   constructor(private _http: HttpClient) { }
 
-   consulta () {
+  /* consulta () {
     return firstValueFrom(this._http.get(`${this.uri}/prueba`))
-  } 
+  }  */
 }

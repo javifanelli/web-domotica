@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
 import * as Highcharts from 'highcharts';
 declare var require: any;
 require('highcharts/highcharts-more')(Highcharts);

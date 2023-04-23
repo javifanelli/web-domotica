@@ -11,9 +11,8 @@ import { DispositivoService } from '../services/dispositivo.service';
   styleUrls: ['./listadisp.component.scss'],
 })
 export class ListaDispComponent implements OnInit {
-
   
-  constructor(private deviceService: DispositivoService) {}
+  constructor (private deviceService: DispositivoService) {}
   devices?: Dispositivo[];
 
   ngOnInit(): void {
