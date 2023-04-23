@@ -14,7 +14,7 @@ export class DispositivoService {
   constructor(private _http: HttpClient) {}
 
   getListaDisp (): Observable<Dispositivo[]> {
-    return this._http.get<Dispositivo[]>(this.URLServer + '/dispositivos');
+    return this._http.get<Dispositivo[]>(this.URLServer + '/dispositivos/');
   }
 
   public getUltMedicion(id: number): Observable<Medicion[]> {

@@ -19,6 +19,5 @@ export class ListaDispComponent implements OnInit {
       this.deviceService.getListaDisp().subscribe(data => {
       this.devices = data;
     })  
-
-}
+  }
 }

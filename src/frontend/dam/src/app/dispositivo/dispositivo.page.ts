@@ -17,14 +17,13 @@ import { DispositivoService } from '../services/dispositivo.service';
   styleUrls: ['./dispositivo.page.scss'],
 })
 
- export class DispositivoPage implements OnInit  {
-
+export class DispositivoPage implements OnInit  {
   public device!: Dispositivo;
   public dispositivoId!: number;
   private valorObtenido!: number;
   public myChart:any;
   private chartOptions:any;
-  /* private activatedRoute = inject(ActivatedRoute); */
+  private activatedRoute = inject(ActivatedRoute);
 
   constructor (private dispservice: DispositivoService) { 
     setTimeout(()=>{

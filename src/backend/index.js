@@ -44,7 +44,7 @@ app.use(cors(corsOptions));
 
 //=======[ Main module code ]==================================================
 
-app.get('/home/', function(req, res, next) {
+/* app.get('/home/', function(req, res, next) {
     pool.query('Select * from Dispositivos', function(err, result, fields) {
         if (err) {
             res.send(err).status(400);
@@ -52,7 +52,7 @@ app.get('/home/', function(req, res, next) {
         }
         res.send(result);
     });
-});
+}); */
 
 app.post('/authenticate', (req, res) => {
 
@@ -79,9 +79,19 @@ app.post('/authenticate', (req, res) => {
 
 });
 
-app.get('/prueba', auth, function(req, res) {
+app.get('/dispositivos/', function(req, res, next) {
+    utils.query('SELECT * FROM Dispositivos', function(err, rta, field) {
+        if (err) {
+            res.send(err).status(400);
+            return;
+        }
+        res.send(JSON.stringify(rta)).status(200);
+    }); 
+});
+
+/* app.get('/prueba', auth, function(req, res) {
     res.send({ meesage: "Todo ok mando data" })
-})
+}) */
 
 app.listen(PORT, function(req, res) {
     console.log("NodeJS API running correctly");
