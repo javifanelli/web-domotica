@@ -78,7 +78,17 @@ app.get('/dispositivos/', function(req, res, next) {
     }); 
 });
 
-
+app.get('/dispositivos/:id', function(req, res, next) {
+    pool.query('SELECT * FROM Dispositivos WHERE dispositivoId = ?',req.params.id,
+        function(err, rta, field) {
+            if (err) {
+                res.send(err).status(400);
+                return;
+            }
+            res.send(JSON.stringify(rta)).status(200);
+        }
+    );
+});
 
 
 app.listen(PORT, function(req, res) {

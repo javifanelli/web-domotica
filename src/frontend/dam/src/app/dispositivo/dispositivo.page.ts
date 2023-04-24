@@ -1,6 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
 import * as Highcharts from 'highcharts';
 declare var require: any;
 require('highcharts/highcharts-more')(Highcharts);
@@ -114,8 +113,4 @@ export class DispositivoPage implements OnInit  {
     };
     this.myChart = Highcharts.chart('highcharts', this.chartOptions );
   }
-  
-
-  
- 
-} 
+}
