@@ -27,7 +27,7 @@ export class DispositivoService {
       fecha: (new Date()).toISOString().split('T')[0],
       electrovalvulaId: deviceId
     }
-    this._http.post(this.URLServer + '/logriegos',logRiego)
+    this._http.post(this.URLServer+'/logriegos',logRiego)
       .subscribe((res) => {
         console.log(res);
       });
@@ -39,18 +39,18 @@ export class DispositivoService {
       valor: valorMedicion,
       dispositivoId: dispositivoId
     }
-    this._http.post(this.URLServer + '/mediciones', medicion)
+    this._http.post(this.URLServer+'/mediciones',medicion)
       .subscribe((res) => {
         console.log(res);
       });
   }
 
   public getMediciones(id: number): Observable<Medicion[]> {
-    return this._http.get<Medicion[]>(this.URLServer + '/dispositivos/'+id+'/mediciones');
+    return this._http.get<Medicion[]>(this.URLServer+'/dispositivos/'+id+'/mediciones');
   }
 
   public getLogRiegos(electrovalvulaId: number): Observable<Riegos[]> {
-    return this._http.get<Riegos[]>(this.URLServer + '/logriegos/'+electrovalvulaId);
+    return this._http.get<Riegos[]>(this.URLServer+'/logriegos/'+electrovalvulaId);
   }
 
   public abrirElectrovalvula(dispositivoId: number) {
@@ -59,7 +59,7 @@ export class DispositivoService {
   }
 
   public getDeviceById(id: number): Observable<Dispositivo[]> {
-    return this._http.get<Dispositivo[]>(this.URLServer + '/dispositivos/'+id);
+    return this._http.get<Dispositivo[]>(this.URLServer+'/dispositivos/'+id);
   }
 
 }

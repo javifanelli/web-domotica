@@ -13,6 +13,12 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'dispositivos/:id',
+    loadComponent: () =>
+      import('./dispositivo/dispositivo.page').then((m) => m.DispositivoPage),
+  },
+  
   /* {
     path: 'dispositivo',
     loadChildren: () => import('./dispositivo/dispositivo.module').then( m => m.DispositivoPageModule),
