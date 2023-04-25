@@ -3,14 +3,16 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { RiegosPage } from './riegos.page';
+import { RiegosRoutingModule } from './riegos-routing.module';
 
 @NgModule({
-  declarations: [],
+  declarations: [RiegosPage],
   imports: [
     CommonModule,
     IonicModule,
     FormsModule,
-    RouterLink
-  ]
+    RiegosRoutingModule
+  ],
 })
 export class RiegosModule { }

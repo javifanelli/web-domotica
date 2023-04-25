@@ -27,8 +27,8 @@ const routes: Routes = [
   }, */
   
   {
-  path: 'logriegos/:deviceId',
-  loadChildren: () => import('./riegos/riegos.page').then( m => m.RiegosPage)
+  path: 'riegos/:deviceId',
+  loadChildren: () => import('./riegos/riegos.module').then( m => m.RiegosModule)
   },
   
   {

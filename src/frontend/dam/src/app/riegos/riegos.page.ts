@@ -1,11 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
 import { Riegos } from './../interfaces/riegos';
 import { DispositivoService } from '../services/dispositivo.service';
 /* import { FormatoFechaPipe } from '../pipes/formato-fecha.pipe'; */
 
 @Component({
-  selector: 'app-log-riegos',
+  selector: 'app-riegos',
   templateUrl: './riegos.page.html',
   styleUrls: ['./riegos.page.scss'],
 })
