@@ -8,11 +8,13 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
     canActivate: [AuthGuard]
   },
+  
   {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  
   {
     path: 'dispositivos/:id',
     loadChildren: () =>
@@ -20,10 +22,15 @@ const routes: Routes = [
   },
   
   /* {
-    path: 'dispositivo',
-    loadChildren: () => import('./dispositivo/dispositivo.module').then( m => m.DispositivoPageModule),
-    canActivate: [AuthGuard]
+  path: 'mediciones/:id',
+  loadChildren: () => import('./mediciones/mediciones.page').then( m => m.MedicionesPage)
   }, */
+  
+  {
+  path: 'logriegos/:deviceId',
+  loadChildren: () => import('./riegos/riegos.page').then( m => m.RiegosPage)
+  },
+  
   {
     path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginModule)
@@ -36,4 +43,5 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule {}
