@@ -18,15 +18,15 @@ const routes: Routes = [
   {
     path: 'dispositivos/:id',
     loadChildren: () =>
-      import('./dispositivo/dispositivo.module').then((m) => m.DispositivoPageModule),
+      import('./dispositivo/dispositivo.module').then((m) => m.DispositivoModule),
   },
   
-  /* {
+  /*{
   path: 'mediciones/:id',
   loadChildren: () => import('./mediciones/mediciones.page').then( m => m.MedicionesPage)
   }, */
   
-  {
+ {
   path: 'riegos/:deviceId',
   loadChildren: () => import('./riegos/riegos.module').then( m => m.RiegosModule)
   },

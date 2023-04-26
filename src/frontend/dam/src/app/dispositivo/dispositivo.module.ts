@@ -5,7 +5,6 @@ import { IonicModule } from '@ionic/angular';
 import { DispositivoPageRoutingModule } from './dispositivo-routing.module';
 import { DispositivoPage } from './dispositivo.page';
 
-
 @NgModule({
   imports: [
     CommonModule,
@@ -15,4 +14,5 @@ import { DispositivoPage } from './dispositivo.page';
   ],
   declarations: [DispositivoPage]
 })
-export class DispositivoPageModule {}
+
+export class DispositivoModule {}

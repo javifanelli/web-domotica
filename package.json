@@ -6,6 +6,7 @@
     "@ionic/angular": "^7.0.3",
     "angular-highcharts": "^15.0.1",
     "highcharts": "^10.3.3",
-    "jsonwebtoken": "^9.0.0"
+    "jsonwebtoken": "^9.0.0",
+    "node": "^19.8.1"
   }
 }

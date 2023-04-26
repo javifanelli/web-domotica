@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
 import { RiegosPage } from './riegos.page';
 import { RiegosRoutingModule } from './riegos-routing.module';
 
@@ -12,7 +11,8 @@ import { RiegosRoutingModule } from './riegos-routing.module';
     CommonModule,
     IonicModule,
     FormsModule,
-    RiegosRoutingModule
+    
+    RiegosModule
   ],
 })
 export class RiegosModule { }
