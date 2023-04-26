@@ -5,14 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { RiegosPage } from './riegos.page';
 import { RiegosRoutingModule } from './riegos-routing.module';
 
+
 @NgModule({
   declarations: [RiegosPage],
   imports: [
     CommonModule,
     IonicModule,
     FormsModule,
-    
-    RiegosModule
+    RiegosRoutingModule
   ],
 })
 export class RiegosModule { }

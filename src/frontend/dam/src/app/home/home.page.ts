@@ -8,6 +8,6 @@ import { HomeService } from '../services/home.service';
 })
 
 export class HomePage {
-  /* constructor () {} */
-  constructor(private _homeService: HomeService) {}
+  constructor () {}
+  /* constructor(private _homeService: HomeService) {} */
 }

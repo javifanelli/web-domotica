@@ -4,6 +4,7 @@
     "@angular/core": "^15.2.8",
     "@angular/platform-browser-dynamic": "^15.2.8",
     "@ionic/angular": "^7.0.3",
+    "@ngtools/webpack": "^15.2.6",
     "angular-highcharts": "^15.0.1",
     "highcharts": "^10.3.3",
     "jsonwebtoken": "^9.0.0",

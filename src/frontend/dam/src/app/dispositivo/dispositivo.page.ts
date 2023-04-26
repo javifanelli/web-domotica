@@ -21,26 +21,57 @@ export class DispositivoPage implements OnInit  {
   private chartOptions:any;
   private activatedRoute = inject(ActivatedRoute);
 
-  constructor (private dispservice: DispositivoService) { 
-    setTimeout(()=>{
-      console.log("Cambio el valor del sensor");
-      this.valorObtenido=60;
-      //llamo al update del chart para refrescar y mostrar el nuevo valor
-      this.myChart.update({series: [{
-          name: 'kPA',
-          data: [this.valorObtenido],
-          tooltip: {
-              valueSuffix: ' kPA'
-          }
-      }]});
-    },6000);
-  }
+  constructor(
+    private deviceService: DispositivoService) {
+      setInterval(()=>{
+        console.log("Mediciones nuevas");
+        const id = this.activatedRoute.snapshot.paramMap.get('id') as string;
+        this.deviceService.postMedicion(parseInt(id, 10), (this.valorObtenido + 5).toString()); //simulo que se va secando
+        console.log("Cambio el valor del sensor");
+        this.refreshChart();
+      },12000);
+    }
 
   ngOnInit() {
+    const deviceId = this.activatedRoute.snapshot.paramMap.get('id') as string;
+    this.dispositivoId = parseInt(deviceId, 10);
+    this.deviceService.getDeviceById(this.dispositivoId).subscribe(data => {
+      this.device = data[0];
+    });
+    this.refrescamedicion();
   }
 
   ionViewDidEnter() {
     this.generarChart();
+  }
+
+  abrirElectrovalvula() {
+    this.deviceService.abrirElectrovalvula(this.device.electrovalvulaId);
+    this.refreshChart();
+  }
+
+  refrescamedicion() {
+    const id = this.activatedRoute.snapshot.paramMap.get('id') as string;
+    this.deviceService.getUltMedicion(parseInt(id, 10)).subscribe(data => {
+      this.valorObtenido = parseInt(data[0].valor, 10);
+    });
+  }
+
+  refreshChart() {
+    
+    this.refrescamedicion();
+    
+    this.updateChart();
+  }
+
+  updateChart() {
+    this.myChart.update({series: [{
+      name: 'kPA',
+      data: [this.valorObtenido],
+      tooltip: {
+          valueSuffix: ' kPA'
+      }
+    }]});
   }
 
   generarChart() {
@@ -53,7 +84,7 @@ export class DispositivoPage implements OnInit  {
           plotShadow: false
         }
         ,title: {
-          text: 'Sensor N° 1'
+          text: 'Sensor N° ' + this.device.dispositivoId
         }
 
         ,credits:{enabled:false}
@@ -89,15 +120,15 @@ export class DispositivoPage implements OnInit  {
         plotBands: [{
             from: 0,
             to: 10,
-            color: '#55BF3B' // verde
+            color: '#55BF3B' // green
         }, {
             from: 10,
             to: 30,
-            color: '#DDDF0D' // amarillo
+            color: '#DDDF0D' // yellow
         }, {
             from: 30,
             to: 100,
-            color: '#DF5353' // rojo
+            color: '#DF5353' // red
         }]
     }
     ,
@@ -113,4 +144,5 @@ export class DispositivoPage implements OnInit  {
     };
     this.myChart = Highcharts.chart('highcharts', this.chartOptions );
   }
+
 }

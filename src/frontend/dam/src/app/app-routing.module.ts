@@ -17,8 +17,7 @@ const routes: Routes = [
   
   {
     path: 'dispositivos/:id',
-    loadChildren: () =>
-      import('./dispositivo/dispositivo.module').then((m) => m.DispositivoModule),
+    loadChildren: () => import('./dispositivo/dispositivo.module').then((m) => m.DispositivoModule),
   },
   
   /*{
