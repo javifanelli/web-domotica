@@ -1,11 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import * as Highcharts from 'highcharts';
-declare var require: any;
-require('highcharts/highcharts-more')(Highcharts);
-require('highcharts/modules/solid-gauge')(Highcharts);
 import { Dispositivo } from '../interfaces/dispositivo';
 import { DispositivoService } from '../services/dispositivo.service';
+import * as Highcharts from 'highcharts';
+require('highcharts/highcharts-more')(Highcharts);
+require('highcharts/modules/solid-gauge')(Highcharts);
+
 
 @Component({
   selector: 'app-dispositivo',
@@ -26,7 +26,7 @@ export class DispositivoPage implements OnInit  {
       setInterval(()=>{
         console.log("Mediciones nuevas");
         const id = this.activatedRoute.snapshot.paramMap.get('id') as string;
-        this.deviceService.postMedicion(parseInt(id, 10), (this.valorObtenido + 5).toString()); //simulo que se va secando
+        this.deviceService.postMedicion(parseInt(id, 10), (this.valorObtenido + 5).toString());
         console.log("Cambio el valor del sensor");
         this.refreshChart();
       },12000);
@@ -94,7 +94,7 @@ export class DispositivoPage implements OnInit  {
             startAngle: -150,
             endAngle: 150
         } 
-        // the value axis
+        
       ,yAxis: {
         min: 0,
         max: 100,
@@ -120,15 +120,15 @@ export class DispositivoPage implements OnInit  {
         plotBands: [{
             from: 0,
             to: 10,
-            color: '#55BF3B' // green
+            color: '#55BF3B'
         }, {
             from: 10,
             to: 30,
-            color: '#DDDF0D' // yellow
+            color: '#DDDF0D'
         }, {
             from: 30,
             to: 100,
-            color: '#DF5353' // red
+            color: '#DF5353'
         }]
     }
     ,

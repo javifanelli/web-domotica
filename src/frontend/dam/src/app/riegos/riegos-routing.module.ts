@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RiegosPage } from './riegos.page';
 
-
 const routes: Routes = [
   {
     path: '',
@@ -14,4 +13,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
+
 export class RiegosRoutingModule {}

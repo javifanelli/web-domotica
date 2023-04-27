@@ -20,10 +20,10 @@ const routes: Routes = [
     loadChildren: () => import('./dispositivo/dispositivo.module').then((m) => m.DispositivoModule),
   },
   
-  /*{
+  {
   path: 'mediciones/:id',
-  loadChildren: () => import('./mediciones/mediciones.page').then( m => m.MedicionesPage)
-  }, */
+  loadChildren: () => import('./medicion/medicion.page').then( m => m.MedicionPage)
+  },
   
  {
   path: 'riegos/:deviceId',
@@ -34,6 +34,10 @@ const routes: Routes = [
     path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginModule)
   },
+/*   {
+    path: 'medicion',
+    loadChildren: () => import('./medicion/medicion.module').then( m => m.MedicionPageModule)
+  }, */
 ];
 
 @NgModule({

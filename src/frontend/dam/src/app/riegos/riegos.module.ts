@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { RiegosPage } from './riegos.page';
 import { RiegosRoutingModule } from './riegos-routing.module';
 
-
 @NgModule({
   declarations: [RiegosPage],
   imports: [
@@ -15,4 +14,4 @@ import { RiegosRoutingModule } from './riegos-routing.module';
     RiegosRoutingModule
   ],
 })
-export class RiegosModule { }
+export class RiegosModule {}
