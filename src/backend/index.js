@@ -8,7 +8,6 @@ var pool   = require('./mysql-connector');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 
-
 var corsOptions = {
     origin: '*',
     optionsSuccessStatus: 200
@@ -90,6 +89,67 @@ app.get('/dispositivos/:id', function(req, res, next) {
     );
 });
 
+app.get('/ultmedicion/:id', function(req, res, next) {
+    pool.query('SELECT * FROM Mediciones m WHERE m.medicionId = (SELECT MAX(medicionId) FROM Mediciones WHERE dispositivoId = ?)',req.params.deviceid,
+        function(err, rta, field) {
+            if (err) {
+                res.send(err).status(400);
+                return;
+            }
+            res.send(JSON.stringify(rta)).status(200);
+        }
+    );
+});
+
+app.post('/logriegos/', function(req, res, next) {
+    pool.query('INSERT INTO `Log_Riegos` (`apertura`, `fecha`, `electrovalvulaId`) VALUES (?, ?, ?)',
+        [req.body.apertura, req.body.fecha, req.body.electrovalvulaId],
+        function(err, rta, field) {
+            if (err) {
+                res.send(err).status(400);
+                return;
+            }
+            res.send({ 'id': rta.insertId }).status(201);
+        }
+    );
+});
+
+app.post('/medicion/', function(req, res, next) {
+    pool.query('INSERT INTO `Mediciones` (`fecha`, `valor`, `dispositivoId`) VALUES (?, ?, ?)',
+        [req.body.fecha, req.body.valor, req.body.dispositivoId],
+        function(err, rta, field) {
+            if (err) {
+                res.send(err).status(400);
+                return;
+            }
+            res.send({ 'id': rta.insertId }).status(201);
+        }
+    );
+});
+
+app.get('/dispositivos/:id/medicion/', function(req, res, next) {
+    pool.query('SELECT * FROM Mediciones WHERE dispositivoId = ?',req.params.id,
+        function(err, rta, field) {
+            if (err) {
+                res.send(err).status(400);
+                return;
+            }
+            res.send(JSON.stringify(rta)).status(200);
+        }
+    );
+});
+
+app.get('/riegos/:electrovalvulaId/', function(req, res, next) {
+    pool.query('SELECT * FROM Log_Riegos WHERE electrovalvulaId = ?',req.params.electrovalvulaId,
+        function(err, rta, field) {
+            if (err) {
+                res.send(err).status(400);
+                return;
+            }
+            res.send(JSON.stringify(rta)).status(200);
+        }
+    );
+});
 
 app.listen(PORT, function(req, res) {
     console.log("NodeJS API running correctly");

@@ -39,7 +39,7 @@ export class DispositivoService {
       valor: valorMedicion,
       dispositivoId: dispositivoId
     }
-    this._http.post(this.URLServer+'/mediciones',medicion)
+    this._http.post(this.URLServer+'/medicion',medicion)
       .subscribe((res) => {
         console.log(res);
       });

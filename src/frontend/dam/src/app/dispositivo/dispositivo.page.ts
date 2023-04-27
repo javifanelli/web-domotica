@@ -16,7 +16,7 @@ require('highcharts/modules/solid-gauge')(Highcharts);
 export class DispositivoPage implements OnInit  {
   public device!: Dispositivo;
   public dispositivoId!: number;
-  private valorObtenido!: number;
+  private presactual!: number;
   public myChart:any;
   private chartOptions:any;
   private activatedRoute = inject(ActivatedRoute);
@@ -24,10 +24,10 @@ export class DispositivoPage implements OnInit  {
   constructor(
     private deviceService: DispositivoService) {
       setInterval(()=>{
-        console.log("Mediciones nuevas");
+        /* console.log("Mediciones nuevas"); */
         const id = this.activatedRoute.snapshot.paramMap.get('id') as string;
-        this.deviceService.postMedicion(parseInt(id, 10), (this.valorObtenido + 5).toString());
-        console.log("Cambio el valor del sensor");
+        this.deviceService.postMedicion(parseInt(id, 10), (this.presactual + 5).toString());
+        /* console.log("Cambio el valor del sensor"); */
         this.refreshChart();
       },12000);
     }
@@ -53,7 +53,7 @@ export class DispositivoPage implements OnInit  {
   refrescamedicion() {
     const id = this.activatedRoute.snapshot.paramMap.get('id') as string;
     this.deviceService.getUltMedicion(parseInt(id, 10)).subscribe(data => {
-      this.valorObtenido = parseInt(data[0].valor, 10);
+      this.presactual = parseInt(data[0].valor, 10);
     });
   }
 
@@ -67,7 +67,7 @@ export class DispositivoPage implements OnInit  {
   updateChart() {
     this.myChart.update({series: [{
       name: 'kPA',
-      data: [this.valorObtenido],
+      data: [this.presactual],
       tooltip: {
           valueSuffix: ' kPA'
       }
@@ -135,7 +135,7 @@ export class DispositivoPage implements OnInit  {
   
     series: [{
         name: 'kPA',
-        data: [this.valorObtenido],
+        data: [this.presactual],
         tooltip: {
             valueSuffix: ' kPA'
         }

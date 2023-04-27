@@ -8,7 +8,9 @@ El trabajo está realizado en el entorno Docker y está hecho a partir del repos
 Primero deben instalarse los complementos de Angular e Ionic en el editor de código que se utilice para poder hacer andar el proyecto (en este caso se utilizó Visual Studio Code). Se debe correr además *npm install --save highcharts* para poder hacer funcionar el gráfico.
 
 ### Siguientes pasos - Correr la aplicación
-Una vez cargados los complementos, se debe correr el comando *docker compose up* en una consola nueva. Por un navegador, en una pestaña nueva se debe ingresar a la dirección *http://localhost:8100/*, donde aparecerá la página de logueo. Ahí se deben ingresar los datos: "javier" para el campo *Username* y "ceiot" para *Password*. Luego, se puede empezar a navegar por la aplicación.
+Una vez cargados los complementos, se debe correr el comando *docker compose up* en una consola nueva. Por un navegador, en una pestaña nueva se debe ingresar a la dirección *http://localhost:8100/*, donde aparecerá la página de logueo. Ahí se deben ingresar los datos: "javier" para el campo *Username* y "ceiot" para *Password*. Luego, hacer click en *Login*. Ya se puede empezar a navegar por la aplicación.
+
+![Alt text](src/frontend/dam/src/assets/img/login-page.png?raw=true "Title")
 
 Para bajar la aplicación, se debe apretar la combinación de teclas *ctrl+c*. Notar que si se hacen cambios en el Backend se debe reiniciar el contenedor o bajar la aplicación y luego volver a levantarla con *docker compose up*.
 
