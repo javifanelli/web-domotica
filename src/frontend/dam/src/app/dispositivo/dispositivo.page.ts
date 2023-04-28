@@ -6,7 +6,6 @@ import * as Highcharts from 'highcharts';
 require('highcharts/highcharts-more')(Highcharts);
 require('highcharts/modules/solid-gauge')(Highcharts);
 
-
 @Component({
   selector: 'app-dispositivo',
   templateUrl: './dispositivo.page.html',
@@ -22,20 +21,18 @@ export class DispositivoPage implements OnInit  {
   private activatedRoute = inject(ActivatedRoute);
 
   constructor(
-    private deviceService: DispositivoService) {
+    private dispositivoService: DispositivoService) {
       setInterval(()=>{
-        /* console.log("Mediciones nuevas"); */
         const id = this.activatedRoute.snapshot.paramMap.get('id') as string;
-        this.deviceService.postMedicion(parseInt(id, 10), (this.presactual + 5).toString());
-        /* console.log("Cambio el valor del sensor"); */
-        this.refreshChart();
-      },12000);
+        this.dispositivoService.postMedicion(parseInt(id, 10), (this.presactual + 5).toString());
+        this.refrescaChart();
+      },20000);
     }
 
   ngOnInit() {
     const deviceId = this.activatedRoute.snapshot.paramMap.get('id') as string;
     this.dispositivoId = parseInt(deviceId, 10);
-    this.deviceService.getDeviceById(this.dispositivoId).subscribe(data => {
+    this.dispositivoService.getDeviceById(this.dispositivoId).subscribe(data => {
       this.device = data[0];
     });
     this.refrescamedicion();
@@ -46,21 +43,19 @@ export class DispositivoPage implements OnInit  {
   }
 
   abrirElectrovalvula() {
-    this.deviceService.abrirElectrovalvula(this.device.electrovalvulaId);
-    this.refreshChart();
+    this.dispositivoService.abrirElectrovalvula(this.device.electrovalvulaId);
+    this.refrescaChart();
   }
 
   refrescamedicion() {
     const id = this.activatedRoute.snapshot.paramMap.get('id') as string;
-    this.deviceService.getUltMedicion(parseInt(id, 10)).subscribe(data => {
+    this.dispositivoService.getUltMedicion(parseInt(id, 10)).subscribe(data => {
       this.presactual = parseInt(data[0].valor, 10);
     });
   }
 
-  refreshChart() {
-    
+  refrescaChart() {
     this.refrescamedicion();
-    
     this.updateChart();
   }
 

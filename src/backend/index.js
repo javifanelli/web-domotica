@@ -89,8 +89,8 @@ app.get('/dispositivos/:id', function(req, res, next) {
     );
 });
 
-app.get('/ultmedicion/:id', function(req, res, next) {
-    pool.query('SELECT * FROM Mediciones m WHERE m.medicionId = (SELECT MAX(medicionId) FROM Mediciones WHERE dispositivoId = ?)',req.params.deviceid,
+app.get('/ultmedicion/:dispid', function(req, res, next) {
+    pool.query('SELECT * FROM Mediciones m WHERE m.medicionId = (SELECT MAX(medicionId) FROM Mediciones WHERE dispositivoId = ?)',req.params.dispid,
         function(err, rta, field) {
             if (err) {
                 res.send(err).status(400);
