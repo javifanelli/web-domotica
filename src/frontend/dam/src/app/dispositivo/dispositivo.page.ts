@@ -24,9 +24,11 @@ export class DispositivoPage implements OnInit  {
     private dispositivoService: DispositivoService) {
       setInterval(()=>{
         const id = this.activatedRoute.snapshot.paramMap.get('id') as string;
-        this.dispositivoService.postMedicion(parseInt(id, 10), (this.presactual + 5).toString());
+        if (this.presactual>100)
+          {this.presactual=100}
+        this.dispositivoService.postMedicion(parseInt(id, 10), (this.presactual + 20).toString());
         this.refrescaChart();
-      },20000);
+      },2000);
     }
 
   ngOnInit() {
@@ -60,6 +62,8 @@ export class DispositivoPage implements OnInit  {
   }
 
   updateChart() {
+    if (this.presactual>100)
+      {this.presactual=100}
     this.myChart.update({series: [{
       name: 'kPA',
       data: [this.presactual],
@@ -72,19 +76,18 @@ export class DispositivoPage implements OnInit  {
   generarChart() {
     this.chartOptions={
       chart: {
-          type: 'gauge',
-          plotBackgroundColor: null,
-          plotBackgroundImage: null,
-          plotBorderWidth: 0,
-          plotShadow: false
+        type: 'gauge',
+        plotBackgroundColor: null,
+        plotBackgroundImage: null,
+        plotBorderWidth: 0,
+        plotShadow: false
         }
         ,title: {
           text: 'Sensor N° ' + this.device.dispositivoId
         }
 
         ,credits:{enabled:false}
-        
-           
+          
         ,pane: {
             startAngle: -150,
             endAngle: 150
@@ -125,8 +128,7 @@ export class DispositivoPage implements OnInit  {
             to: 100,
             color: '#DF5353'
         }]
-    }
-    ,
+    },
   
     series: [{
         name: 'kPA',
@@ -139,5 +141,4 @@ export class DispositivoPage implements OnInit  {
     };
     this.myChart = Highcharts.chart('highcharts', this.chartOptions );
   }
-
 }

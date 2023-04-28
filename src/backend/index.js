@@ -127,7 +127,7 @@ app.post('/medicion/', function(req, res, next) {
     );
 });
 
-app.get('/dispositivos/:id/medicion/', function(req, res, next) {
+app.get('/dispositivos/:id/mediciones/', function(req, res, next) {
     pool.query('SELECT * FROM Mediciones WHERE dispositivoId = ?',req.params.id,
         function(err, rta, field) {
             if (err) {
