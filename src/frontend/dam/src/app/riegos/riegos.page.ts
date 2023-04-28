@@ -19,6 +19,7 @@ export class RiegosPage implements OnInit {
 
   ngOnInit() {
     const deviceId = this.activatedRoute.snapshot.paramMap.get('dispositivoId') as string;
+    console.log("ID: "+deviceId);
     this.dispositivoId = parseInt(deviceId, 10);
     this.dispositivoService.getDeviceById(this.dispositivoId).subscribe(data => {
       const electrovalvulaId = data[0].electrovalvulaId;

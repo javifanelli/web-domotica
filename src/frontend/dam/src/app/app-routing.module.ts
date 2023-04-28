@@ -21,22 +21,17 @@ const routes: Routes = [
   },
   
   {
-  path: 'medicion/:id',
-  loadChildren: () => import('./medicion/medicion.page').then( m => m.MedicionPage)
-  },
-  
- {
-  path: 'riegos/:deviceId',
-  loadChildren: () => import('./riegos/riegos.module').then( m => m.RiegosModule)
+    path: 'riegos/:deviceId',
+    loadChildren: () => import('./riegos/riegos.module').then( m => m.RiegosModule)
   },
   
   {
     path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginModule)
   },
-    {
-    path: 'medicion',
-    loadChildren: () => import('./medicion/medicion.module').then( m => m.MedicionPageModule)
+  {
+    path: 'medicion/:deviceId',
+    loadChildren: () => import('./medicion/medicion.module').then( m => m.MedicionModule)
   },
 ];
 

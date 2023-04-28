@@ -14,4 +14,5 @@ import { MedicionPage } from './medicion.page';
   ],
   declarations: [MedicionPage]
 })
-export class MedicionPageModule {}
+
+export class MedicionModule {}

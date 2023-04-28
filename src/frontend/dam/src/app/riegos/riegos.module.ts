@@ -14,4 +14,5 @@ import { RiegosRoutingModule } from './riegos-routing.module';
     RiegosRoutingModule
   ],
 })
+
 export class RiegosModule {}

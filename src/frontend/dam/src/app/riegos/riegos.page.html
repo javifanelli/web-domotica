@@ -1,6 +1,6 @@
 <ion-card>
   <ion-card-header>
-    <ion-card-title>Log Riegos</ion-card-title>
+    <ion-card-title>Log de Riegos</ion-card-title>
   </ion-card-header>
   <ion-card-content>
     <ion-grid [fixed]="true">
@@ -8,7 +8,7 @@
         <ion-col>Log Riego id</ion-col>
         <ion-col>Apertura</ion-col>
         <ion-col>Fecha</ion-col>
-        <ion-col>Electroválvula ID</ion-col>
+        <ion-col>ID Electroválvula</ion-col>
       </ion-row>
       <ion-row *ngFor="let log of logRiegos">
         <ion-col>{{ log.logRiegoId }}</ion-col>

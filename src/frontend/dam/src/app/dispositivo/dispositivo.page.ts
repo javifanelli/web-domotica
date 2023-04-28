@@ -26,9 +26,9 @@ export class DispositivoPage implements OnInit  {
         const id = this.activatedRoute.snapshot.paramMap.get('id') as string;
         if (this.presactual>100)
           {this.presactual=100}
-        this.dispositivoService.postMedicion(parseInt(id, 10), (this.presactual + 20).toString());
+        this.dispositivoService.postMedicion(parseInt(id, 10), (this.presactual + 2).toString());
         this.refrescaChart();
-      },2000);
+      },20000);
     }
 
   ngOnInit() {
