@@ -1,13 +1,13 @@
 <ion-card>
   <ion-card-header>
-    <ion-card-title>Mediciones</ion-card-title>
+    <ion-card-title class="head">Mediciones - Dispositivo {{dispositivoId}}</ion-card-title>
   </ion-card-header>
-  <ion-card-content>
+  <ion-card-content overflow-scroll="false">
     <ion-grid [fixed]="true">
       <ion-row>
-        <ion-col>ID Medición</ion-col>
-        <ion-col>Fecha</ion-col>
-        <ion-col>Valor</ion-col>
+        <ion-col class="titulo">ID Medición</ion-col>
+        <ion-col class="titulo">Fecha</ion-col>
+        <ion-col class="titulo">Valor</ion-col>
       </ion-row>
       <ion-row *ngFor="let medicion of mediciones">
         <ion-col>{{ medicion.medicionId }}</ion-col>
