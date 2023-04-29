@@ -7,6 +7,10 @@ const routes: Routes = [
     path: '',
     component: MedicionPage
   },
+  {
+    path: ':id',
+    component: MedicionPage
+  }
 ];
 
 @NgModule({

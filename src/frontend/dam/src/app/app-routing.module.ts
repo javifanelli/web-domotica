@@ -30,7 +30,7 @@ const routes: Routes = [
     loadChildren: () => import('./login/login.module').then( m => m.LoginModule)
   },
   {
-    path: 'medicion/:deviceId',
+    path: 'medicion/:id',
     loadChildren: () => import('./medicion/medicion.module').then( m => m.MedicionModule)
   },
 ];

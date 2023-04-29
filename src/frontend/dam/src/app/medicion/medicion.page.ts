@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Medicion } from '../interfaces/medicion';
 import { DispositivoService } from '../services/dispositivo.service';
@@ -10,9 +10,11 @@ import { DispositivoService } from '../services/dispositivo.service';
 })
 export class MedicionPage implements OnInit {
 
-  private activatedRoute = inject(ActivatedRoute);
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private dispositivoService: DispositivoService
+  ) {}
 
-  constructor(private dispositivoService: DispositivoService) { }
   mediciones!: Medicion[];
   dispositivoId!: number;
 
@@ -21,7 +23,6 @@ export class MedicionPage implements OnInit {
     this.dispositivoId = parseInt(deviceId, 10);
     this.dispositivoService.getMediciones(this.dispositivoId).subscribe(data => {
       this.mediciones = data;
-    })
+    });
   }
-
 }

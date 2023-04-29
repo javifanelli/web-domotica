@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { RouterLink } from '@angular/router';
 import { MedicionPageRoutingModule } from './medicion-routing.module';
 import { MedicionPage } from './medicion.page';
 
@@ -10,7 +11,8 @@ import { MedicionPage } from './medicion.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    MedicionPageRoutingModule
+    MedicionPageRoutingModule,
+    RouterLink
   ],
   declarations: [MedicionPage]
 })

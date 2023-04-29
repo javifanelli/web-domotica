@@ -5,7 +5,7 @@
   <ion-card-content>
     <ion-grid [fixed]="true">
       <ion-row>
-        <ion-col>Medición id</ion-col>
+        <ion-col>ID Medición</ion-col>
         <ion-col>Fecha</ion-col>
         <ion-col>Valor</ion-col>
       </ion-row>
@@ -15,6 +15,6 @@
         <ion-col>{{ medicion.valor }}</ion-col>
       </ion-row>
     </ion-grid>
-    <ion-button [routerLink]="'/device/' + dispositivoId">Volver al dispositivo</ion-button>
+    <ion-button [routerLink]="'/dispositivos/' + dispositivoId">Volver al dispositivo</ion-button>
   </ion-card-content>
 </ion-card>
