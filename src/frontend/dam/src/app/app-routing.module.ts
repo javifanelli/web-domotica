@@ -21,7 +21,7 @@ const routes: Routes = [
   },
   
   {
-    path: 'riegos/:deviceId',
+    path: 'riegos/:dispositivoId',
     loadChildren: () => import('./riegos/riegos.module').then( m => m.RiegosModule)
   },
   

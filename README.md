@@ -20,7 +20,7 @@ Se modificaron algunos valores que estaban en el dump de las tablas, como el nom
 ### Solución de problemas
 En caso de no poder ver la base de datos actualizada, primero se debe bajar el contenedor con *docker compose down* o con las teclas ctrl+c. Luego se debe borrar la carpeta "data" dentro de "db" con permisos de administrador (en Linux se debe correr el comando *sudo rm -r data*) y volver a correr el contenedor con *dcoker compose up --build*.
 
-En caso de querer ver la medición de un sensor con el gŕafico y que este no se muestre al entrar a la página de uno de ellos, debe refrescarse dicha página una vez seleccionado el dispositivo.
+En caso de querer ver la medición de un sensor con el gŕafico y que este no se muestre al entrar a la página de uno de ellos, debe refrescarse dicha página una vez seleccionado el dispositivo, ya que tiene un refresco automático de 20 segundos.
 
 ## Proyecto basado en
 

@@ -50,7 +50,7 @@ export class DispositivoService {
   }
 
   public getLogRiegos(electrovalvulaId: number): Observable<Riegos[]> {
-    return this._http.get<Riegos[]>(this.URLServer+'/logriegos/'+electrovalvulaId);
+    return this._http.get<Riegos[]>(this.URLServer+'/riegos/'+electrovalvulaId);
   }
 
   public abrirElectrovalvula(dispositivoId: number) {
