@@ -4,6 +4,11 @@ import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
   {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginModule)
+  },
+  
+  {
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
     canActivate: [AuthGuard]
@@ -25,10 +30,6 @@ const routes: Routes = [
     loadChildren: () => import('./riegos/riegos.module').then( m => m.RiegosModule)
   },
   
-  {
-    path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginModule)
-  },
   {
     path: 'medicion/:id',
     loadChildren: () => import('./medicion/medicion.module').then( m => m.MedicionModule)
