@@ -14,6 +14,12 @@ Una vez cargados los complementos, se debe correr el comando *docker compose up*
 
 Para bajar la aplicación, se debe apretar la combinación de teclas *ctrl+c*. Notar que si se hacen cambios en el Backend se debe reiniciar el contenedor o bajar la aplicación y luego volver a levantarla con *docker compose up*.
 
+### Desafíos realizados
+* Se creó un pipe custom para que se muestre la presión equivalente en kg además de KPa en el gráfico original.
+![Alt text](src/frontend/dam/src/assets/img/disp-pipe.png?raw=true "Conversión de presión")
+
+* 
+
 ### Notas
 * Se modificaron algunos valores que estaban en el dump de las tablas, como el nombre de los sensores y las fechas de medición.
 * Se corrigió (parcialmente) el error de que el dispositivo sense más de 100 kPA.
