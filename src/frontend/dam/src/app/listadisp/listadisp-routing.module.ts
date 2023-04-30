@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { ListaDispComponent } from './listadisp.component';
 import { IonicModule } from '@ionic/angular';
 
 @NgModule({
@@ -12,4 +11,4 @@ import { IonicModule } from '@ionic/angular';
     RouterLink,
   ]
 })
-export class ListadispRoutingModule { }
+export class ListadispRoutingModule {}

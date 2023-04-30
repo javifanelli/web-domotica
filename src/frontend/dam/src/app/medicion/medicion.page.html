@@ -11,7 +11,7 @@
       </ion-row>
       <ion-row *ngFor="let medicion of mediciones">
         <ion-col>{{ medicion.medicionId }}</ion-col>
-        <ion-col>{{ medicion.fecha }}</ion-col>
+        <ion-col>{{ medicion.fecha | date }}</ion-col>
         <ion-col>{{ medicion.valor }}</ion-col>
       </ion-row>
     </ion-grid>

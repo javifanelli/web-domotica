@@ -14,9 +14,13 @@ Una vez cargados los complementos, se debe correr el comando *docker compose up*
 
 Para bajar la aplicación, se debe apretar la combinación de teclas *ctrl+c*. Notar que si se hacen cambios en el Backend se debe reiniciar el contenedor o bajar la aplicación y luego volver a levantarla con *docker compose up*.
 
+Para abrir cada dispositivo, sólo hay que hacer click en el ID que se desee visualizar.
+
 ### Desafíos realizados
 * Se creó un pipe custom para que se muestre la presión equivalente en kg además de KPa en el gráfico original.
 ![Alt text](src/frontend/dam/src/assets/img/disp-pipe.png?raw=true "Conversión de presión")
+
+* Se usó además un pipe estándar de Angular para convertir la fecha de las mediciones a un formato legible y más fácil de leer.
 
 * 
 
