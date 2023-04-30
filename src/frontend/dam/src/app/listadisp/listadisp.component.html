@@ -9,10 +9,9 @@
         <ion-col class="titulo">Nombre</ion-col>
         <ion-col class="titulo">Ubicación</ion-col>
         <ion-col class="titulo">ID electroválvula</ion-col>
-        <!-- <ion-col class="titulo">Estado</ion-col> -->
       </ion-row>
       <ion-row *ngFor="let Dispositivo of devices">
-        <ion-col appSubraya [routerLink]="'/dispositivos/' + Dispositivo.dispositivoId">{{ Dispositivo.dispositivoId }}</ion-col>
+        <ion-col [routerLink]="'/dispositivos/' + Dispositivo.dispositivoId" appSubraya>{{ Dispositivo.dispositivoId }}</ion-col>
         <ion-col>{{ Dispositivo.nombre }}</ion-col>
         <ion-col>{{ Dispositivo.ubicacion }}</ion-col>
         <ion-col>{{ Dispositivo.electrovalvulaId }}</ion-col>

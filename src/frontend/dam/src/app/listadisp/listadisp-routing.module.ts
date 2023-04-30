@@ -1,14 +1,17 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
+import { Routes, RouterModule } from '@angular/router';
+import { ListaDispComponent } from './listadisp.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: ListaDispComponent
+  }
+];
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule,
-    IonicModule,
-    RouterLink,
-  ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
+
 export class ListadispRoutingModule {}
