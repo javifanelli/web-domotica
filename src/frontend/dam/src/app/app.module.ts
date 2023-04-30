@@ -6,9 +6,10 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
+/* import { PrespipePipe } from './prespipe.pipe'; */
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent/* , PrespipePipe */],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),

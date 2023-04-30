@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, Pipe } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Dispositivo } from '../interfaces/dispositivo';
 import { DispositivoService } from '../services/dispositivo.service';
@@ -15,11 +15,12 @@ require('highcharts/modules/solid-gauge')(Highcharts);
 export class DispositivoPage implements OnInit  {
   public device!: Dispositivo;
   public dispositivoId!: number;
-  private presactual!: number;
+  public presactual!: number;
   public myChart:any;
   private chartOptions:any;
   private activatedRoute = inject(ActivatedRoute);
-
+  public presion!: number;
+  
   constructor(
     private dispositivoService: DispositivoService) {
       setInterval(()=>{
