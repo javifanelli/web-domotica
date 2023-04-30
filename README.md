@@ -22,7 +22,7 @@ Para abrir cada dispositivo, sólo hay que hacer click en el ID que se desee vis
 
 * Se usó además un pipe estándar de Angular para convertir la fecha de las mediciones a un formato legible y más fácil de leer.
 
-* 
+* Se implementó una directiva para que se altere el contenido de la celda del ID del dispositivo cuando se pasa el mouse por encima.
 
 ### Notas
 * Se modificaron algunos valores que estaban en el dump de las tablas, como el nombre de los sensores y las fechas de medición.

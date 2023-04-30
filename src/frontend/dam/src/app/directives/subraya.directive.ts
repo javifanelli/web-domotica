@@ -5,12 +5,14 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
 })
 export class SubrayaDirective {
 
+  constructor(private el: ElementRef) {}
+
   @HostListener('mouseenter') mouseEnter() {
     this.resaltar('blue', 'pointer', 'underline');
     console.log('paso por aca');
   }
 
-  @HostListener('mouseleave') mouseLeave() {
+  @HostListener('mouseleave') MouseLeave() {
     this.resaltar('#999999', 'auto', 'none');
     console.log('salgo de aca');
   }
@@ -21,5 +23,4 @@ export class SubrayaDirective {
     this.el.nativeElement.style.textDecoration = decor;
   }
 
-  constructor(private el: ElementRef) {}
 }
