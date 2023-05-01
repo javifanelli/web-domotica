@@ -7,14 +7,14 @@ export class SubrayaDirective {
 
   constructor(private el: ElementRef) {}
 
-  @HostListener('mouseenter') mouseEnter() {
-    this.resaltar('blue', 'pointer', 'underline');
+  @HostListener('mouseenter') onMouseEnter() {
     console.log('paso por aca');
+    this.resaltar('blue', 'pointer', 'underline');
   }
 
-  @HostListener('mouseleave') MouseLeave() {
-    this.resaltar('#999999', 'auto', 'none');
+  @HostListener('mouseleave') onMouseLeave() {
     console.log('salgo de aca');
+    this.resaltar('#999999', 'auto', 'none');
   }
 
   private resaltar(decor: string, color: string, cursor: string) {
