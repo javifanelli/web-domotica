@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { ListaDispComponent } from '../listadisp/listadisp.component';
+import { SubrayaDirective } from '../directives/subraya.directive';
+import { ListadispModule } from '../listadisp/listadisp.module';
 
 @NgModule({
   imports: [
@@ -12,8 +14,9 @@ import { ListaDispComponent } from '../listadisp/listadisp.component';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
+    ListadispModule
   ],
-  declarations: [HomePage, ListaDispComponent]
+  declarations: [HomePage, ListaDispComponent, SubrayaDirective]
 })
 
 export class HomePageModule {}

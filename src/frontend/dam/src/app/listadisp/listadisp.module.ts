@@ -8,7 +8,7 @@ import { SubrayaDirective } from '../directives/subraya.directive';
 import { ListadispRoutingModule } from './listadisp-routing.module';
 
 @NgModule({
-  declarations: [ListaDispComponent, SubrayaDirective],
+  declarations: [/* ListaDispComponent, SubrayaDirective */],
   imports: [
     CommonModule,
     IonicModule,
