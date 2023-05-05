@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, Pipe } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy, Pipe } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Dispositivo } from '../interfaces/dispositivo';
 import { DispositivoService } from '../services/dispositivo.service';
@@ -20,10 +20,11 @@ export class DispositivoPage implements OnInit  {
   private chartOptions:any;
   private activatedRoute = inject(ActivatedRoute);
   public presion!: number;
+  private updateIntervalId: any;
   
   constructor(
     private dispositivoService: DispositivoService) {
-      setInterval(()=>{
+      this.updateIntervalId = setInterval(()=>{
         const id = this.activatedRoute.snapshot.paramMap.get('id') as string;
         if (this.presactual>100)
           {this.presactual=100}
@@ -142,4 +143,13 @@ export class DispositivoPage implements OnInit  {
     };
     this.myChart = Highcharts.chart('highcharts', this.chartOptions );
   }
+
+  ngOnDestroy() {
+    clearInterval(this.updateIntervalId);
+    if (this.myChart) {
+      this.myChart.destroy();
+      console.log("chart destruido");
+    }
+  }
+
 }

@@ -13,7 +13,7 @@
       <img src="assets/img/logo-riego.jpg">
   </div>
 
-  <form #loginForm="ngForm" novalidate>
+  <form #loginForm="ngForm" novalidate (keyup.enter)="onLogin(loginForm)">
       <ion-list>
           <ion-item>
               <ion-label position="stacked" color="primary">Username</ion-label>
@@ -42,7 +42,7 @@
 
       <ion-row>
           <ion-col>
-              <ion-button (click)="onLogin(loginForm)" type="submit" expand="block">Login</ion-button>
+            <ion-button (click)="onLogin(loginForm)" expand="block">Login</ion-button>
           </ion-col>
 
       </ion-row>

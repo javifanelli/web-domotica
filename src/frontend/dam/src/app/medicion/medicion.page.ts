@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Medicion } from '../interfaces/medicion';
 import { DispositivoService } from '../services/dispositivo.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-medicion',
   templateUrl: './medicion.page.html',
   styleUrls: ['./medicion.page.scss'],
 })
-export class MedicionPage implements OnInit {
+export class MedicionPage implements OnInit, OnDestroy {
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -17,12 +18,17 @@ export class MedicionPage implements OnInit {
 
   mediciones!: Medicion[];
   dispositivoId!: number;
+  private subscription: Subscription = new Subscription();
 
   ngOnInit() {
     const deviceId = this.activatedRoute.snapshot.paramMap.get('id') as string;
     this.dispositivoId = parseInt(deviceId, 10);
-    this.dispositivoService.getMediciones(this.dispositivoId).subscribe(data => {
+    this.subscription = this.dispositivoService.getMediciones(this.dispositivoId).subscribe(data => {
       this.mediciones = data;
     });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

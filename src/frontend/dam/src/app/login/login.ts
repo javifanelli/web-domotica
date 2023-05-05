@@ -22,4 +22,11 @@ export class LoginPage {
       this._loginServ.login(this.login.username,this.login.password);
     }
   }
+
+  onEnterKeyPressed(form: NgForm) {
+    if (form.valid) {
+      this.onLogin(form);
+    }
+  }
+
 }
