@@ -17,13 +17,11 @@ export class LoginService {
   }
   async login(username: string, password: string) {
     let response = await firstValueFrom(this.http.post<any>(this.uri + '/authenticate', {username: username,password: password}));
-    if (response != null){
+    if (response != null) {
       this.router.navigate(['home']);
       console.log(response)
       localStorage.setItem('token', response.token);
-    }
-
-
+      }
     }
 
     logout() {
