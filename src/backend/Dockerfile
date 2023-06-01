@@ -1,9 +1,11 @@
-FROM abassi/nodejs-server:10.0-dev
+FROM node:10
 
 WORKDIR /src/backend
 
 COPY package*.json ./
 
 RUN npm install
+
+COPY . .
 
 EXPOSE 3000

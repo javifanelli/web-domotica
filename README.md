@@ -38,7 +38,3 @@ En caso de querer ver la medición de un sensor con el gŕafico y que este no se
 ## Proyecto basado en
 
 [Web App Full Stack Base](https://github.com/PedroRosito/dam-docker)
-
-## Licencia 📄
-
-Este proyecto está bajo Licencia ([MIT](https://choosealicense.com/licenses/mit/)). Podés ver el archivo [LICENSE.md](LICENSE.md) para más detalles sobre el uso de este material.

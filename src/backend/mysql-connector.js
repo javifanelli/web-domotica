@@ -2,7 +2,7 @@ var mysql = require('mysql');
 
 const configMysql= ({
     connectionLimit: 10,
-    host: 'mysql-server',
+    host: 'mariadb-server',
     port: '3306',
     user: 'root',
     password: 'userpass',
