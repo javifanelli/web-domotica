@@ -14,10 +14,10 @@ services:
     command: ionic serve --external
 
   mariadb-server:
-    image: arm64v8/mariadb:10.5
+    image: tobi312/rpi-mariadb:10.6-alpine
     hostname: mariadb-server
     environment:
-      MYSQL_ROOT_PASSWORD: userpass
+      MARIADB_ROOT_PASSWORD: userpass
     container_name: mariadb-server
     volumes:
       - ./db/dumps:/docker-entrypoint-initdb.d
@@ -32,7 +32,7 @@ services:
     environment:
       PMA_HOST: mariadb-server
       PMA_PORT: 3306
-      MYSQL_ROOT_PASSWORD: userpass
+      MARIADB_ROOT_PASSWORD: userpass
     container_name: phpmyadmin
     networks:
       - app-fullstack-net

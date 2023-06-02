@@ -1,4 +1,4 @@
-var mysql = require('mysql');
+var mariadb = require('mariadb');
 
 const configMysql= ({
     connectionLimit: 10,
