@@ -1,6 +1,6 @@
 var mariadb = require('mariadb');
 
-const configMysql= ({
+const configmariadb= ({
     connectionLimit: 10,
     host: 'mariadb-server',
     port: '3306',
@@ -9,7 +9,7 @@ const configMysql= ({
     database: 'riegos'
 });
 
-const pool = mysql.createPool(configMysql);
+const pool = mariadb.createPool(configmariadb);
 
 pool.getConnection((err, connection) => {
     if (err) {

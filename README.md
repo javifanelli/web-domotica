@@ -5,10 +5,15 @@ Trabajo práctico final para la materia Desarrollo de aplicaciones multiplatafor
 El trabajo está realizado en el entorno Docker y está hecho a partir del repositorio nombrado más abajo, cumpliendo los requerimientos del enunciado.
 
 ### Pasos preliminares para correr la aplicación
-Primero deben instalarse los complementos de Angular e Ionic en el editor de código que se utilice para poder hacer andar el proyecto (en este caso se utilizó Visual Studio Code). Se debe correr además *npm install --save highcharts* para poder hacer funcionar el gráfico.
+Primero hay que instalar nodejs en el servidor.
+Luego deben instalarse los complementos de Angular e Ionic en el editor de código que se utilice para poder hacer andar el proyecto (en este caso se utilizó Visual Studio Code). 
+*sudo npm install -g @angular/cli* y *sudo npm install -g @ionic/cli*
+
+Se debe correr además *sudo npm install --save highcharts* para poder hacer funcionar el gráfico.
+
 
 ### Siguientes pasos - Correr la aplicación
-Una vez cargados los complementos, se debe correr el comando *docker compose up* en una consola nueva. Por un navegador, en una pestaña nueva se debe ingresar a la dirección *http://localhost:8100/*, donde aparecerá la página de logueo. Ahí se deben ingresar los datos: "javier" para el campo *Username* y "ceiot" para *Password*. Luego, hacer click en *Login*. Ya se puede empezar a navegar por la aplicación.
+Una vez cargados los complementos, se debe correr el comando *docker compose up --build* solamente la primera vez en una consola nueva. Luego, solo con correr *docker compose up -d* es suficiente para correr la aplicacion. Por un navegador, en una pestaña nueva se debe ingresar a la dirección *http://localhost:8100/*, donde aparecerá la página de logueo. Ahí se deben ingresar los datos: "javier" para el campo *Username* y "ceiot" para *Password*. Luego, hacer click en *Login*. Ya se puede empezar a navegar por la aplicación.
 
 ![Alt text](src/frontend/dam/src/assets/img/login-page.png?raw=true "Página de Login")
 
@@ -16,17 +21,6 @@ Para bajar la aplicación, se debe apretar la combinación de teclas *ctrl+c*. N
 
 Para abrir cada dispositivo, sólo hay que hacer click en el ID que se desee visualizar.
 
-### Desafíos realizados
-* Se creó un pipe custom para que se muestre la presión equivalente en kg además de KPa en el gráfico original.
-![Alt text](src/frontend/dam/src/assets/img/disp-pipe.png?raw=true "Conversión de presión")
-
-* Se usó además un pipe estándar de Angular para convertir la fecha de las mediciones a un formato legible y más fácil de leer.
-
-* Se implementó una directiva para que se altere el contenido de la celda del ID del dispositivo cuando se pasa el mouse por encima.
-
-### Notas
-* Se modificaron algunos valores que estaban en el dump de las tablas, como el nombre de los sensores y las fechas de medición.
-* Se corrigió (parcialmente) el error de que el dispositivo sense más de 100 kPA.
 
 ### Solución de problemas
 En caso de que al momento de correr el proyecto con *docker compose up --build* por primera vez, el módulo node-backend arrojara un error, se debe abrir una consola y dirigirse a la carpeta "src/backend" y correr el comando *npm install*.

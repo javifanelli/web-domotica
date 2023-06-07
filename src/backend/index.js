@@ -74,6 +74,7 @@ app.get('/dispositivos/', function(req, res, next) {
             return;
         }
         res.send(JSON.stringify(rta)).status(200);
+        console.log("mando datos")
     }); 
 });
 

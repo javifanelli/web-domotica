@@ -2,7 +2,7 @@
 -- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: mysql-server
+-- Servidor: mariadb-server
 -- Tiempo de generación: 30-11-2020 a las 23:27:10
 -- Versión del servidor: 5.7.27
 -- Versión de PHP: 7.2.19
@@ -37,7 +37,7 @@ CREATE TABLE `Dispositivos` (
 INSERT INTO `Dispositivos` (`dispositivoId`, `nombre`, `ubicacion`, `electrovalvulaId`) VALUES
 (1, 'Sensor 1', 'Patio1', 1),
 (2, 'Sensor 2', 'Patio2', 2),
-(3, 'Sensor 3', 'Jardin1', 3),
+(3, 'Sensor 3', 'npm install --global jsonwebtokenJardin1', 3),
 (4, 'Sensor 4', 'Jardin2', 4),
 (5, 'Sensor 5', 'Jardin3', 5),
 (6, 'Sensor 6', 'Jardin4', 6);
@@ -64,7 +64,7 @@ INSERT INTO `Electrovalvulas` (`electrovalvulaId`, `nombre`) VALUES
 
 CREATE TABLE `Log_Riegos` (
   `logRiegoId` int(11) NOT NULL,
-  `apertura` tinyint(4) DEFAULT NULL,
+  `apertura` tinynpm install --global jsonwebtokenint(4) DEFAULT NULL,
   `fecha` datetime DEFAULT NULL,
   `electrovalvulaId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
