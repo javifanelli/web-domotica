@@ -5,9 +5,11 @@ Trabajo práctico final para la materia Desarrollo de aplicaciones multiplatafor
 El trabajo está realizado en el entorno Docker y está hecho a partir del repositorio nombrado más abajo, cumpliendo los requerimientos del enunciado.
 
 ### Pasos preliminares para correr la aplicación
-Primero hay que instalar nodejs en el servidor.
+Primero hay que instalar nodejs en el servidor con los comandos:
 *curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -*
 *sudo apt-get install -y nodejs*
+Luego instalar docker:
+*curl -sSL https://get.docker.com | sh*
 Luego deben instalarse los complementos de Angular e Ionic en el editor de código que se utilice para poder hacer andar el proyecto (en este caso se utilizó Visual Studio Code). 
 *sudo npm install -g @angular/cli*, *sudo npm install -g @ionic/cli* y *sudo npm install @angular/core*
 
