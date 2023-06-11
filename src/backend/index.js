@@ -4,7 +4,7 @@ var PORT    = 3000;
 
 var express = require('express');
 var app     = express();
-var pool   = require('./mysql-connector.js');
+var pool   = require('./mysql-connector');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 
@@ -67,90 +67,85 @@ app.post('/authenticate', (req, res) => {
 
 });
 
-app.get('/dispositivos/', function(req, res, next) {
-    pool.query('SELECT * FROM Dispositivos', function(err, rta, field) {
-        if (err) {
-            res.send(err).status(400);
-            return;
-        }
-        res.send(JSON.stringify(rta)).status(200);
-    }); 
-});
+app.get('/dispositivos/', async function(req, res, next) {
+    try {
+      const connection = await pool.getConnection();
+      const result = await connection.query('SELECT * FROM Dispositivos');
+      connection.release();
+      res.send(JSON.stringify(result)).status(200);
+    } catch (err) {
+      res.send(err).status(400);
+    }
+  });
 
-app.get('/dispositivos/:id', function(req, res, next) {
-    pool.query('SELECT * FROM Dispositivos WHERE dispositivoId = ?',req.params.id,
-        function(err, rta, field) {
-            if (err) {
-                res.send(err).status(400);
-                return;
-            }
-            res.send(JSON.stringify(rta)).status(200);
-        }
-    );
-});
-
-app.get('/ultmedicion/:dispid', function(req, res, next) {
-    pool.query('SELECT * FROM Mediciones m WHERE m.medicionId = (SELECT MAX(medicionId) FROM Mediciones WHERE dispositivoId = ?)',req.params.dispid,
-        function(err, rta, field) {
-            if (err) {
-                res.send(err).status(400);
-                return;
-            }
-            res.send(JSON.stringify(rta)).status(200);
-        }
-    );
-});
-
-app.post('/logriegos/', function(req, res, next) {
-    pool.query('INSERT INTO `Log_Riegos` (`apertura`, `fecha`, `electrovalvulaId`) VALUES (?, ?, ?)',
-        [req.body.apertura, req.body.fecha, req.body.electrovalvulaId],
-        function(err, rta, field) {
-            if (err) {
-                res.send(err).status(400);
-                return;
-            }
-            res.send({ 'id': rta.insertId }).status(201);
-        }
-    );
-});
-
-app.post('/medicion/', function(req, res, next) {
-    pool.query('INSERT INTO `Mediciones` (`fecha`, `valor`, `dispositivoId`) VALUES (?, ?, ?)',
-        [req.body.fecha, req.body.valor, req.body.dispositivoId],
-        function(err, rta, field) {
-            if (err) {
-                res.send(err).status(400);
-                return;
-            }
-            res.send({ 'id': rta.insertId }).status(201);
-        }
-    );
-});
-
-app.get('/dispositivos/:id/mediciones/', function(req, res, next) {
-    pool.query('SELECT * FROM Mediciones WHERE dispositivoId = ?',req.params.id,
-        function(err, rta, field) {
-            if (err) {
-                res.send(err).status(400);
-                return;
-            }
-            res.send(JSON.stringify(rta)).status(200);
-            console.log(JSON.stringify(rta));
-        }
-    );
-});
-
-app.get('/riegos/:electrovalvulaId/', function(req, res, next) {
-    pool.query('SELECT * FROM Log_Riegos WHERE electrovalvulaId = ?',req.params.electrovalvulaId,
-        function(err, rta, field) {
-            if (err) {
-                res.send(err).status(400);
-                return;
-            }
-            res.send(JSON.stringify(rta)).status(200);
-        }
-    );
-});
+  app.get('/dispositivos/:id', async function(req, res, next) {
+    try {
+      const connection = await pool.getConnection();
+      const result = await connection.query('SELECT * FROM Dispositivos WHERE dispositivoId = ?', req.params.id);
+      connection.release();
+      res.send(JSON.stringify(result)).status(200);
+      console.log("Envio mediciones de los dispositivos");
+    } catch (err) {
+      res.send(err).status(400);
+    }
+  });
+  
+  app.get('/ultmedicion/:dispid', async function(req, res, next) {
+    try {
+      const connection = await pool.getConnection();
+      const result = await connection.query('SELECT * FROM Mediciones m WHERE m.medicionId = (SELECT MAX(medicionId) FROM Mediciones WHERE dispositivoId = ?)', req.params.dispid);
+      connection.release();
+      res.send(JSON.stringify(result)).status(200);
+      console.log("Envio mediciones del dispositivo", req.params.dispid);
+    } catch (err) {
+      res.send(err).status(400);
+    }
+  });
+  
+  app.post('/logriegos/', async function(req, res, next) {
+    try {
+      const connection = await pool.getConnection();
+      const result = await connection.query('INSERT INTO `Log_Riegos` (`apertura`, `fecha`, `electrovalvulaId`) VALUES (?, ?, ?)', [req.body.apertura, req.body.fecha, req.body.electrovalvulaId]);
+      connection.release();
+      res.send({ 'id': result.insertId }).status(201);
+    } catch (err) {
+      res.send(err).status(400);
+    }
+  });
+  
+  app.post('/medicion/', async function(req, res, next) {
+    try {
+      const connection = await pool.getConnection();
+      const result = await connection.query('INSERT INTO `Mediciones` (`fecha`, `valor`, `dispositivoId`) VALUES (?, ?, ?)', [req.body.fecha, req.body.valor, req.body.dispositivoId]);
+      connection.release();
+      res.send({ 'id': result.insertId }).status(201);
+    } catch (err) {
+      res.send(err).status(400);
+    }
+  });
+  
+  app.get('/dispositivos/:id/mediciones/', async function(req, res, next) {
+    try {
+      const connection = await pool.getConnection();
+      const result = await connection.query('SELECT * FROM Mediciones WHERE dispositivoId = ?', req.params.id);
+      connection.release();
+      res.send(JSON.stringify(result)).status(200);
+    } catch (err) {
+      res.send(err).status(400);
+    }
+  });
+  
+  app.get('/riegos/:electrovalvulaId/', async function(req, res, next) {
+    try {
+      const connection = await pool.getConnection();
+      const result = await connection.query('SELECT * FROM Log_Riegos WHERE electrovalvulaId = ?', req.params.electrovalvulaId);
+      connection.release();
+      res.send(JSON.stringify(result)).status(200);
+    } catch (err) {
+      res.send(err).status(400);
+    }
+  });
+  
 
 app.listen(PORT, function(req, res) {
     console.log("NodeJS API running correctly on:", PORT);

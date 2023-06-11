@@ -1,6 +1,6 @@
 FROM node:lts-alpine3.12
 
-#RUN npm install --global express
+RUN npm install --global mariadb
 
 RUN npm install --global nodemon
 

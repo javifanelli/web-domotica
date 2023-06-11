@@ -2,7 +2,7 @@
 -- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: mariadb-server
+-- Servidor: mysql-server
 -- Tiempo de generación: 30-11-2020 a las 23:27:10
 -- Versión del servidor: 5.7.27
 -- Versión de PHP: 7.2.19
@@ -40,8 +40,7 @@ INSERT INTO `Dispositivos` (`dispositivoId`, `nombre`, `ubicacion`, `electrovalv
 (3, 'Sensor 3', 'Jardin1', 3),
 (4, 'Sensor 4', 'Jardin2', 4),
 (5, 'Sensor 5', 'Jardin3', 5),
-(6, 'Sensor 6', 'Jardin4', 6),
-(7, 'Sensor 7', 'Frente', 7);
+(6, 'Sensor 6', 'Jardin4', 6);
 
 
 -- Estructura de tabla para la tabla `Electrovalvulas`
@@ -65,7 +64,7 @@ INSERT INTO `Electrovalvulas` (`electrovalvulaId`, `nombre`) VALUES
 
 CREATE TABLE `Log_Riegos` (
   `logRiegoId` int(11) NOT NULL,
-  `apertura` tinynpm install --global jsonwebtokenint(4) DEFAULT NULL,
+  `apertura` tinyint(4) DEFAULT NULL,
   `fecha` datetime DEFAULT NULL,
   `electrovalvulaId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
