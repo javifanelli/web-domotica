@@ -13,12 +13,16 @@ services:
       - /src/frontend/dam/node_modules
     command: ionic serve --external
 
-  mariadb-server:
+  mariadb:
     image: tobi312/rpi-mariadb:10.6-alpine
-    hostname: mariadb-server
+    hostname: mariadb
     environment:
       MARIADB_ROOT_PASSWORD: userpass
-    container_name: mariadb-server
+      MARIADB_DATABASE: riegos
+      MARIADB_USER: mysql
+      MARIADB_PASSWORD: userpass2
+    container_name: mariadb
+    restart: unless-stopped
     volumes:
       - ./db/dumps:/docker-entrypoint-initdb.d
       - ./db/data:/var/lib/mysql
@@ -30,14 +34,14 @@ services:
   phpmyadmin:
     image: phpmyadmin
     environment:
-      PMA_HOST: mariadb-server
+      PMA_HOST: mariadb
       PMA_PORT: 3306
       MARIADB_ROOT_PASSWORD: userpass
     container_name: phpmyadmin
     networks:
       - app-fullstack-net
     depends_on:
-      - mariadb-server
+      - mariadb
     ports:
       - "8001:80"
 
@@ -52,7 +56,7 @@ services:
     networks:
       - app-fullstack-net
     depends_on:
-      - mariadb-server
+      - mariadb
     ports:
       - "8000:3000"
     command: nodemon /home/node/app/src/index.js

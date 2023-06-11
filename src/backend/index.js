@@ -4,7 +4,7 @@ var PORT    = 3000;
 
 var express = require('express');
 var app     = express();
-var pool   = require('./mysql-connector');
+var pool   = require('./mysql-connector.js');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 
@@ -74,7 +74,6 @@ app.get('/dispositivos/', function(req, res, next) {
             return;
         }
         res.send(JSON.stringify(rta)).status(200);
-        console.log("mando datos")
     }); 
 });
 
@@ -154,7 +153,7 @@ app.get('/riegos/:electrovalvulaId/', function(req, res, next) {
 });
 
 app.listen(PORT, function(req, res) {
-    console.log("NodeJS API running correctly");
+    console.log("NodeJS API running correctly on:", PORT);
 });
 
 //=======[ End of file ]=======================================================

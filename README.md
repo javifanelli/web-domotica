@@ -11,10 +11,11 @@ Luego instalar nodejs:
 *curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -*
 *sudo apt-get install -y nodejs*
 Luego deben instalarse los complementos de Angular e Ionic en el editor de código que se utilice para poder hacer andar el proyecto (en este caso se utilizó Visual Studio Code). 
-*sudo npm install -g @angular/cli*, *sudo npm install -g @ionic/cli* y *sudo npm install @angular/core*
+*sudo npm install -g @angular/cli*, *sudo npm install -g @ionic/cli* y *sudo npm install @angular/core@15.0.0*
 
 Se debe correr además *sudo npm install --save highcharts* para poder hacer funcionar el gráfico.
-
+Instalar express en el bakend
+*sudo npm install express*
 
 ### Siguientes pasos - Correr la aplicación
 Una vez cargados los complementos, se debe correr el comando *docker compose up --build* solamente la primera vez en una consola nueva. Luego, solo con correr *docker compose up -d* es suficiente para correr la aplicacion. Por un navegador, en una pestaña nueva se debe ingresar a la dirección *http://localhost:8100/*, donde aparecerá la página de logueo. Ahí se deben ingresar los datos: "javier" para el campo *Username* y "ceiot" para *Password*. Luego, hacer click en *Login*. Ya se puede empezar a navegar por la aplicación.

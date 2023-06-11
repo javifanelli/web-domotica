@@ -37,10 +37,11 @@ CREATE TABLE `Dispositivos` (
 INSERT INTO `Dispositivos` (`dispositivoId`, `nombre`, `ubicacion`, `electrovalvulaId`) VALUES
 (1, 'Sensor 1', 'Patio1', 1),
 (2, 'Sensor 2', 'Patio2', 2),
-(3, 'Sensor 3', 'npm install --global jsonwebtokenJardin1', 3),
+(3, 'Sensor 3', 'Jardin1', 3),
 (4, 'Sensor 4', 'Jardin2', 4),
 (5, 'Sensor 5', 'Jardin3', 5),
-(6, 'Sensor 6', 'Jardin4', 6);
+(6, 'Sensor 6', 'Jardin4', 6),
+(7, 'Sensor 7', 'Frente', 7);
 
 
 -- Estructura de tabla para la tabla `Electrovalvulas`

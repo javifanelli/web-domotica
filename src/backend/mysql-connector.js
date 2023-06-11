@@ -1,8 +1,8 @@
-var mariadb = require('mariadb');
+const mariadb = require('mariadb');
 
 const configmariadb= ({
     connectionLimit: 10,
-    host: 'mariadb-server',
+    host: 'mariadb',
     port: '3306',
     user: 'root',
     password: 'userpass',
@@ -11,14 +11,17 @@ const configmariadb= ({
 
 const pool = mariadb.createPool(configmariadb);
 
-pool.getConnection((err, connection) => {
+console.log("Iniciando DB");
+pool.getConnection((err, conn) => {
+    
+    console.log("Intentando conectar a la base de datos");
     if (err) {
-       console.log('No se establecio la conexión. ' + err)
+        console.log('No se establecio la conexión. ' + err);
         }
-    if (connection) {
-        console.log('La conexión fue establecida:' + connection)
+     if (conn) {
+        console.log('La conexión fue establecida:' + conn);
         connection.release();
-        }
+         } 
     return;
     }
 );
