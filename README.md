@@ -1,7 +1,7 @@
 Web app full stack con Ionic como frontend
 ==========================================
 ## Desarrollo de Aplicaciones para Internet de las cosas - TP final
-Trabajo práctico final para la materia Desarrollo de aplicaciones Aplicaciones para Internet de las cosas de la especialización de IoT, FIUBA. Realizado por César Javier Fanelli.
+Trabajo práctico final para la materia Desarrollo de Aplicaciones para Internet de las Cosas de la especialización de IoT, FIUBA. Realizado por César Javier Fanelli.
 El trabajo está realizado en el entorno Docker y está hecho a partir del repositorio nombrado más abajo, cumpliendo los requerimientos del enunciado.
 
 ### Pasos preliminares para correr la aplicación
