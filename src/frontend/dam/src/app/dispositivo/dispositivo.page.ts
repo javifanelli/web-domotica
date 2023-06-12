@@ -67,7 +67,7 @@ export class DispositivoPage implements OnInit  {
     if (this.tempactual>40)
       {this.tempactual=40}
     this.myChart.update({series: [{
-      name: '°',
+      name: 'Temperatura actual',
       data: [this.tempactual],
       tooltip: {
           valueSuffix: ' °C'
@@ -105,13 +105,13 @@ export class DispositivoPage implements OnInit  {
         minorTickPosition: 'inside',
         minorTickColor: '#666',
   
-        tickPixelInterval: 30,
+        tickPixelInterval: 10,
         tickWidth: 2,
         tickPosition: 'inside',
         tickLength: 10,
         tickColor: '#666',
         labels: {
-            step: 2,
+            step: 5,
             rotation: 'auto'
         },
         title: {
@@ -146,7 +146,7 @@ export class DispositivoPage implements OnInit  {
     // colores: verde #55BF3B, amarillo #DDDF0D, rojo #DF5353, azul #3339FF
   
     series: [{
-        name: '°C',
+        name: 'Temperatura actual',
         data: [this.tempactual],
         tooltip: {
             valueSuffix: ' °C'

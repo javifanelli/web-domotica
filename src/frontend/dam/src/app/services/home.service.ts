@@ -6,7 +6,7 @@ import { firstValueFrom } from 'rxjs';
   providedIn: 'root'
 })
 export class HomeService {
-  uri = 'http://localhost:8000'
+  uri = 'http://192.168.0.70:8000'
 
   config = {
     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
