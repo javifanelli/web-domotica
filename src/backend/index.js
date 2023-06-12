@@ -43,29 +43,30 @@ app.use(cors(corsOptions));
 
 //=======[ Main module code ]==================================================
 app.post('/authenticate', (req, res) => {
+  if (req.body) {
+    var user = req.body;
+    console.log(user);
 
-    if (req.body) {
-        var user = req.body;
-        console.log(user);
-
-        if (testUser.username === req.body.username && testUser.password === req.body.password) {
-            var token = jwt.sign(user, JWT_Secret);
-            res.status(200).send({
-                signed_user: user,
-                token: token
-            });
-        } else {
-            res.status(403).send({
-                errorMessage: 'Auth required!'
-            });
-        }
+    // Verificar las credenciales del usuario
+    if (testUser.username === req.body.username && testUser.password === req.body.password) {
+      // Generar el token JWT
+      var token = jwt.sign(user, JWT_Secret);
+      res.status(200).send({
+        signed_user: user,
+        token: token
+      });
     } else {
-        res.status(403).send({
-            errorMessage: 'Please provide username and password'
-        });
+      res.status(403).send({
+        errorMessage: 'Auth required!'
+      });
     }
-
+  } else {
+    res.status(403).send({
+      errorMessage: 'Please provide username and password'
+    });
+  }
 });
+
 
 app.get('/dispositivos/', async function(req, res, next) {
     try {

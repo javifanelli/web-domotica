@@ -9,7 +9,7 @@ import { firstValueFrom } from 'rxjs';
 })
 export class LoginService {
 
-  uri = 'http://localhost:8000';
+  uri = 'http://192.168.0.70:8000';
   token: string;
 
   constructor(private http: HttpClient,private router: Router) {

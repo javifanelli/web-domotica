@@ -5,7 +5,7 @@
 </ion-header>
 <ion-content [fullscreen]="true">
   <div id="highcharts" style="width:100%; height:300px;"></div>
-  <div class="temperatura">{{ this.tempactual | temppipe }} °F</div>
+  <div class="temperatura">{{this.tempactual}} °C = {{this.tempactual | temppipe}} °F</div>
   <ion-grid>
     <ion-row class="ion-align-items-center">
       <ion-col size="12" class="ion-text-center">

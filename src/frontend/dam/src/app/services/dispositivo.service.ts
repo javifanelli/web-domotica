@@ -10,7 +10,7 @@ import { Riegos } from '../interfaces/riegos';
 })
 
 export class DispositivoService {
-  private URLServer = 'http://localhost:8000';
+  private URLServer = 'http://192.168.0.70:8000';
   constructor(private _http: HttpClient) {}
 
   getListaDisp (): Observable<Dispositivo[]> {
