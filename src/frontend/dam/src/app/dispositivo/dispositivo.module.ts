@@ -5,7 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { DispositivoPageRoutingModule } from './dispositivo-routing.module';
 import { DispositivoPage } from './dispositivo.page';
 import { RouterLink } from '@angular/router';
-import { PresPipe } from '../pipe/prespipe.pipe';
+import { TempPipe } from '../pipe/temppipe.pipe';
 
 @NgModule({
   imports: [
@@ -15,7 +15,7 @@ import { PresPipe } from '../pipe/prespipe.pipe';
     DispositivoPageRoutingModule,
     RouterLink,
     ],
-  declarations: [DispositivoPage, PresPipe]
+  declarations: [DispositivoPage, TempPipe]
 })
 
 export class DispositivoModule {}

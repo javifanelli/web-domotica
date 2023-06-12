@@ -15,7 +15,7 @@ require('highcharts/modules/solid-gauge')(Highcharts);
 export class DispositivoPage implements OnInit  {
   public device!: Dispositivo;
   public dispositivoId!: number;
-  public presactual!: number;
+  public tempactual!: number;
   public myChart:any;
   private chartOptions:any;
   private activatedRoute = inject(ActivatedRoute);
@@ -26,11 +26,11 @@ export class DispositivoPage implements OnInit  {
     private dispositivoService: DispositivoService) {
       this.updateIntervalId = setInterval(()=>{
         const id = this.activatedRoute.snapshot.paramMap.get('id') as string;
-        if (this.presactual>100)
-          {this.presactual=100}
-        this.dispositivoService.postMedicion(parseInt(id, 10), (this.presactual + 2).toString());
+        this.dispositivoService.postMedicion(parseInt(id, 10), (this.tempactual + 2).toString());
+        if (this.tempactual>40)
+          {this.tempactual=40}
         this.refrescaChart();
-      },20000);
+      },30000); // refresca cada 30 segundos
     }
 
   ngOnInit() {
@@ -54,7 +54,7 @@ export class DispositivoPage implements OnInit  {
   refrescamedicion() {
     const id = this.activatedRoute.snapshot.paramMap.get('id') as string;
     this.dispositivoService.getUltMedicion(parseInt(id, 10)).subscribe(data => {
-      this.presactual = parseInt(data[0].valor, 10);
+      this.tempactual = parseInt(data[0].valor, 10);
     });
   }
 
@@ -64,13 +64,13 @@ export class DispositivoPage implements OnInit  {
   }
 
   updateChart() {
-    if (this.presactual>100)
-      {this.presactual=100}
+    if (this.tempactual>40)
+      {this.tempactual=40}
     this.myChart.update({series: [{
-      name: 'kPA',
-      data: [this.presactual],
+      name: '°',
+      data: [this.tempactual],
       tooltip: {
-          valueSuffix: ' kPA'
+          valueSuffix: ' °C'
       }
     }]});
   }
@@ -97,7 +97,7 @@ export class DispositivoPage implements OnInit  {
         
       ,yAxis: {
         min: 0,
-        max: 100,
+        max: 40,
   
         minorTickInterval: 'auto',
         minorTickWidth: 1,
@@ -115,28 +115,41 @@ export class DispositivoPage implements OnInit  {
             rotation: 'auto'
         },
         title: {
-            text: 'kPA'
+            text: '°C'
         },
         plotBands: [{
             from: 0,
-            to: 10,
-            color: '#55BF3B'
-        }, {
-            from: 10,
-            to: 30,
+            to: 15,
+            color: '#3339FF'
+        }, 
+        {    
+            from: 15,
+            to: 20,
             color: '#DDDF0D'
-        }, {
+        },
+           {
+            from: 20,
+            to: 25,
+            color: '#55BF3B'
+        }, 
+           {
+          from: 25,
+          to: 30,
+          color: '#DDDF0D'
+          },
+           {
             from: 30,
-            to: 100,
+            to: 40,
             color: '#DF5353'
         }]
     },
+    // colores: verde #55BF3B, amarillo #DDDF0D, rojo #DF5353, azul #3339FF
   
     series: [{
-        name: 'kPA',
-        data: [this.presactual],
+        name: '°C',
+        data: [this.tempactual],
         tooltip: {
-            valueSuffix: ' kPA'
+            valueSuffix: ' °C'
         }
     }]
 
