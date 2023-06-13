@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { LoginService } from '../services/login.service';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -9,10 +10,30 @@ import { Router } from '@angular/router';
 })
 export class HomePage {
 
-  constructor(private loginService: LoginService, private router: Router) {}
+  constructor(private loginService: LoginService, private router: Router, private alertController: AlertController) {}
 
-  logout() {
-    this.loginService.logout();
-    this.router.navigate(['/login']);
+  async logout() {
+    const alert = await this.alertController.create({
+      header: 'Cerrar sesión',
+      message: '¿Estás seguro de que quieres cerrar sesión?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'logout-alert-button.cancel',
+        },
+        {
+          text: 'Cerrar sesión',
+          handler: () => {
+            this.loginService.logout();
+            this.router.navigate(['/login']);
+          },
+          cssClass: 'logout-alert-button.confirm',
+        },
+      ],
+    });
+  
+    await alert.present();
   }
+  
 }

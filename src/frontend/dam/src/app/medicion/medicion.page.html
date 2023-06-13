@@ -7,11 +7,13 @@
       <ion-row>
         <ion-col class="titulo">ID Medición</ion-col>
         <ion-col class="titulo">Fecha</ion-col>
+        <ion-col class="titulo">Hora</ion-col>
         <ion-col class="titulo">Valor</ion-col>
       </ion-row>
       <ion-row *ngFor="let medicion of mediciones">
         <ion-col>{{ medicion.medicionId }}</ion-col>
         <ion-col>{{ medicion.fecha | date }}</ion-col>
+        <ion-col>{{ medicion.fecha | date:"HH:mm:ss" }}</ion-col>
         <ion-col>{{ medicion.valor }}</ion-col>
       </ion-row>
     </ion-grid>

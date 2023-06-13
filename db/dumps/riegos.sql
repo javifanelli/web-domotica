@@ -26,7 +26,7 @@ USE `riegos`;
 -- Tabla `Dispositivos`
 
 CREATE TABLE `Dispositivos` (
-  `dispositivoId` int(11) NOT NULL,
+  `dispositivoId` int(17) NOT NULL,
   `nombre` varchar(200) DEFAULT NULL,
   `ubicacion` varchar(200) DEFAULT NULL,
   `electrovalvulaId` int(11) NOT NULL
@@ -35,12 +35,9 @@ CREATE TABLE `Dispositivos` (
 -- Volcado de datos para la tabla `Dispositivos`
 
 INSERT INTO `Dispositivos` (`dispositivoId`, `nombre`, `ubicacion`, `electrovalvulaId`) VALUES
-(1, 'Sensor 1', 'Patio1', 1),
-(2, 'Sensor 2', 'Patio2', 2),
-(3, 'Sensor 3', 'Jardin1', 3),
-(4, 'Sensor 4', 'Jardin2', 4),
-(5, 'Sensor 5', 'Jardin3', 5),
-(6, 'Sensor 6', 'Jardin4', 6);
+(1, 'ESP32C3+BMP280', 'Cocina', 1), -- 7C:DF:A1:D0:33:00
+(2, 'ESP32+simluada', 'Habitacion', 2), -- 94:B5:55:2B:FF:64
+(3, 'ESP32+simluada', 'Living', 3); -- 0C:B8:15:D8:7A:6C
 
 
 -- Estructura de tabla para la tabla `Electrovalvulas`
@@ -81,17 +78,17 @@ CREATE TABLE `Mediciones` (
 -- Volcado de datos para la tabla `Mediciones`
 
 INSERT INTO `Mediciones` (`medicionId`, `fecha`, `valor`, `dispositivoId`) VALUES
-(1, '2023-04-20 21:19:41', 60, 1),
-(2, '2023-04-20 21:19:41', 40, 1),
+(1, '2023-04-20 21:19:41', 20, 1),
+(2, '2023-04-20 21:19:41', 21, 1),
 (3, '2023-04-20 21:19:41', 30, 2),
-(4, '2023-04-20 21:19:41', 50, 3),
+(4, '2023-04-20 21:19:41', 17, 3),
 (5, '2023-04-20 21:19:41', 33, 5),
 (6, '2023-04-20 21:19:41', 17, 4),
 (7, '2023-04-20 21:19:41', 29, 6),
 (8, '2023-04-20 22:19:41', 20, 1),
-(9, '2023-04-20 22:19:41', 44, 4),
-(10, '2023-04-20 22:19:41', 61, 5),
-(11, '2023-04-20 22:19:41', 12, 2);
+(9, '2023-04-20 22:19:41', 24, 4),
+(10, '2023-04-20 22:19:41', 19, 5),
+(11, '2023-04-20 22:19:41', 27, 2);
 
 
 -- Indices de la tabla `Dispositivos`
@@ -120,12 +117,12 @@ ALTER TABLE `Mediciones`
 -- AUTO_INCREMENT de la tabla `Dispositivos`
 
 ALTER TABLE `Dispositivos`
-  MODIFY `dispositivoId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `dispositivoId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 -- AUTO_INCREMENT de la tabla `Electrovalvulas`
 
 ALTER TABLE `Electrovalvulas`
-  MODIFY `electrovalvulaId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `electrovalvulaId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 -- AUTO_INCREMENT de la tabla `Log_Riegos`
 
