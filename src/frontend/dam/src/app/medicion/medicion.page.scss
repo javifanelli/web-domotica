@@ -1,18 +1,39 @@
 .head {
     text-align: center;
-}
-ion-col {
+  }
+  
+  ion-col {
     background-color: #999999;
     border: solid 1px #fff;
     color: #fff;
     text-align: center;
   }
-
-ion-col.titulo {
+  
+  ion-col.titulo {
     font-size: 18px;
     color: #000;
-}
-
-div.valor {
+  }
+  
+  div.valor {
     vertical-align: middle;
-}
+  }
+  
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .titulo-container {
+    flex-grow: 1;
+    text-align: center;
+  }
+  
+  .volver-button {
+    margin-right: auto;
+  }
+  
+  .ver-grafico-button {
+    margin-left: auto;
+  }
+  

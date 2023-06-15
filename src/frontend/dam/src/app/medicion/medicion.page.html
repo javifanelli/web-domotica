@@ -1,9 +1,16 @@
 <ion-card>
   <ion-card-header>
-    <ion-card-title class="head">Mediciones - Dispositivo {{dispositivoId}}</ion-card-title>
+    <div class="header-container">
+      <div class="titulo-container">
+      <ion-button [routerLink]="'/dispositivos/' + dispositivoId" class="volver-button">Volver al dispositivo</ion-button>
+      
+        <div class="titulo">Mediciones - Dispositivo {{dispositivoId}}</div>
+      </div>
+      <ion-button [routerLink]="'/grafico/' + dispositivoId" class="ver-grafico-button">Ver gráfico</ion-button>
+    </div>
   </ion-card-header>
   <ion-card-content>
-    <ion-grid [fixed]="true">
+    <ion-grid [fixed]="true" class="mediciones-grid">
       <ion-row>
         <ion-col class="titulo">ID Medición</ion-col>
         <ion-col class="titulo">Fecha</ion-col>
@@ -17,6 +24,5 @@
         <ion-col>{{ medicion.valor }}</ion-col>
       </ion-row>
     </ion-grid>
-    <ion-button [routerLink]="'/dispositivos/' + dispositivoId">Volver al dispositivo</ion-button>
   </ion-card-content>
 </ion-card>
