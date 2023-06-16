@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Dispositivo } from '../interfaces/dispositivo';
 import { Medicion } from '../interfaces/medicion';
-import { Riegos } from '../interfaces/riegos';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +20,7 @@ export class DispositivoService {
     return this._http.get<Medicion[]>(this.URLServer + '/ultmedicion/'+id);
   }
 
-  postLogRiegos(deviceId: number) {
+/*   postLogRiegos(deviceId: number) {
     let logRiego: Riegos = {
       apertura: '1',
       fecha: (new Date()).toISOString().split('T')[0],
@@ -31,7 +30,7 @@ export class DispositivoService {
       .subscribe((res) => {
         console.log(res);
       });
-  }
+  } */
 
   public postMedicion(dispositivoId: number, valorMedicion: string) {
     let medicion: Medicion = {
@@ -49,14 +48,14 @@ export class DispositivoService {
     return this._http.get<Medicion[]>(this.URLServer+'/dispositivos/'+id+'/mediciones');
   }
 
-  public getLogRiegos(electrovalvulaId: number): Observable<Riegos[]> {
+/*   public getLogRiegos(electrovalvulaId: number): Observable<Riegos[]> {
     return this._http.get<Riegos[]>(this.URLServer+'/riegos/'+electrovalvulaId);
-  }
+  } */
 
-  public abrirElectrovalvula(dispositivoId: number) {
+/*   public abrirElectrovalvula(dispositivoId: number) {
     this.postLogRiegos(dispositivoId);
     this.postMedicion(dispositivoId, '0');
-  }
+  } */
 
   public getDeviceById(id: number): Observable<Dispositivo[]> {
     return this._http.get<Dispositivo[]>(this.URLServer+'/dispositivos/'+id);

@@ -103,7 +103,7 @@ app.get('/dispositivos/', async function(req, res, next) {
     }
   });
   
-  app.post('/logriegos/', async function(req, res, next) {
+/*   app.post('/logriegos/', async function(req, res, next) {
     try {
       const connection = await pool.getConnection();
       const result = await connection.query('INSERT INTO `Log_Riegos` (`apertura`, `fecha`, `electrovalvulaId`) VALUES (?, ?, ?)', [req.body.apertura, req.body.fecha, req.body.electrovalvulaId]);
@@ -112,7 +112,7 @@ app.get('/dispositivos/', async function(req, res, next) {
     } catch (err) {
       res.send(err).status(400);
     }
-  });
+  }); */
   
   app.post('/medicion/', async function(req, res, next) {
     try {
@@ -136,7 +136,7 @@ app.get('/dispositivos/', async function(req, res, next) {
     }
   });
   
-  app.get('/riegos/:electrovalvulaId/', async function(req, res, next) {
+  /* app.get('/riegos/:electrovalvulaId/', async function(req, res, next) {
     try {
       const connection = await pool.getConnection();
       const result = await connection.query('SELECT * FROM Log_Riegos WHERE electrovalvulaId = ?', req.params.electrovalvulaId);
@@ -145,7 +145,7 @@ app.get('/dispositivos/', async function(req, res, next) {
     } catch (err) {
       res.send(err).status(400);
     }
-  });
+  }); */
   
 
 app.listen(PORT, function(req, res) {

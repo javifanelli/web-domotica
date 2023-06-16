@@ -46,10 +46,10 @@ export class DispositivoPage implements OnInit  {
     this.generarChart();
   }
 
-  abrirElectrovalvula() {
+/*   abrirElectrovalvula() {
     this.dispositivoService.abrirElectrovalvula(this.device.electrovalvulaId);
     this.refrescaChart();
-  }
+  } */
 
   refrescamedicion() {
     const id = this.activatedRoute.snapshot.paramMap.get('id') as string;

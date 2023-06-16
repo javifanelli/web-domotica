@@ -6,7 +6,7 @@ const configmariadb = {
   port: '3306',
   user: 'root',
   password: 'userpass',
-  database: 'riegos'
+  database: 'temperatura'
 };
 
 const pool = mariadb.createPool(configmariadb);
@@ -16,7 +16,7 @@ console.log("Iniciando DB");
 (async () => {
   try {
     const connection = await pool.getConnection();
-    console.log("Conexión exitosa:", connection);
+    console.log("Conexión exitosa a", configmariadb.database, "en", configmariadb.host);
     connection.release();
   } catch (err) {
     console.log('Error al establecer la conexión:', err);
