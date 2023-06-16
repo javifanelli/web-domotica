@@ -2,38 +2,42 @@
     text-align: center;
   }
   
-  ion-col {
+ion-col {
     background-color: #999999;
     border: solid 1px #fff;
     color: #fff;
     text-align: center;
   }
   
-  ion-col.titulo {
+.titulo {
     font-size: 18px;
-    color: #000;
+    color: #fff;
   }
   
-  div.valor {
+div.valor {
     vertical-align: middle;
   }
   
-  .header-container {
+.header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
   
-  .titulo-container {
+.titulo-container {
     flex-grow: 1;
     text-align: center;
   }
   
-  .volver-button {
+.volver-button {
     margin-right: auto;
   }
   
-  .ver-grafico-button {
+.ver-grafico-button {
     margin-left: auto;
   }
   
+.scrollable {
+  overflow-y: scroll;
+  max-height: 500px;
+}

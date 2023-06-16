@@ -8,7 +8,7 @@
         <ion-col class="titulo">ID dispositivo</ion-col>
         <ion-col class="titulo">Nombre</ion-col>
         <ion-col class="titulo">Ubicación</ion-col>
-        <ion-col class="titulo">ID electroválvula</ion-col>
+        <ion-col class="titulo">MAC</ion-col>
       </ion-row>
       <ion-row *ngFor="let Dispositivo of devices">
         <ion-col appSubraya [routerLink]="'/dispositivos/' + Dispositivo.dispositivoId">{{ Dispositivo.dispositivoId }}</ion-col>
