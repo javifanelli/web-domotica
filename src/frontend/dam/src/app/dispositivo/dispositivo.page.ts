@@ -85,7 +85,7 @@ export class DispositivoPage implements OnInit  {
         plotShadow: false
         }
         ,title: {
-          text: 'Sensor N° ' + this.device.dispositivoId
+          text: 'Sensor ' + this.device.dispositivoId + ' - ' + this.device.ubicacion
         }
 
         ,credits:{enabled:false}
