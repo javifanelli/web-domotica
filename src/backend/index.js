@@ -7,6 +7,7 @@ var app     = express();
 var pool   = require('./mysql-connector');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
+const mqtt = require('mqtt');
 
 var corsOptions = {
     origin: '*',
@@ -40,6 +41,23 @@ app.use(express.json());
 app.use(express.static('/home/node/app/static/'));
 // to enable cors
 app.use(cors(corsOptions));
+
+// definicion del borker MQTT
+const mqttBrokerUrl = 'mqtts://192.168.0.70:8883'; // Use the container name "mosquitto" as the hostname
+const mqttTopic = '/home/Cocina/data';
+const mqttClient = mqtt.connect(mqttBrokerUrl);
+
+// conexión al broker MQTT
+mqttClient.on('connect', () => {
+  console.log('Conexión exitosa al broker MQTT');
+  mqttClient.subscribe(mqttTopic, (error) => {
+    if (error) {
+      console.error('Error al suscribirse al topic MQTT:', error);
+    } else {
+      console.log('Suscrito al topic MQTT:', mqttTopic);
+    }
+  });
+});
 
 //=======[ Main module code ]==================================================
 app.post('/authenticate', (req, res) => {

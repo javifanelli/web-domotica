@@ -8,6 +8,8 @@ RUN npm install --global cors
 
 RUN npm install --global jsonwebtoken
 
+RUN npm install --global mqtt
+
 WORKDIR /src/backend
 
 COPY package*.json ./

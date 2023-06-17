@@ -7,13 +7,13 @@ prompt = no
 [req_distinguished_name]
 countryName = AR
 stateOrProvinceName = bsas
-localityName = bera
-organizationName = javi
+localityName = berazategui
+organizationName = ceiot
 commonName = server
 [req_ext]
 subjectAltName = @alt_names
 [v3_req]
 subjectAltName = @alt_names
 [alt_names]
-IP.1 = 192.168.0.60
-DNS.1 = 192.168.0.60 
+IP.1 = 192.168.0.70
+DNS.1 = 192.168.0.70
