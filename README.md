@@ -7,14 +7,12 @@ El trabajo está realizado en el entorno Docker y está hecho a partir del repos
 ### Pasos preliminares para correr la aplicación
 Primero hay que instalar docker en el servidor con los comandos:
 *curl -sSL https://get.docker.com | sh*
-Luego instalar nodejs:
-*curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -*
-*sudo apt-get install -y nodejs*
+Luego instalar nvm y nodejs:
+*curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash*
+*nvm install 18.16.0*
 Luego deben instalarse los complementos de Angular e Ionic en el editor de código que se utilice para poder hacer andar el proyecto (en este caso se utilizó Visual Studio Code). 
 *sudo npm install -g @angular/cli*, *sudo npm install -g @ionic/cli* y *sudo npm install @angular/core@15.0.0*
 
-Se debe correr además *sudo npm install --save highcharts* para poder hacer funcionar el gráfico.
-Instalar express en el bakend
 *sudo npm install express*
 
 ### Siguientes pasos - Correr la aplicación

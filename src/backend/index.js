@@ -2,9 +2,9 @@
 
 var PORT    = 3000;
 
-var express = require('express');
-var app     = express();
-var pool   = require('./mysql-connector');
+const express = require('express');
+const app = express();
+const pool = require('./mysql-connector');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const mqtt = require('mqtt');
