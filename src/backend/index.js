@@ -87,7 +87,38 @@ mqttClient.on('connect', () => {
 mqttClient.on('message', (topic, message) => {
   console.log('Mensaje recibido en el topic:', topic);
   console.log('Contenido del mensaje:', message.toString());
-});
+  
+  try {
+    const mensaje = JSON.parse(message.toString());
+  
+    const medicion = {
+      fecha: mensaje.time,
+      valor: mensaje.valor,
+      dispositivoId: mensaje.ID
+      };
+      console.log("Mensaje convertido a JSON");
+      pool.getConnection((error, connection) => {
+        if (error) {
+          console.error('Error al obtener la conexión de la base de datos:', error);
+          return;
+        }
+  
+        connection.query('INSERT INTO Mediciones SET ?', medicion, (err, result) => {
+          connection.release();
+  
+          if (err) {
+            console.error('Error al insertar la medición en la base de datos:', err);
+          } else {
+            console.log('Medición insertada correctamente en la base de datos.');
+          }
+        });
+      });
+    } catch (error) {
+      console.error('Error al analizar el mensaje JSON:', error);
+    }
+  });
+  
+
 
 //=======[ Main module code ]==================================================
 app.post('/authenticate', (req, res) => {
