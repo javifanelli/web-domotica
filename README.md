@@ -15,6 +15,8 @@ Luego deben instalarse los complementos de Angular e Ionic en el editor de códi
 
 *sudo npm install express*
 
+*npm install -g npm@9.7.1*
+
 ### Siguientes pasos - Correr la aplicación
 Una vez cargados los complementos, se debe correr el comando *docker compose up --build* solamente la primera vez en una consola nueva. Luego, solo con correr *docker compose up -d* es suficiente para correr la aplicacion. Por un navegador, en una pestaña nueva se debe ingresar a la dirección *http://localhost:8100/*, donde aparecerá la página de logueo. Ahí se deben ingresar los datos: "javier" para el campo *Username* y "ceiot" para *Password*. Luego, hacer click en *Login*. Ya se puede empezar a navegar por la aplicación.
 

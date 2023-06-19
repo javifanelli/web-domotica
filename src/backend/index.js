@@ -8,6 +8,7 @@ const pool = require('./mysql-connector');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const mqtt = require('mqtt');
+const fs = require('fs');
 
 var corsOptions = {
     origin: '*',
@@ -42,11 +43,35 @@ app.use(express.static('/home/node/app/static/'));
 // to enable cors
 app.use(cors(corsOptions));
 
-// definicion del borker MQTT
-const mqttBrokerUrl = 'mqtts://192.168.0.70:8883'; // Use the container name "mosquitto" as the hostname
-const mqttTopic = '/home/Cocina/data';
-const mqttClient = mqtt.connect(mqttBrokerUrl);
+// Confirmación de lectura de cada certificado
+console.log('Leyendo certificado CA.pem');
+const caCert = fs.readFileSync('/home/node/app/certs/ca.pem');
+console.log('Certificado CA.pem leído correctamente');
 
+console.log('Leyendo clave privada client.key');
+const privateKey = fs.readFileSync('/home/node/app/certs/client.key');
+console.log('Clave privada client.key leída correctamente');
+
+console.log('Leyendo certificado client.pem');
+const clientCert = fs.readFileSync('/home/node/app/certs/client.pem');
+console.log('Certificado client.pem leído correctamente');
+
+// definicion del borker MQTT
+const mqttBrokerUrl = '192.168.0.70';
+const mqttOptions = {
+  host: mqttBrokerUrl,
+  port: 8883,
+  protocol: 'mqtts',
+  ca: caCert,
+  key: privateKey,
+  cert: clientCert,
+};
+
+const mqttTopic = '/home/Cocina/data';
+const mqttClient = mqtt.connect(mqttOptions);
+mqttClient.on('error', (error) => {
+  console.error('Error en la conexión al broker MQTT:', error);
+});
 // conexión al broker MQTT
 mqttClient.on('connect', () => {
   console.log('Conexión exitosa al broker MQTT');
@@ -57,6 +82,11 @@ mqttClient.on('connect', () => {
       console.log('Suscrito al topic MQTT:', mqttTopic);
     }
   });
+});
+
+mqttClient.on('message', (topic, message) => {
+  console.log('Mensaje recibido en el topic:', topic);
+  console.log('Contenido del mensaje:', message.toString());
 });
 
 //=======[ Main module code ]==================================================
@@ -121,17 +151,6 @@ app.get('/dispositivos/', async function(req, res, next) {
     }
   });
   
-/*   app.post('/logriegos/', async function(req, res, next) {
-    try {
-      const connection = await pool.getConnection();
-      const result = await connection.query('INSERT INTO `Log_Riegos` (`apertura`, `fecha`, `electrovalvulaId`) VALUES (?, ?, ?)', [req.body.apertura, req.body.fecha, req.body.electrovalvulaId]);
-      connection.release();
-      res.send({ 'id': result.insertId }).status(201);
-    } catch (err) {
-      res.send(err).status(400);
-    }
-  }); */
-  
   app.post('/medicion/', async function(req, res, next) {
     try {
       const connection = await pool.getConnection();
@@ -153,18 +172,6 @@ app.get('/dispositivos/', async function(req, res, next) {
       res.send(err).status(400);
     }
   });
-  
-  /* app.get('/riegos/:electrovalvulaId/', async function(req, res, next) {
-    try {
-      const connection = await pool.getConnection();
-      const result = await connection.query('SELECT * FROM Log_Riegos WHERE electrovalvulaId = ?', req.params.electrovalvulaId);
-      connection.release();
-      res.send(JSON.stringify(result)).status(200);
-    } catch (err) {
-      res.send(err).status(400);
-    }
-  }); */
-  
 
 app.listen(PORT, function(req, res) {
     console.log("NodeJS API running correctly on:", PORT);
