@@ -1,7 +1,7 @@
 const mariadb = require('mariadb');
 
 const configmariadb = {
-  connectionLimit: 10,
+  connectionLimit: 20,
   host: '192.168.0.70',
   port: '3306',
   user: 'root',

@@ -44,19 +44,12 @@ app.use(express.static('/home/node/app/static/'));
 app.use(cors(corsOptions));
 
 // Confirmación de lectura de cada certificado
-console.log('Leyendo certificado CA.pem');
 const caCert = fs.readFileSync('/home/node/app/certs/ca.pem');
-console.log('Certificado CA.pem leído correctamente');
-
-console.log('Leyendo clave privada client.key');
 const privateKey = fs.readFileSync('/home/node/app/certs/client.key');
-console.log('Clave privada client.key leída correctamente');
-
-console.log('Leyendo certificado client.pem');
 const clientCert = fs.readFileSync('/home/node/app/certs/client.pem');
-console.log('Certificado client.pem leído correctamente');
+console.log('Certificados SSL para MQTT leídos correctamente');
 
-// definicion del borker MQTT
+// definición del borker MQTT
 const mqttBrokerUrl = '192.168.0.70';
 const mqttOptions = {
   host: mqttBrokerUrl,
@@ -72,6 +65,7 @@ const mqttClient = mqtt.connect(mqttOptions);
 mqttClient.on('error', (error) => {
   console.error('Error en la conexión al broker MQTT:', error);
 });
+
 // conexión al broker MQTT
 mqttClient.on('connect', () => {
   console.log('Conexión exitosa al broker MQTT');
@@ -84,40 +78,32 @@ mqttClient.on('connect', () => {
   });
 });
 
-mqttClient.on('message', (topic, message) => {
+mqttClient.on('message', async (topic, message) => {
   console.log('Mensaje recibido en el topic:', topic);
   console.log('Contenido del mensaje:', message.toString());
   
   try {
     const mensaje = JSON.parse(message.toString());
-  
     const medicion = {
       fecha: mensaje.time,
       valor: mensaje.valor,
       dispositivoId: mensaje.ID
-      };
-      console.log("Mensaje convertido a JSON");
-      pool.getConnection((error, connection) => {
-        if (error) {
-          console.error('Error al obtener la conexión de la base de datos:', error);
-          return;
-        }
-  
-        connection.query('INSERT INTO Mediciones SET ?', medicion, (err, result) => {
-          connection.release();
-  
-          if (err) {
-            console.error('Error al insertar la medición en la base de datos:', err);
-          } else {
-            console.log('Medición insertada correctamente en la base de datos.');
-          }
-        });
-      });
+    };
+    console.log("Mensaje convertido a JSON");
+
+    try {
+      const connection = await pool.getConnection();
+      const result = await connection.query('INSERT INTO Mediciones (fecha, valor, dispositivoId) VALUES (?, ?, ?)', [medicion.fecha, medicion.valor, medicion.dispositivoId]);
+      connection.release();
+
+      console.log('Medición insertada correctamente en la base de datos.');
     } catch (error) {
-      console.error('Error al analizar el mensaje JSON:', error);
+      console.error('Error al insertar la medición en la base de datos:', error);
     }
-  });
-  
+  } catch (error) {
+    console.error('Error al analizar el mensaje JSON:', error);
+  }
+});
 
 
 //=======[ Main module code ]==================================================
@@ -146,66 +132,63 @@ app.post('/authenticate', (req, res) => {
   }
 });
 
-
 app.get('/dispositivos/', async function(req, res, next) {
-    try {
-      const connection = await pool.getConnection();
-      const result = await connection.query('SELECT * FROM Dispositivos');
-      connection.release();
-      res.send(JSON.stringify(result)).status(200);
-    } catch (err) {
-      res.send(err).status(400);
-    }
-  });
-
-  app.get('/dispositivos/:id', async function(req, res, next) {
-    try {
-      const connection = await pool.getConnection();
-      const result = await connection.query('SELECT * FROM Dispositivos WHERE dispositivoId = ?', req.params.id);
-      connection.release();
-      res.send(JSON.stringify(result)).status(200);
-      console.log("Envio mediciones de los dispositivos");
-    } catch (err) {
-      res.send(err).status(400);
-    }
-  });
-  
-  app.get('/ultmedicion/:dispid', async function(req, res, next) {
-    try {
-      const connection = await pool.getConnection();
-      const result = await connection.query('SELECT * FROM Mediciones m WHERE m.medicionId = (SELECT MAX(medicionId) FROM Mediciones WHERE dispositivoId = ?)', req.params.dispid);
-      connection.release();
-      res.send(JSON.stringify(result)).status(200);
-      console.log("Envio mediciones del dispositivo", req.params.dispid);
-    } catch (err) {
-      res.send(err).status(400);
-    }
-  });
-  
-  app.post('/medicion/', async function(req, res, next) {
-    try {
-      const connection = await pool.getConnection();
-      const result = await connection.query('INSERT INTO `Mediciones` (`fecha`, `valor`, `dispositivoId`) VALUES (?, ?, ?)', [req.body.fecha, req.body.valor, req.body.dispositivoId]);
-      connection.release();
-      res.send({ 'id': result.insertId }).status(201);
-    } catch (err) {
-      res.send(err).status(400);
-    }
-  });
-  
-  app.get('/dispositivos/:id/mediciones/', async function(req, res, next) {
-    try {
-      const connection = await pool.getConnection();
-      const result = await connection.query('SELECT * FROM Mediciones WHERE dispositivoId = ?', req.params.id);
-      connection.release();
-      res.send(JSON.stringify(result)).status(200);
-    } catch (err) {
-      res.send(err).status(400);
-    }
-  });
-
-app.listen(PORT, function(req, res) {
-    console.log("NodeJS API running correctly on:", PORT);
+  try {
+    const connection = await pool.getConnection();
+    const result = await connection.query('SELECT * FROM Dispositivos');
+    connection.release();
+    res.send(JSON.stringify(result)).status(200);
+  } catch (err) {
+    res.send(err).status(400);
+  }
 });
 
-//=======[ End of file ]=======================================================
+app.get('/dispositivos/:id', async function(req, res, next) {
+  try {
+    const connection = await pool.getConnection();
+    const result = await connection.query('SELECT * FROM Dispositivos WHERE dispositivoId = ?', req.params.id);
+    connection.release();
+    res.send(JSON.stringify(result)).status(200);
+  } catch (err) {
+    res.send(err).status(400);
+  }
+});
+
+app.get('/ultmedicion/:dispid', async function(req, res, next) {
+  try {
+    const connection = await pool.getConnection();
+    const result = await connection.query('SELECT * FROM Mediciones m WHERE m.medicionId = (SELECT MAX(medicionId) FROM Mediciones WHERE dispositivoId = ?)', req.params.dispid);
+    connection.release();
+    res.send(JSON.stringify(result)).status(200);
+  } catch (err) {
+    res.send(err).status(400);
+  }
+});
+
+app.post('/medicion/', async function(req, res, next) {
+  try {
+    const connection = await pool.getConnection();
+    const result = await connection.query('INSERT INTO `Mediciones` (`fecha`, `valor`, `dispositivoId`) VALUES (?, ?, ?)', [req.body.fecha, req.body.valor, req.body.dispositivoId]);
+    connection.release();
+    res.send({ 'id': result.insertId }).status(201);
+  } catch (err) {
+    res.send(err).status(400);
+  }
+});
+
+app.get('/dispositivos/:id/mediciones/', async function(req, res, next) {
+  try {
+    const connection = await pool.getConnection();
+    const result = await connection.query('SELECT * FROM Mediciones WHERE dispositivoId = ?', req.params.id);
+    connection.release();
+    res.send(JSON.stringify(result)).status(200);
+  } catch (err) {
+    res.send(err).status(400);
+  }
+});
+
+app.listen(PORT, function(req, res) {
+  console.log("NodeJS API running correctly on:", PORT);
+});
+
+//=======[ End of file ]================================================-------
