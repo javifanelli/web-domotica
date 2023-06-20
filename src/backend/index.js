@@ -170,6 +170,7 @@ mqttClient.on('message', async (topic, message) => {
       console.log('Medición insertada correctamente en la base de datos.');
     } catch (error) {
       console.error('Error al insertar la medición en la base de datos:', error);
+      connection.release();
     }
   } catch (error) {
     console.error('Error al analizar el mensaje JSON:', error);
