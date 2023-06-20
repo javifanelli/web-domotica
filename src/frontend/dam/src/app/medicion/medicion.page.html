@@ -12,11 +12,13 @@
         <ion-col class="titulo">Fecha</ion-col>
         <ion-col class="titulo">Hora</ion-col>
         <ion-col class="titulo">Temp °C</ion-col>
+        <ion-col class="titulo">RSSI</ion-col>
       </ion-row>
       <ion-row *ngFor="let medicion of mediciones">
         <ion-col>{{ medicion.fecha | date }}</ion-col>
         <ion-col>{{ medicion.fecha | date:"HH:mm:ss" }}</ion-col>
         <ion-col>{{ medicion.valor }}</ion-col>
+        <ion-col>{{ medicion.rssi }}</ion-col>
       </ion-row>
     </ion-grid>
   </ion-card-content>

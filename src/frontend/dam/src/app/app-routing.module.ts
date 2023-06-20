@@ -25,11 +25,6 @@ const routes: Routes = [
     loadChildren: () => import('./dispositivo/dispositivo.module').then((m) => m.DispositivoModule),
   },
   
-/*   {
-    path: 'riegos/:dispositivoId',
-    loadChildren: () => import('./riegos/riegos.module').then( m => m.RiegosModule)
-  }, */
-  
   {
     path: 'medicion/:id',
     loadChildren: () => import('./medicion/medicion.module').then( m => m.MedicionModule)

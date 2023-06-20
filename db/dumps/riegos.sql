@@ -44,23 +44,24 @@ CREATE TABLE `Mediciones` (
   `medicionId` int(11) NOT NULL,
   `fecha` datetime DEFAULT NULL,
   `valor` int(10) DEFAULT NULL,
-  `dispositivoId` int(11) NOT NULL
+  `dispositivoId` int(11) NOT NULL,
+  `rssi` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Volcado de datos para la tabla `Mediciones`
 
-INSERT INTO `Mediciones` (`medicionId`, `fecha`, `valor`, `dispositivoId`) VALUES
-(1, '2023-04-20 21:19:41', 20, 1),
-(2, '2023-04-20 21:42:41', 21, 1),
-(3, '2023-04-20 21:19:41', 30, 2),
-(4, '2023-04-20 21:19:41', 17, 3),
-(5, '2023-04-20 21:42:41', 33, 2),
-(6, '2023-04-20 21:19:41', 17, 3),
-(7, '2023-04-20 21:57:41', 29, 2),
-(8, '2023-04-20 22:19:41', 20, 2),
-(9, '2023-04-20 22:19:41', 24, 3),
-(10, '2023-04-20 22:19:41', 19, 3),
-(11, '2023-04-20 22:19:41', 27, 1);
+INSERT INTO `Mediciones` (`medicionId`, `fecha`, `valor`, `dispositivoId`, `rssi`) VALUES
+(1, '2023-04-20 21:19:41', 20, 1, -40),
+(2, '2023-04-20 21:42:41', 21, 1, -40),
+(3, '2023-04-20 21:19:41', 30, 2, -40),
+(4, '2023-04-20 21:19:41', 17, 3, -40),
+(5, '2023-04-20 21:42:41', 33, 2, -40),
+(6, '2023-04-20 21:19:41', 17, 3, -40),
+(7, '2023-04-20 21:57:41', 29, 2, -40),
+(8, '2023-04-20 22:19:41', 20, 2, -40),
+(9, '2023-04-20 22:19:41', 24, 3, -40),
+(10, '2023-04-20 22:19:41', 19, 3, -40),
+(11, '2023-04-20 22:19:41', 27, 1, -40);
 
 -- Indices de la tabla `Dispositivos`
 

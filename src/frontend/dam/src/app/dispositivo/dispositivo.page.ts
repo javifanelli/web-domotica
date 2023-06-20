@@ -26,9 +26,6 @@ export class DispositivoPage implements OnInit  {
     private dispositivoService: DispositivoService) {
       this.updateIntervalId = setInterval(()=>{
         const id = this.activatedRoute.snapshot.paramMap.get('id') as string;
-        this.dispositivoService.postMedicion(parseInt(id, 10), (this.tempactual + 2).toString());
-        if (this.tempactual>40)
-          {this.tempactual=40}
         this.refrescaChart();
       },30000); // refresca cada 30 segundos
     }
@@ -45,11 +42,6 @@ export class DispositivoPage implements OnInit  {
   ionViewDidEnter() {
     this.generarChart();
   }
-
-/*   abrirElectrovalvula() {
-    this.dispositivoService.abrirElectrovalvula(this.device.electrovalvulaId);
-    this.refrescaChart();
-  } */
 
   refrescamedicion() {
     const id = this.activatedRoute.snapshot.paramMap.get('id') as string;

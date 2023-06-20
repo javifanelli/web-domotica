@@ -60,7 +60,7 @@ const mqttOptions = {
   cert: clientCert,
 };
 
-const mqttTopic = '/home/Cocina/data';
+const mqttTopic = '/home/temperatura/data';
 const mqttClient = mqtt.connect(mqttOptions);
 mqttClient.on('error', (error) => {
   console.error('Error en la conexión al broker MQTT:', error);
@@ -77,34 +77,6 @@ mqttClient.on('connect', () => {
     }
   });
 });
-
-mqttClient.on('message', async (topic, message) => {
-  console.log('Mensaje recibido en el topic:', topic);
-  console.log('Contenido del mensaje:', message.toString());
-  
-  try {
-    const mensaje = JSON.parse(message.toString());
-    const medicion = {
-      fecha: mensaje.time,
-      valor: mensaje.valor,
-      dispositivoId: mensaje.ID
-    };
-    console.log("Mensaje convertido a JSON");
-
-    try {
-      const connection = await pool.getConnection();
-      const result = await connection.query('INSERT INTO Mediciones (fecha, valor, dispositivoId) VALUES (?, ?, ?)', [medicion.fecha, medicion.valor, medicion.dispositivoId]);
-      connection.release();
-
-      console.log('Medición insertada correctamente en la base de datos.');
-    } catch (error) {
-      console.error('Error al insertar la medición en la base de datos:', error);
-    }
-  } catch (error) {
-    console.error('Error al analizar el mensaje JSON:', error);
-  }
-});
-
 
 //=======[ Main module code ]==================================================
 app.post('/authenticate', (req, res) => {
@@ -165,17 +137,6 @@ app.get('/ultmedicion/:dispid', async function(req, res, next) {
   }
 });
 
-app.post('/medicion/', async function(req, res, next) {
-  try {
-    const connection = await pool.getConnection();
-    const result = await connection.query('INSERT INTO `Mediciones` (`fecha`, `valor`, `dispositivoId`) VALUES (?, ?, ?)', [req.body.fecha, req.body.valor, req.body.dispositivoId]);
-    connection.release();
-    res.send({ 'id': result.insertId }).status(201);
-  } catch (err) {
-    res.send(err).status(400);
-  }
-});
-
 app.get('/dispositivos/:id/mediciones/', async function(req, res, next) {
   try {
     const connection = await pool.getConnection();
@@ -184,6 +145,34 @@ app.get('/dispositivos/:id/mediciones/', async function(req, res, next) {
     res.send(JSON.stringify(result)).status(200);
   } catch (err) {
     res.send(err).status(400);
+  }
+});
+
+mqttClient.on('message', async (topic, message) => {
+  console.log('Mensaje recibido en el topic:', topic);
+  console.log('Contenido del mensaje:', message.toString());
+
+  try {
+    const mensaje = JSON.parse(message.toString());
+    const medicion = {
+      fecha: mensaje.time,
+      valor: mensaje.valor,
+      dispositivoId: mensaje.ID,
+      rssi: mensaje.RSSI
+    };
+    console.log("Mensaje convertido a JSON");
+
+    try {
+      const connection = await pool.getConnection();
+      const result = await connection.query('INSERT INTO Mediciones (fecha, valor, dispositivoId, rssi) VALUES (?, ?, ?, ?)', [medicion.fecha, medicion.valor, medicion.dispositivoId, medicion.rssi]);
+      connection.release();
+
+      console.log('Medición insertada correctamente en la base de datos.');
+    } catch (error) {
+      console.error('Error al insertar la medición en la base de datos:', error);
+    }
+  } catch (error) {
+    console.error('Error al analizar el mensaje JSON:', error);
   }
 });
 
