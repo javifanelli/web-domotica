@@ -137,6 +137,19 @@ app.get('/ultmedicion/:dispid', async function(req, res, next) {
   }
 });
 
+app.get('/grafico/:id', async function(req, res, next) {
+  try {
+    const connection = await pool.getConnection();
+    const result = await connection.query('SELECT * FROM Mediciones WHERE dispositivoId = ? ORDER BY fecha DESC LIMIT 10', req.params.id);
+    console.log("Mandando grafico");
+    connection.release();
+    res.send(JSON.stringify(result)).status(200);
+    console.log(JSON.stringify(result));
+  } catch (err) {
+    res.send(err).status(400);
+  }
+});
+
 app.get('/dispositivos/:id/mediciones/', async function(req, res, next) {
   try {
     const connection = await pool.getConnection();
