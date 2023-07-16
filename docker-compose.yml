@@ -18,7 +18,7 @@ services:
     hostname: mariadb
     environment:
       MARIADB_ROOT_PASSWORD: userpass
-      MARIADB_DATABASE: riegos
+      MARIADB_DATABASE: temperatura
       MARIADB_USER: mysql
       MARIADB_PASSWORD: userpass2
     container_name: mariadb
