@@ -10,7 +10,7 @@
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
-SET time_zone = "+00:00";
+SET time_zone = "+03:00";
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -28,15 +28,16 @@ CREATE TABLE `Dispositivos` (
   `dispositivoId` int(17) NOT NULL,
   `nombre` varchar(200) DEFAULT NULL,
   `ubicacion` varchar(200) DEFAULT NULL,
-  `mac` varchar(17) NOT NULL
+  `mac` varchar(17) NOT NULL,
+  `tipo` int(17) NOT NULL -- tipo 1 temperatura, tipo 2 iluminacion
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Volcado de datos para la tabla `Dispositivos`
 
-INSERT INTO `Dispositivos` (`dispositivoId`, `nombre`, `ubicacion`, `mac`) VALUES
-(1, 'ESP32C3+DHT11', 'Cocina', '7C:DF:A1:D0:33:00'), -- 7C:DF:A1:D0:33:00
-(2, 'ESP32+simluada', 'Habitacion', '94:B5:55:2B:FF:64'), -- 94:B5:55:2B:FF:64
-(3, 'ESP32+simluada', 'Living', '0C:B8:15:D8:7A:6C'); -- 0C:B8:15:D8:7A:6C
+INSERT INTO `Dispositivos` (`dispositivoId`, `nombre`, `ubicacion`, `mac`, `tipo`) VALUES
+(1, 'ESP32C3+DHT11', 'Habitación', '7C:DF:A1:D0:33:00', 1), -- 7C:DF:A1:D0:33:00
+(2, 'ESP32', 'Habitacion', '94:B5:55:2B:FF:64', 2), -- 94:B5:55:2B:FF:64
+(3, 'ESP32+simluada', 'Living', '0C:B8:15:D8:7A:6C', 1); -- 0C:B8:15:D8:7A:6C
 
 -- Estructura de tabla para la tabla `Mediciones`
 
