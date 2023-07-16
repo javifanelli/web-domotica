@@ -34,7 +34,7 @@ CREATE TABLE `Dispositivos` (
 -- Volcado de datos para la tabla `Dispositivos`
 
 INSERT INTO `Dispositivos` (`dispositivoId`, `nombre`, `ubicacion`, `mac`) VALUES
-(1, 'ESP32C3+BMP280', 'Cocina', '7C:DF:A1:D0:33:00'), -- 7C:DF:A1:D0:33:00
+(1, 'ESP32C3+DHT11', 'Cocina', '7C:DF:A1:D0:33:00'), -- 7C:DF:A1:D0:33:00
 (2, 'ESP32+simluada', 'Habitacion', '94:B5:55:2B:FF:64'), -- 94:B5:55:2B:FF:64
 (3, 'ESP32+simluada', 'Living', '0C:B8:15:D8:7A:6C'); -- 0C:B8:15:D8:7A:6C
 
