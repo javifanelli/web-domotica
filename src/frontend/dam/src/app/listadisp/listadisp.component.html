@@ -19,6 +19,7 @@
     <ion-item detail="false" class="ver-detalle">
       <ion-button [routerLink]="'/dispositivos/' + dispositivo.dispositivoId">Estado</ion-button>
       <ion-button [routerLink]="'/dispositivos/' + dispositivo.dispositivoId + '/modificar'">Modificar</ion-button>
+      <ion-button class="boton-borrar" (click)="confirmarBorrar(dispositivo.dispositivoId)">Borrar</ion-button>
     </ion-item>
   </ion-card>
 </ion-content>

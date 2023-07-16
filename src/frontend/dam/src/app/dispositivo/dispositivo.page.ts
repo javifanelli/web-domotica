@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, OnDestroy, Pipe } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Dispositivo } from '../interfaces/dispositivo';
 import { DispositivoService } from '../services/dispositivo.service';
@@ -11,29 +11,32 @@ require('highcharts/modules/solid-gauge')(Highcharts);
   templateUrl: './dispositivo.page.html',
   styleUrls: ['./dispositivo.page.scss'],
 })
-
-export class DispositivoPage implements OnInit  {
+export class DispositivoPage implements OnInit, OnDestroy {
   public device!: Dispositivo;
   public dispositivoId!: number;
   public tempactual!: number;
-  public myChart:any;
-  private chartOptions:any;
-  private activatedRoute = inject(ActivatedRoute);
-  public presion!: number;
+  public ultfecha: any;
+  public estadoConexion!: string;
+  public myChart: any;
+  private chartOptions: any;
+  private activatedRoute: ActivatedRoute;
   private updateIntervalId: any;
-  
+
   constructor(
-    private dispositivoService: DispositivoService) {
-      this.updateIntervalId = setInterval(()=>{
-        const id = this.activatedRoute.snapshot.paramMap.get('id') as string;
-        this.refrescaChart();
-      },30000); // refresca cada 30 segundos
-    }
+    private dispositivoService: DispositivoService,
+    private _activatedRoute: ActivatedRoute
+  ) {
+    this.activatedRoute = _activatedRoute;
+    this.updateIntervalId = setInterval(() => {
+      const id = this.activatedRoute.snapshot.paramMap.get('id') as string;
+      this.refrescaChart();
+    }, 30000); // refresca cada 30 segundos
+  }
 
   ngOnInit() {
     const deviceId = this.activatedRoute.snapshot.paramMap.get('id') as string;
     this.dispositivoId = parseInt(deviceId, 10);
-    this.dispositivoService.getDeviceById(this.dispositivoId).subscribe(data => {
+    this.dispositivoService.getDeviceById(this.dispositivoId).subscribe((data) => {
       this.device = data[0];
     });
     this.refrescamedicion();
@@ -45,8 +48,10 @@ export class DispositivoPage implements OnInit  {
 
   refrescamedicion() {
     const id = this.activatedRoute.snapshot.paramMap.get('id') as string;
-    this.dispositivoService.getUltMedicion(parseInt(id, 10)).subscribe(data => {
+    this.dispositivoService.getUltMedicion(parseInt(id, 10)).subscribe((data) => {
       this.tempactual = parseInt(data[0].valor, 10);
+      this.ultfecha = new Date(data[0].fecha);
+      this.updateEstadoConexion();
     });
   }
 
@@ -149,12 +154,21 @@ export class DispositivoPage implements OnInit  {
     this.myChart = Highcharts.chart('highcharts', this.chartOptions );
   }
 
+  updateEstadoConexion() {
+    const cincoMinutos = 5 * 60 * 1000; // 5 minutos en milisegundos
+    const tiempoActual = new Date();
+    if (tiempoActual.getTime() - this.ultfecha.getTime() > cincoMinutos) {
+      this.estadoConexion = 'Offline';
+    } else {
+      this.estadoConexion = 'Online';
+    }
+  }
+
   ngOnDestroy() {
     clearInterval(this.updateIntervalId);
     if (this.myChart) {
       this.myChart.destroy();
-      console.log("chart destruido");
+      console.log('Chart destroyed');
     }
   }
-
 }

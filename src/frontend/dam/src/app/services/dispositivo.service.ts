@@ -5,31 +5,29 @@ import { Dispositivo } from '../interfaces/dispositivo';
 import { Medicion } from '../interfaces/medicion';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class DispositivoService {
   private URLServer = 'http://192.168.0.70:8000';
   constructor(private _http: HttpClient) {}
 
-  getListaDisp (): Observable<Dispositivo[]> {
+  getListaDisp(): Observable<Dispositivo[]> {
     return this._http.get<Dispositivo[]>(this.URLServer + '/dispositivos');
   }
 
   public getUltMedicion(id: number): Observable<Medicion[]> {
-    return this._http.get<Medicion[]>(this.URLServer + '/ultmedicion/'+id);
+    return this._http.get<Medicion[]>(this.URLServer + '/ultmedicion/' + id);
   }
 
   public getMediciones(id: number): Observable<Medicion[]> {
-    return this._http.get<Medicion[]>(this.URLServer+'/dispositivos/'+id+'/mediciones');
+    return this._http.get<Medicion[]>(this.URLServer + '/dispositivos/' + id + '/mediciones');
   }
 
   public getDeviceById(id: number): Observable<Dispositivo[]> {
-    return this._http.get<Dispositivo[]>(this.URLServer+'/dispositivos/'+id);
+    return this._http.get<Dispositivo[]>(this.URLServer + '/dispositivos/' + id);
   }
 
-  getEstadoConexion(id: number): Observable<{ estado: string }> {
-    return this._http.get<{estado: string}>(`${this.URLServer}/estadoconexion/${id}`);
+  public deleteDevice(id: number): Observable<any> {
+    return this._http.delete(this.URLServer + '/dispositivos/' + id);
   }
-
 }

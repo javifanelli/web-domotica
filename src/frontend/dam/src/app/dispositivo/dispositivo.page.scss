@@ -16,3 +16,19 @@
     flex-grow: 1;
     text-align: center;
   }
+
+.estado-conexion {
+    font-size: 14px;
+    padding: 4px 8px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    &.online {
+      background-color: green;
+      color: white;
+    }
+    &.offline {
+      background-color: red;
+      color: white;
+    }
+}
+  
