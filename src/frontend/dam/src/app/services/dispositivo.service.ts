@@ -28,4 +28,8 @@ export class DispositivoService {
     return this._http.get<Dispositivo[]>(this.URLServer+'/dispositivos/'+id);
   }
 
+  getEstadoConexion(id: number): Observable<{ estado: string }> {
+    return this._http.get<{estado: string}>(`${this.URLServer}/estadoconexion/${id}`);
+  }
+
 }

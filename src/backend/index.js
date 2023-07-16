@@ -34,10 +34,10 @@ const auth = function (req, res, next) {
         }
     })
     next()
-} 
+}
 
 // to parse application/json
-app.use(express.json()); 
+app.use(express.json());
 // to serve static files
 app.use(express.static('/home/node/app/static/'));
 // to enable cors
@@ -156,6 +156,21 @@ app.get('/dispositivos/:id/mediciones/', async function(req, res, next) {
     const result = await connection.query('SELECT * FROM Mediciones WHERE dispositivoId = ?', req.params.id);
     connection.release();
     res.send(JSON.stringify(result)).status(200);
+  } catch (err) {
+    res.send(err).status(400);
+  }
+});
+
+app.get('/estadoconexion/:id', async function(req, res, next) {
+  try {
+    const connection = await pool.getConnection();
+    const result = await connection.query('SELECT fecha FROM Mediciones WHERE dispositivoId = ? ORDER BY fecha DESC LIMIT 1', req.params.id);
+    connection.release();
+    const fechaUltimaMedicion = result[0].fecha;
+    const fechaActual = new Date();
+    const tiempoInactividad = fechaActual.getTime() - fechaUltimaMedicion.getTime();
+    const estado = tiempoInactividad > 300000 ? 'OFFLINE' : 'ONLINE';
+    res.send({ estado }).status(200);
   } catch (err) {
     res.send(err).status(400);
   }
