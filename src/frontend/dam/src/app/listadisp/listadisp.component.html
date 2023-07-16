@@ -7,30 +7,18 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
+  <ion-card *ngFor="let dispositivo of devices">
     <ion-card-header>
-      <ion-card-title class="head">Sensores</ion-card-title>
+      <ion-card-title>{{ dispositivo.ubicacion }}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <ion-grid [fixed]="true">
-        <ion-row>
-          <ion-col class="titulo">Id</ion-col>
-          <ion-col class="titulo">Ubicación</ion-col>
-          <ion-col class="titulo">Nombre</ion-col>
-          <ion-col class="titulo">Tipo</ion-col>
-          <ion-col class="titulo">MAC</ion-col>
-        </ion-row>
-        <ion-row *ngFor="let dispositivo of devices">
-          <ion-col>{{ dispositivo.dispositivoId }}</ion-col>
-          <ion-col appSubraya [routerLink]="'/dispositivos/' + dispositivo.dispositivoId">{{ dispositivo.ubicacion }}</ion-col>
-          <ion-col>{{ dispositivo.nombre }}</ion-col>
-          <ion-col>
-            <ng-container *ngIf="dispositivo.tipo === 1">Temperatura</ng-container>
-            <ng-container *ngIf="dispositivo.tipo === 2">Iluminación</ng-container>
-          </ion-col>
-          <ion-col>{{ dispositivo.mac }}</ion-col>
-        </ion-row>
-      </ion-grid>
+      <div>{{ dispositivo.nombre }}</div>
+      <div>Tipo: {{ dispositivo.tipo === 1 ? 'Temperatura' : 'Iluminación' }}</div>
+      <div>MAC: {{ dispositivo.mac }}</div>
     </ion-card-content>
+    <ion-item detail="false" class="ver-detalle">
+      <ion-button [routerLink]="'/dispositivos/' + dispositivo.dispositivoId">Estado</ion-button>
+      <ion-button [routerLink]="'/dispositivos/' + dispositivo.dispositivoId + '/modificar'">Modificar</ion-button>
+    </ion-item>
   </ion-card>
 </ion-content>
