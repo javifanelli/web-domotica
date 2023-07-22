@@ -3,5 +3,5 @@ export interface Dispositivo {
     nombre: string,
     ubicacion: string,
     mac: string,
-    tipo: number
+    tipo: string
 }
