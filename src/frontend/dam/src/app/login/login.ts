@@ -10,16 +10,20 @@ import { LoginService } from '../services/login.service';
 export class LoginPage {
   login = { username: '', password: '' };
   submitted = false;
+  loginError = false; // Propiedad para mostrar la advertencia
 
-  constructor(
-    public _loginServ:LoginService
-  ) { }
+  constructor(public _loginServ: LoginService) {}
 
-  onLogin(form: NgForm) {
+  async onLogin(form: NgForm) {
     this.submitted = true;
+    this.loginError = false; // Reiniciar el valor de la advertencia
 
     if (form.valid) {
-      this._loginServ.login(this.login.username,this.login.password);
+      const isAuthenticated = await this._loginServ.login(this.login.username, this.login.password);
+      if (!isAuthenticated) {
+        // Si la autenticación falló, mostrar la advertencia
+        this.loginError = true;
+      }
     }
   }
 
@@ -28,5 +32,4 @@ export class LoginPage {
       this.onLogin(form);
     }
   }
-
 }

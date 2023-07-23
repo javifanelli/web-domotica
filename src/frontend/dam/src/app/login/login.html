@@ -39,7 +39,9 @@
               </p>
           </ion-text>
       </ion-list>
-
+      <ion-item *ngIf="loginError" color="danger">
+        <ion-label>Nombre de usuario o contraseña incorrectos</ion-label>
+      </ion-item>
       <ion-row>
           <ion-col>
             <ion-button (click)="onLogin(loginForm)" expand="block">Login</ion-button>

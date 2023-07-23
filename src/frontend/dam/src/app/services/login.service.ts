@@ -2,33 +2,42 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
- 
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LoginService {
-
   uri = 'http://192.168.0.70:8000';
   token: string;
 
-  constructor(private http: HttpClient,private router: Router) {
-    this.token = ''
+  constructor(private http: HttpClient, private router: Router) {
+    this.token = '';
   }
-  async login(username: string, password: string) {
-    let response = await firstValueFrom(this.http.post<any>(this.uri + '/authenticate', {username: username,password: password}));
-    if (response != null) {
-      this.router.navigate(['home']);
-      console.log(response)
-      localStorage.setItem('token', response.token);
+
+  async login(username: string, password: string): Promise<boolean> {
+    try {
+      let response = await firstValueFrom(this.http.post<any>(this.uri + '/authenticate', { username: username, password: password }));
+
+      if (response && response.token) {
+        this.router.navigate(['home']);
+        console.log(response);
+        localStorage.setItem('token', response.token);
+        return true; // Autenticación exitosa
+      } else {
+        console.log('Credenciales inválidas');
+        return false; // Autenticación fallida
       }
+    } catch (error) {
+      console.error('Error en el servicio de inicio de sesión:', error);
+      return false; // Error en la petición
     }
+  }
 
-    logout() {
-      localStorage.removeItem('token');
-    }
+  logout() {
+    localStorage.removeItem('token');
+  }
 
-    public get logIn(): boolean {
-      return (localStorage.getItem('token') !== null);
-    }
+  public get logIn(): boolean {
+    return localStorage.getItem('token') !== null;
+  }
 }
