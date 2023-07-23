@@ -39,27 +39,50 @@ INSERT INTO `Dispositivos` (`dispositivoId`, `nombre`, `ubicacion`, `mac`, `tipo
 (2, 'ESP32', 'Habitacion', '94:B5:55:2B:FF:64', 'Luz dimmerizable'), -- 94:B5:55:2B:FF:64
 (3, 'ESP32+simluada', 'Living', '0C:B8:15:D8:7A:6C', 'Temperatura'); -- 0C:B8:15:D8:7A:6C
 
+-- Estructura de tabla para la tabla `Usuarios`
+
+CREATE TABLE `Usuarios` (
+  `userId` int(11) NOT NULL,
+  `user` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `apellido` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Volcado de datos para la tabla `Usuarios`
+
+INSERT INTO `Usuarios` (`userId`, `user`, `password`, `nombre`, `apellido`, `email`) VALUES
+(1, 'javier', 'ceiot' , 'Javier', 'Fanelli', 'javifanelli@gmail.com'),
+(2, 'jperez', '123456' , 'Juan', 'Perez', 'jperez@cualmail.com');
+
 -- Estructura de tabla para la tabla `Mediciones`
 
 CREATE TABLE `Mediciones` (
   `medicionId` int(11) NOT NULL,
+  `dispositivoId` int(11) NOT NULL,
+  `tipo` varchar(100) NOT NULL,
   `fecha` datetime DEFAULT NULL,
   `valor` int(10) DEFAULT NULL,
-  `dispositivoId` int(11) NOT NULL,
-  `rssi` int(11) NOT NULL
+  `salida` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Volcado de datos para la tabla `Mediciones`
 
-INSERT INTO `Mediciones` (`medicionId`, `fecha`, `valor`, `dispositivoId`, `rssi`) VALUES
-(1, '2023-04-20 21:19:41', 19, 1, -40),
-(2, '2023-04-20 21:42:41', 19, 2, -40),
-(3, '2023-04-20 21:19:41', 30, 3, -40);
+INSERT INTO `Mediciones` (`medicionId`, `dispositivoId`, `tipo`, `fecha`, `valor`, `salida`) VALUES
+(1, 1, 'Temperatura' ,'2023-04-20 21:19:41', 19, 0),
+(2, 2, 'Luz dimmerizable', '2023-04-20 21:42:41', 40, 40),
+(3, 3, 'Temperatura' ,'2023-04-20 21:23:41', 22, 100);
 
 -- Indices de la tabla `Dispositivos`
 
 ALTER TABLE `Dispositivos`
   ADD PRIMARY KEY (`dispositivoId`,`mac`);
+
+-- Indices de la tabla `Dispositivos`
+
+ALTER TABLE `Usuarios`
+  ADD PRIMARY KEY (`userId`,`user`);
 
 -- Indices de la tabla `Mediciones`
 
@@ -72,15 +95,21 @@ ALTER TABLE `Mediciones`
 ALTER TABLE `Dispositivos`
   MODIFY `dispositivoId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
+-- AUTO_INCREMENT de la tabla `Usuarios`
+
+ALTER TABLE `Usuarios`
+  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 -- AUTO_INCREMENT de la tabla `Mediciones`
 
 ALTER TABLE `Mediciones`
-  MODIFY `medicionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `medicionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 -- Filtros para la tabla `Mediciones`
 
 ALTER TABLE `Mediciones`
   ADD CONSTRAINT `fk_Mediciones_Dispositivos` FOREIGN KEY (`dispositivoId`) REFERENCES `Dispositivos` (`dispositivoId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

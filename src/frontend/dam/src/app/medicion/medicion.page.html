@@ -2,7 +2,7 @@
   <ion-card-header>
     <div class="header-container">
       <ion-button [routerLink]="'/dispositivos/' + dispositivoId" class="volver-button">Volver</ion-button>
-        <div class="titulo">Mediciones - Dispositivo {{dispositivoId}}</div>
+      <div class="titulo">Mediciones - Dispositivo {{dispositivoId}}</div>
       <ion-button [routerLink]="'/grafico/' + dispositivoId" class="ver-grafico-button">Gráfico</ion-button>
     </div>
   </ion-card-header>
@@ -11,16 +11,16 @@
       <ion-row>
         <ion-col class="titulo">Fecha</ion-col>
         <ion-col class="titulo">Hora</ion-col>
-        <ion-col class="titulo">Temp °C</ion-col>
-        <ion-col class="titulo">Hum %</ion-col>
+        <ion-col class="titulo">Tipo</ion-col>
+        <ion-col class="titulo">Temperatura</ion-col>
         <ion-col class="titulo">Salida</ion-col>
       </ion-row>
       <ion-row *ngFor="let medicion of mediciones">
         <ion-col>{{ medicion.fecha | date }}</ion-col>
         <ion-col>{{ medicion.fecha | date:"HH:mm:ss" }}</ion-col>
+        <ion-col>{{ medicion.tipo }}</ion-col>
         <ion-col>{{ medicion.valor }}</ion-col>
-        <ion-col>{{ medicion.rssi }}</ion-col>
-        <ion-col>{{ medicion.rssi }}</ion-col>
+        <ion-col>{{ medicion.tipo === 'Temperatura' ? (medicion.salida === 100 ? 'Encendido' : 'Apagado') : medicion.salida }}</ion-col>
       </ion-row>
     </ion-grid>
   </ion-card-content>
