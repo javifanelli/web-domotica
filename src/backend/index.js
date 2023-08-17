@@ -89,7 +89,6 @@ app.post('/authenticate', async (req, res) => {
   }
 });
 
-
 mqttClient.on('message', async (topic, message) => {
   console.log('Mensaje recibido en el topic:', topic);
   console.log('Contenido del mensaje:', message.toString());
