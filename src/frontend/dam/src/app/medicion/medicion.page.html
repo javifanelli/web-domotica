@@ -2,26 +2,50 @@
   <ion-card-header>
     <div class="header-container">
       <ion-button [routerLink]="'/dispositivos/' + dispositivoId" class="volver-button">Volver</ion-button>
-      <div class="titulo">Dispositivo {{dispositivoId}}</div>
+      <div class="titulo">Dispositivo {{dispositivoId}} - {{tipo}}</div>
       <ion-button [routerLink]="'/grafico/' + dispositivoId" class="ver-grafico-button">Gráfico</ion-button>
     </div>
   </ion-card-header>
   <ion-card-content class="scrollable">
-    <ion-grid [fixed]="true" class="mediciones-grid">
-      <ion-row>
-        <ion-col class="titulo">Fecha</ion-col>
-        <ion-col class="titulo">Hora</ion-col>
-        <ion-col class="titulo">Tipo</ion-col>
-        <ion-col class="titulo">Temperatura</ion-col>
-        <ion-col class="titulo">Salida</ion-col>
-      </ion-row>
-      <ion-row *ngFor="let medicion of mediciones">
-        <ion-col>{{ medicion.fecha | date }}</ion-col>
-        <ion-col>{{ medicion.fecha | date:"HH:mm:ss" }}</ion-col>
-        <ion-col>{{ medicion.tipo }}</ion-col>
-        <ion-col>{{ medicion.valor }}</ion-col>
-        <ion-col>{{ medicion.tipo === 'Temperatura' ? (medicion.salida === 100 ? 'Encendido' : 'Apagado') : medicion.salida }}</ion-col>
-      </ion-row>
-    </ion-grid>
+    <ng-container *ngIf="tipo === 'Temperatura'">
+      <ion-grid [fixed]="true" class="mediciones-grid">
+        <ion-row>
+          <ion-col class="titulo">Fecha</ion-col>
+          <ion-col class="titulo">Hora</ion-col>
+          <ion-col class="titulo">Temperatura</ion-col>
+          <ion-col class="titulo">Set point</ion-col>
+          <ion-col class="titulo">Modo</ion-col>
+          <ion-col class="titulo">Salida</ion-col>
+        </ion-row>
+        <ion-row *ngFor="let medicion of mediciones">
+          <ion-col>{{medicion.fecha | date}}</ion-col>
+          <ion-col>{{medicion.fecha | date:"HH:mm:ss"}}</ion-col>
+          <ion-col>{{medicion.valor}}</ion-col>
+          <ion-col>{{medicion.set_point}}</ion-col>
+          <ion-col>{{medicion.modo}}</ion-col>
+          <ion-col>{{medicion.salida === 100 ? 'Encendido' : 'Apagado'}}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ng-container>
+    <ng-container *ngIf="tipo === 'Luz dimmer'">
+      <ion-grid [fixed]="true" class="mediciones-grid">
+        <ion-row>
+          <ion-col class="titulo">Fecha</ion-col>
+          <ion-col class="titulo">Hora</ion-col>
+          <ion-col class="titulo">Temperatura</ion-col>
+          <ion-col class="titulo">Set point</ion-col>
+          <ion-col class="titulo">Modo</ion-col>
+          <ion-col class="titulo">Salida</ion-col>
+        </ion-row>
+        <ion-row *ngFor="let medicion of mediciones">
+          <ion-col>{{medicion.fecha | date}}</ion-col>
+          <ion-col>{{medicion.fecha | date:"HH:mm:ss"}}</ion-col>
+          <ion-col>{{medicion.valor}}</ion-col>
+          <ion-col>{{medicion.set_point}}</ion-col>
+          <ion-col>{{medicion.modo}}</ion-col>
+          <ion-col>{{medicion.salida === 100 ? 'Encendido' : 'Apagado'}}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ng-container>
   </ion-card-content>
 </ion-card>

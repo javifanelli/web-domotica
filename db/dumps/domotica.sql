@@ -35,9 +35,9 @@ CREATE TABLE `Dispositivos` (
 -- Volcado de datos para la tabla `Dispositivos`
 
 INSERT INTO `Dispositivos` (`dispositivoId`, `nombre`, `ubicacion`, `mac`, `tipo`) VALUES
-(1, 'ESP32C3+DHT22', 'Habitación', '7C:DF:A1:D0:33:00', 'Temperatura'), -- 7C:DF:A1:D0:33:00
-(2, 'ESP32', 'Habitacion', '94:B5:55:2B:FF:64', 'Luz dimmerizable'), -- 94:B5:55:2B:FF:64
-(3, 'ESP32+simluada', 'Living', '0C:B8:15:D8:7A:6C', 'Temperatura'); -- 0C:B8:15:D8:7A:6C
+(1, 'ESP32+DHT22', 'Habitación', '7C:DF:A1:D0:33:00', 'Temperatura'), -- 7C:DF:A1:D0:33:00
+(2, 'ESP32', 'Habitación', '94:B5:55:2B:FF:64', 'Luz dimmer'), -- 94:B5:55:2B:FF:64
+(3, 'ESP32-C3+simluada', 'Living', '0C:B8:15:D8:7A:6C', 'Temperatura'); -- 0C:B8:15:D8:7A:6C
 
 -- Estructura de tabla para la tabla `Usuarios`
 
@@ -64,6 +64,8 @@ CREATE TABLE `Mediciones` (
   `tipo` varchar(100) NOT NULL,
   `fecha` datetime DEFAULT NULL,
   `valor` int(10) DEFAULT NULL,
+  `set_point` int(10) DEFAULT NULL,
+  `modo` varchar(100) DEFAULT NULL,
   `salida` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

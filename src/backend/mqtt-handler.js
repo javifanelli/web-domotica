@@ -19,23 +19,62 @@ const mqttOptions = {
   cert: clientCert,
 };
 
-const mqttTopic = '/home/temperatura/data';
+const Topic_Temp_In = '/home/temperatura/data';
+const Topic_Temp_Out = '/home/temperatura/settings';
+const Topic_Luz_In = '/home/luz/data';
+const Topic_Luz_Out = '/home/luz/settings';
 const mqttClient = mqtt.connect(mqttOptions);
 
 mqttClient.on('error', (error) => {
   console.error('Error en la conexión al broker MQTT:', error);
 });
 
-// conexión al broker MQTT
+// conexión al Topic de entrada de datos de temperatura del broker MQTT
 mqttClient.on('connect', () => {
     console.log('Conexión exitosa al broker MQTT');
-    mqttClient.subscribe(mqttTopic, (error) => {
+    mqttClient.subscribe(Topic_Temp_In, (error) => {
       if (error) {
         console.error('Error al suscribirse al topic MQTT:', error);
       } else {
-        console.log('Suscrito al topic MQTT:', mqttTopic);
+        console.log('Suscrito al topic MQTT:', Topic_Temp_In);
       }
     });
   });
+
+// conexión al Topic de salida de seteos de temperatura del broker MQTT
+mqttClient.on('connect', () => {
+  console.log('Conexión exitosa al broker MQTT');
+  mqttClient.subscribe(Topic_Temp_Out, (error) => {
+    if (error) {
+      console.error('Error al suscribirse al topic MQTT:', error);
+    } else {
+      console.log('Suscrito al topic MQTT:', Topic_Temp_Out);
+    }
+  });
+});
+
+// conexión al Topic de entrada de datos de iluminación del broker MQTT
+mqttClient.on('connect', () => {
+  console.log('Conexión exitosa al broker MQTT');
+  mqttClient.subscribe(Topic_Luz_In, (error) => {
+    if (error) {
+      console.error('Error al suscribirse al topic MQTT:', error);
+    } else {
+      console.log('Suscrito al topic MQTT:', Topic_Luz_In);
+    }
+  });
+});
+
+// conexión al Topic de salida de seteos de iluminación del broker MQTT
+mqttClient.on('connect', () => {
+  console.log('Conexión exitosa al broker MQTT');
+  mqttClient.subscribe(Topic_Luz_Out, (error) => {
+    if (error) {
+      console.error('Error al suscribirse al topic MQTT:', error);
+    } else {
+      console.log('Suscrito al topic MQTT:', Topic_Luz_Out);
+    }
+  });
+});
 
 module.exports = mqttClient;

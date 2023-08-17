@@ -18,11 +18,19 @@ export class MedicionPage implements OnInit, OnDestroy {
 
   mediciones!: Medicion[];
   dispositivoId!: number;
+  tipo!: string;
   private subscription: Subscription = new Subscription();
 
   ngOnInit() {
     const deviceId = this.activatedRoute.snapshot.paramMap.get('id') as string;
     this.dispositivoId = parseInt(deviceId, 10);
+    this.subscription = this.dispositivoService.getMediciones(this.dispositivoId).subscribe(data => {
+      this.mediciones = data;
+      if (data.length > 0) {
+        this.tipo = data[0].tipo;
+      }
+    });
+    
     this.subscription = this.dispositivoService.getMediciones(this.dispositivoId).subscribe(data => {
       this.mediciones = data;
     });

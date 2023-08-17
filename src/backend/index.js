@@ -93,32 +93,36 @@ app.post('/authenticate', async (req, res) => {
 mqttClient.on('message', async (topic, message) => {
   console.log('Mensaje recibido en el topic:', topic);
   console.log('Contenido del mensaje:', message.toString());
-  try {
-    const mensaje = JSON.parse(message.toString());
-    const medicion = {
-      dispositivoId: mensaje.ID,
-      tipo: mensaje.tipo,
-      fecha: mensaje.time,
-      valor: mensaje.valor,
-      salida: mensaje.salida,
-    };
-    console.log('Mensaje convertido a JSON');
-
+  if(topic="/home/temperatura/data") {
     try {
-      const connection = await pool.getConnection();
-      const result = await connection.query(
-        'INSERT INTO Mediciones (dispositivoId, tipo, fecha, valor, salida) VALUES (?, ?, ?, ?, ?)',
-        [medicion.dispositivoId, medicion.tipo, medicion.fecha, medicion.valor, medicion.salida]
+      const mensaje = JSON.parse(message.toString());
+      const medicion = {
+        dispositivoId: mensaje.ID,
+        tipo: mensaje.tipo,
+        fecha: mensaje.time,
+        valor: mensaje.valor,
+        set_point: mensaje.set_point,
+        modo: mensaje.modo,
+        salida: mensaje.salida,
+      };
+      console.log('Mensaje convertido a JSON');
+      try {
+        const connection = await pool.getConnection();
+        const result = await connection.query(
+        'INSERT INTO Mediciones (dispositivoId, tipo, fecha, valor, set_point, modo, salida) VALUES (?, ?, ?, ?, ?, ?, ?)',
+        [medicion.dispositivoId, medicion.tipo, medicion.fecha, medicion.valor, medicion.set_point, medicion.modo, medicion.salida]
       );
-      connection.release();
+        connection.release();
 
-      console.log('Medición insertada correctamente en la base de datos.');
+        console.log('Medición insertada correctamente en la base de datos de tempeartura.');
     } catch (error) {
-      console.error('Error al insertar la medición en la base de datos:', error);
-      connection.release();
+        console.error('Error al insertar la medición en la base de datos de tempeartura:', error);
+        connection.release();
+      }
+  
+    } catch (error) {
+      console.error('Error al analizar el mensaje JSON:', error);
     }
-  } catch (error) {
-    console.error('Error al analizar el mensaje JSON:', error);
   }
 });
 
