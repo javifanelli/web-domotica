@@ -14,7 +14,8 @@ require('highcharts/modules/solid-gauge')(Highcharts);
 export class DispositivoPage implements OnInit, OnDestroy {
   public device!: Dispositivo;
   public dispositivoId!: number;
-  public tempactual!: number;
+  public valoractual!: number;
+  public tipo!: string;
   public ultfecha: any;
   public estadoConexion!: string;
   public myChart: any;
@@ -30,7 +31,7 @@ export class DispositivoPage implements OnInit, OnDestroy {
     this.updateIntervalId = setInterval(() => {
       const id = this.activatedRoute.snapshot.paramMap.get('id') as string;
       this.refrescaChart();
-    }, 30000); // refresca cada 30 segundos
+    }, 5000); // refresca cada 5 segundos
   }
 
   ngOnInit() {
@@ -38,18 +39,24 @@ export class DispositivoPage implements OnInit, OnDestroy {
     this.dispositivoId = parseInt(deviceId, 10);
     this.dispositivoService.getDeviceById(this.dispositivoId).subscribe((data) => {
       this.device = data[0];
+      this.tipo = data[0].tipo;
     });
     this.refrescamedicion();
   }
 
   ionViewDidEnter() {
-    this.generarChart();
+    if (this.tipo === 'Temperatura') {
+      this.generarChartTemp();
+    }
+    else if (this.tipo === 'Luz dimmer') {
+      this.generarChartLuzDimmer();
+    } 
   }
 
   refrescamedicion() {
     const id = this.activatedRoute.snapshot.paramMap.get('id') as string;
     this.dispositivoService.getUltMedicion(parseInt(id, 10)).subscribe((data) => {
-      this.tempactual = parseInt(data[0].valor, 10);
+      this.valoractual = parseInt(data[0].valor, 10);
       this.ultfecha = new Date(data[0].fecha);
       this.updateEstadoConexion();
     });
@@ -61,18 +68,18 @@ export class DispositivoPage implements OnInit, OnDestroy {
   }
 
   updateChart() {
-    if (this.tempactual>40)
-      {this.tempactual=40}
+    if (this.valoractual>40)
+      {this.valoractual=40}
     this.myChart.update({series: [{
-      name: 'Temperatura actual',
-      data: [this.tempactual],
+      name: 'Salida actual',
+      data: [this.valoractual],
       tooltip: {
-          valueSuffix: ' °C'
+          valueSuffix: ' %'
       }
     }]});
   }
 
-  generarChart() {
+  generarChartTemp() {
     this.chartOptions={
       chart: {
         type: 'gauge',
@@ -82,7 +89,7 @@ export class DispositivoPage implements OnInit, OnDestroy {
         plotShadow: false
         }
         ,title: {
-          text: 'Sensor ' + this.device.dispositivoId + ' - ' + this.device.ubicacion
+          text: 'Dispositivo ' + this.device.dispositivoId + ' - ' + this.device.ubicacion
         }
 
         ,credits:{enabled:false}
@@ -116,37 +123,104 @@ export class DispositivoPage implements OnInit, OnDestroy {
         },
         plotBands: [{
             from: 0,
-            to: 15,
+            to: 10,
             color: '#3339FF'
         }, 
         {    
-            from: 15,
-            to: 20,
+            from: 10,
+            to: 18,
             color: '#DDDF0D'
         },
            {
-            from: 20,
-            to: 25,
+            from: 18,
+            to: 28,
             color: '#55BF3B'
         }, 
            {
-          from: 25,
-          to: 30,
-          color: '#DDDF0D'
-          },
-           {
-            from: 30,
+            from: 28,
             to: 40,
             color: '#DF5353'
         }]
     },
     // colores: verde #55BF3B, amarillo #DDDF0D, rojo #DF5353, azul #3339FF
-  
+    
     series: [{
         name: 'Temperatura actual',
-        data: [this.tempactual],
+        data: [this.valoractual],
         tooltip: {
             valueSuffix: ' °C'
+        }
+    }]
+
+    };
+    this.myChart = Highcharts.chart('highcharts', this.chartOptions );
+  }
+
+  generarChartLuzDimmer() {
+    this.chartOptions={
+      chart: {
+        type: 'gauge',
+        plotBackgroundColor: null,
+        plotBackgroundImage: null,
+        plotBorderWidth: 0,
+        plotShadow: false
+        }
+        ,title: {
+          text: 'Dispositivo ' + this.device.dispositivoId + ' - ' + this.device.ubicacion
+        }
+
+        ,credits:{enabled:false}
+          
+        ,pane: {
+            startAngle: -150,
+            endAngle: 150
+        } 
+        
+      ,yAxis: {
+        min: 0,
+        max: 100,
+  
+        minorTickInterval: 'auto',
+        minorTickWidth: 1,
+        minorTickLength: 10,
+        minorTickPosition: 'inside',
+        minorTickColor: '#666',
+  
+        tickPixelInterval: 10,
+        tickWidth: 2,
+        tickPosition: 'inside',
+        tickLength: 10,
+        tickColor: '#666',
+        labels: {
+            step: 5,
+            rotation: 'auto'
+        },
+        title: {
+            text: '%'
+        },
+        plotBands: [{
+            from: 0,
+            to: 35,
+            color: '#55BF3B'
+        }, 
+        {    
+            from: 35,
+            to: 70,
+            color: '#DDDF0D'
+        },
+           {
+            from: 70,
+            to: 100,
+            color: '#DF5353'
+        }]
+    },
+    // colores: verde #55BF3B, amarillo #DDDF0D, rojo #DF5353, azul #3339FF
+    
+    series: [{
+        name: 'Salida actual',
+        data: [this.valoractual],
+        tooltip: {
+            valueSuffix: ' %'
         }
     }]
 

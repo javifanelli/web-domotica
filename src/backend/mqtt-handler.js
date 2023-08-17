@@ -21,8 +21,8 @@ const mqttOptions = {
 
 const Topic_Temp_In = '/home/temperatura/data';
 const Topic_Temp_Out = '/home/temperatura/settings';
-const Topic_Luz_In = '/home/luz/data';
-const Topic_Luz_Out = '/home/luz/settings';
+const Topic_Luz_In = '/home/dimmer/data';
+const Topic_Luz_Out = '/home/dimmer/settings';
 const mqttClient = mqtt.connect(mqttOptions);
 
 mqttClient.on('error', (error) => {

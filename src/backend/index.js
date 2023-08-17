@@ -124,6 +124,37 @@ mqttClient.on('message', async (topic, message) => {
       console.error('Error al analizar el mensaje JSON:', error);
     }
   }
+  if(topic="/home/dimmer/data") {
+    try {
+      const mensaje = JSON.parse(message.toString());
+      const medicion = {
+        dispositivoId: mensaje.ID,
+        tipo: mensaje.tipo,
+        fecha: mensaje.time,
+        valor: mensaje.valor,
+        set_point: mensaje.set_point,
+        modo: mensaje.modo,
+        salida: mensaje.salida,
+      };
+      console.log('Mensaje convertido a JSON');
+      try {
+        const connection = await pool.getConnection();
+        const result = await connection.query(
+        'INSERT INTO Mediciones (dispositivoId, tipo, fecha, valor, set_point, modo, salida) VALUES (?, ?, ?, ?, ?, ?, ?)',
+        [medicion.dispositivoId, medicion.tipo, medicion.fecha, medicion.valor, medicion.set_point, medicion.modo, medicion.salida]
+      );
+        connection.release();
+
+        console.log('Medición insertada correctamente en la base de datos de tempeartura.');
+    } catch (error) {
+        console.error('Error al insertar la medición en la base de datos de tempeartura:', error);
+        connection.release();
+      }
+  
+    } catch (error) {
+      console.error('Error al analizar el mensaje JSON:', error);
+    }
+  }
 });
 
 app.get('/dispositivos/', async function (req, res, next) {
