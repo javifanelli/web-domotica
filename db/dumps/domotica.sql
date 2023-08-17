@@ -71,10 +71,10 @@ CREATE TABLE `Mediciones` (
 
 -- Volcado de datos para la tabla `Mediciones`
 
-INSERT INTO `Mediciones` (`medicionId`, `dispositivoId`, `tipo`, `fecha`, `valor`, `salida`) VALUES
-(1, 1, 'Temperatura' ,'2023-04-20 21:19:41', 19, 0),
-(2, 2, 'Luz dimmerizable', '2023-04-20 21:42:41', 40, 40),
-(3, 3, 'Temperatura' ,'2023-04-20 21:23:41', 22, 100);
+INSERT INTO `Mediciones` (`medicionId`, `dispositivoId`, `tipo`, `fecha`, `valor`, `set_point`, `modo`, `salida`) VALUES
+(1, 1, 'Temperatura' ,'2023-04-20 21:19:41', 19, 22, "Manual", 0),
+(2, 2, 'Luz dimmer', '2023-04-20 21:42:41', 40, 40, "Automático", 40),
+(3, 3, 'Temperatura' ,'2023-04-20 21:23:41', 22, 20, "Manual", 100);
 
 -- Indices de la tabla `Dispositivos`
 
