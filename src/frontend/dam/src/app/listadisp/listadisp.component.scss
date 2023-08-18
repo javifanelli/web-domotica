@@ -39,7 +39,7 @@ div.valor {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%; /* Esto asegura que el botón esté centrado verticalmente en toda la pantalla */
+  height: calc(50% - 20px); /* Ajusta la altura del contenedor del botón */
 }
 
 .center-button {

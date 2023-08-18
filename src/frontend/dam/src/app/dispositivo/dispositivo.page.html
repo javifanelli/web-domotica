@@ -1,12 +1,12 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ng-container *ngIf="tipo === 'Temperatura'">
-      <ion-title class="head">Temperatura actual <ion-badge [color]="estadoConexion === 'Online' ? 'success' : 'danger'" class="estado-conexion">{{ estadoConexion }}</ion-badge></ion-title>
+      <ion-title class="head temperatura">Temperatura actual <ion-badge [color]="estadoConexion === 'Online' ? 'success' : 'danger'" class="estado-conexion">{{ estadoConexion }}</ion-badge></ion-title>
     </ng-container>
     <ng-container *ngIf="tipo === 'Luz dimmer'">
       <ion-title class="head">Salida actual <ion-badge [color]="estadoConexion === 'Online' ? 'success' : 'danger'" class="estado-conexion">{{ estadoConexion }}</ion-badge></ion-title>
     </ng-container>
-    </ion-toolbar>
+  </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true">
   <div id="highcharts" style="width: 100%; height: 300px;"></div>

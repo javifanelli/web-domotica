@@ -60,7 +60,7 @@ INSERT INTO `Usuarios` (`userId`, `user`, `password`, `nombre`, `apellido`, `ema
 
 CREATE TABLE `Mediciones` (
   `medicionId` int(11) NOT NULL,
-  `dispositivoId` int(11) NOT NULL,
+  `dispositivoId` int(17) NOT NULL,
   `tipo` varchar(100) NOT NULL,
   `fecha` datetime DEFAULT NULL,
   `valor` int(10) DEFAULT NULL,

@@ -189,39 +189,45 @@ app.delete('/dispositivos/:id', async function (req, res, next) {
     const connection = await pool.getConnection();
     const deleteMedicionesQuery = 'DELETE FROM Mediciones WHERE dispositivoId = ?';
     const deleteDispositivoQuery = 'DELETE FROM Dispositivos WHERE dispositivoId = ?';
+    console.log('Comenzando transacción');
     connection.beginTransaction(async (err) => {
       if (err) {
         connection.release();
         res.send(err).status(400);
+        console.log('Error en la transaccion');
         return;
       }
       try {
-        // Primero eliminar las mediciones asociadas al dispositivo
-        await connection.query(deleteMedicionesQuery, req.params.id);
-        // Luego eliminar el dispositivo
-        const result = await connection.query(deleteDispositivoQuery, req.params.id);
+        await connection.query(deleteMedicionesQuery, req.params.id); // Primero eliminar las mediciones asociadas al dispositivo
+        const result = await connection.query(deleteDispositivoQuery, req.params.id); // Luego eliminar el dispositivo
+        console.log('Borrando mediciones y dispositivo');
         // Commit la transacción si todo se realizó exitosamente
         connection.commit((commitErr) => {
           if (commitErr) {
             connection.rollback(() => {
               connection.release();
               res.send(commitErr).status(400);
+              console.log('Error en el commit');
             });
             return;
           }
           connection.release();
           res.send(JSON.stringify(result)).status(200);
+          console.log('Solicitud de eliminación recibida para dispositivoId:', req.params.id);
+
         });
       } catch (err) {
         // Rollback la transacción en caso de error
         connection.rollback(() => {
           connection.release();
           res.send(err).status(400);
+          console.log('Haciendo un rollback');
         });
       }
     });
   } catch (err) {
     res.send(err).status(400);
+    console.log('Error antes de hacer la transacción');
   }
 });
 
