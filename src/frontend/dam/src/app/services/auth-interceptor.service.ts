@@ -11,8 +11,6 @@ export class AuthInterceptorService implements HttpInterceptor {
   constructor(private _router: Router) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    /* console.log('Estoy en el interceptor') */
-
     if(req.url.includes('/authenticate')) {
       return next.handle(req)
     }

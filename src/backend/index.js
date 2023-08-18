@@ -66,8 +66,7 @@ app.post('/authenticate', async (req, res) => {
       'SELECT * FROM Usuarios WHERE user = ?',
       [username]
     );
-    connection.release();
-
+    
     if (queryResult.length === 1) {
       // Verificar la contraseña del usuario
       const user = queryResult[0];
@@ -83,6 +82,8 @@ app.post('/authenticate', async (req, res) => {
     } else {
       res.status(401).send({ message: 'Credenciales inválidas' });
     }
+
+    connection.release(); // Liberar la conexión después de usarla
   } catch (err) {
     console.error('Error al procesar la solicitud de inicio de sesión:', err);
     res.status(500).send({ message: 'Error en el servidor' });
@@ -92,7 +93,9 @@ app.post('/authenticate', async (req, res) => {
 mqttClient.on('message', async (topic, message) => {
   console.log('Mensaje recibido en el topic:', topic);
   console.log('Contenido del mensaje:', message.toString());
-  if(topic="/home/temperatura/data") {
+
+  if (topic === "/home/temperatura/data" || topic === "/home/dimmer/data") {
+    let connection; // Definir la variable connection fuera del bloque try
     try {
       const mensaje = JSON.parse(message.toString());
       const medicion = {
@@ -105,53 +108,21 @@ mqttClient.on('message', async (topic, message) => {
         salida: mensaje.salida,
       };
       console.log('Mensaje convertido a JSON');
-      try {
-        const connection = await pool.getConnection();
-        const result = await connection.query(
+
+      connection = await pool.getConnection();
+
+      const result = await connection.query(
         'INSERT INTO Mediciones (dispositivoId, tipo, fecha, valor, set_point, modo, salida) VALUES (?, ?, ?, ?, ?, ?, ?)',
         [medicion.dispositivoId, medicion.tipo, medicion.fecha, medicion.valor, medicion.set_point, medicion.modo, medicion.salida]
       );
-        connection.release();
 
-        console.log('Medición insertada correctamente en la base de datos de tempeartura.');
+      console.log('Medición insertada correctamente en la base de datos.');
     } catch (error) {
-        console.error('Error al insertar la medición en la base de datos de tempeartura:', error);
-        connection.release();
+      console.error('Error al insertar la medición en la base de datos:', error);
+    } finally {
+      if (connection) {
+        connection.release(); // Liberar la conexión en el bloque finally
       }
-  
-    } catch (error) {
-      console.error('Error al analizar el mensaje JSON:', error);
-    }
-  }
-  if(topic="/home/dimmer/data") {
-    try {
-      const mensaje = JSON.parse(message.toString());
-      const medicion = {
-        dispositivoId: mensaje.ID,
-        tipo: mensaje.tipo,
-        fecha: mensaje.time,
-        valor: mensaje.valor,
-        set_point: mensaje.set_point,
-        modo: mensaje.modo,
-        salida: mensaje.salida,
-      };
-      console.log('Mensaje convertido a JSON');
-      try {
-        const connection = await pool.getConnection();
-        const result = await connection.query(
-        'INSERT INTO Mediciones (dispositivoId, tipo, fecha, valor, set_point, modo, salida) VALUES (?, ?, ?, ?, ?, ?, ?)',
-        [medicion.dispositivoId, medicion.tipo, medicion.fecha, medicion.valor, medicion.set_point, medicion.modo, medicion.salida]
-      );
-        connection.release();
-
-        console.log('Medición insertada correctamente en la base de datos de tempeartura.');
-    } catch (error) {
-        console.error('Error al insertar la medición en la base de datos de tempeartura:', error);
-        connection.release();
-      }
-  
-    } catch (error) {
-      console.error('Error al analizar el mensaje JSON:', error);
     }
   }
 });

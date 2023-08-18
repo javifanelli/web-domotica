@@ -1,25 +1,48 @@
 .head {
-    text-align: center;
+  text-align: center;
 }
 
 ion-col {
-    background-color: #999999;
-    border: solid 1px #fff;
-    color: #fff;
-    text-align: center;
-  }
+  background-color: #999999;
+  border: solid 1px #fff;
+  color: #fff;
+  text-align: center;
+}
 
 ion-col.titulo {
-    font-size: 18px;
-    color: #333;
-    font-weight: bold;
+  font-size: 18px;
+  color: #333;
+  font-weight: bold;
 }
 
 div.valor {
-    vertical-align: middle;
+  vertical-align: middle;
 }
 
 .boton-borrar {
-    --background: red;
-    --color: white;
-  }  
+  --background: red;
+  --color: white;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.custom-card {
+  max-width: calc(50% - 20px);
+  margin: 10px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Esto asegura que el botón esté centrado verticalmente en toda la pantalla */
+}
+
+.center-button {
+  text-align: center;
+  width: auto;
+}

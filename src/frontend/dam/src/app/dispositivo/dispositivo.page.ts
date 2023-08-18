@@ -68,17 +68,29 @@ export class DispositivoPage implements OnInit, OnDestroy {
   }
 
   updateChart() {
-    if (this.valoractual>40)
-      {this.valoractual=40}
-    this.myChart.update({series: [{
-      name: 'Salida actual',
-      data: [this.valoractual],
-      tooltip: {
-          valueSuffix: ' %'
-      }
+    if (this.tipo === 'Temperatura') {
+      if (this.valoractual>40)
+        {this.valoractual=40}
+      this.myChart.update({series: [{
+        name: 'Valor actual',
+        data: [this.valoractual],
+        tooltip: {
+          valueSuffix: ' ºC'
+        }
     }]});
+    }
+    if (this.tipo === 'Luz dimmer') {
+      if (this.valoractual>100)
+        {this.valoractual=100}
+      this.myChart.update({series: [{
+        name: 'Salida actual',
+        data: [this.valoractual],
+        tooltip: {
+          valueSuffix: ' %'
+        }
+    }]});
+    }
   }
-
   generarChartTemp() {
     this.chartOptions={
       chart: {

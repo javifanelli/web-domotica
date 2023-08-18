@@ -1,24 +1,27 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Dispositivos</ion-title>
-    <ion-button slot="end">Agregar</ion-button>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-  <ion-card *ngFor="let dispositivo of devices">
-    <ion-card-header>
-      <ion-card-title>{{ dispositivo.ubicacion }}</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <div>{{ dispositivo.nombre }}</div>
-      <div>Tipo: {{ dispositivo.tipo }}</div>
-      <div>MAC: {{ dispositivo.mac }}</div>
-    </ion-card-content>
-    <ion-item detail="false" class="ver-detalle">
-      <ion-button [routerLink]="'/dispositivos/' + dispositivo.dispositivoId">Ver</ion-button>
-      <ion-button [routerLink]="'/dispositivos/' + dispositivo.dispositivoId + '/modificar'">Modificar</ion-button>
-      <ion-button class="boton-borrar" (click)="confirmarBorrar(dispositivo.dispositivoId)">Borrar</ion-button>
-    </ion-item>
-  </ion-card>
+   <div class="card-container">
+    <ion-card *ngFor="let dispositivo of devices" class="custom-card">
+      <ion-card-header>
+        <ion-card-title>
+          {{ dispositivo.ubicacion }}
+          <ion-icon *ngIf="dispositivo.tipo === 'Temperatura'" name="thermometer"></ion-icon>
+          <ion-icon *ngIf="dispositivo.tipo === 'Luz dimmer'" name="sunny"></ion-icon>
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div>{{ dispositivo.nombre }}</div>
+        <div>Tipo: {{ dispositivo.tipo }}</div>
+        <div>MAC: {{ dispositivo.mac }}</div>
+      </ion-card-content>
+      <ion-item detail="false" class="ver-detalle">
+        <ion-button [routerLink]="'/dispositivos/' + dispositivo.dispositivoId">Ver</ion-button>
+        <ion-button [routerLink]="'/dispositivos/' + dispositivo.dispositivoId + '/modificar'">Modificar</ion-button>
+        <ion-button class="boton-borrar" (click)="confirmarBorrar(dispositivo.dispositivoId)">Borrar</ion-button>
+      </ion-item>
+    </ion-card>
+  </div>
+
+  <div class="button-container">
+    <ion-button class="center-button">Agregar dispositivos</ion-button>
+  </div>
 </ion-content>
