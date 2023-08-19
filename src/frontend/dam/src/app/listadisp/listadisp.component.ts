@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Dispositivo } from '../interfaces/dispositivo';
 import { DispositivoService } from '../services/dispositivo.service';
 import { Subscription } from 'rxjs';
+import { catchError, tap, finalize } from 'rxjs/operators';
 import { AlertController } from '@ionic/angular'; // Agrega esta importación
 
 @Component({
@@ -25,7 +26,6 @@ export class ListaDispComponent implements OnInit, OnDestroy {
   }
 
   async confirmarBorrar(dispositivoId: number) {
-    console.log('Confirme si desea borrar');
     const alert = await this.alertController.create({
       header: 'Confirmación',
       message: '¿Estás seguro de que deseas borrar este dispositivo?',
@@ -37,19 +37,25 @@ export class ListaDispComponent implements OnInit, OnDestroy {
         {
           text: 'Borrar',
           handler: () => {
-            this.deviceService.deleteDevice(dispositivoId).subscribe(
-              () => {
-                console.log('El dispositivo se ha borrado correctamente.');
-              },
-              (error) => {
-                console.error('Error al borrar el dispositivo:', error);
-              }
-            );
+            this.deviceService.deleteDevice(dispositivoId)
+              .pipe(
+                tap(() => {
+                  console.log('El dispositivo se ha borrado correctamente.');
+                }),
+                catchError(error => {
+                  console.error('Error al borrar el dispositivo:', error);
+                  return [];
+                }),
+                finalize(() => {
+                  // Puede que aquí quieras actualizar la lista de dispositivos
+                })
+              )
+              .subscribe();
           },
         },
       ],
     });
-
+  
     await alert.present();
   }
 

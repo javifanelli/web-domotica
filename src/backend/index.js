@@ -189,7 +189,7 @@ app.delete('/dispositivos/:id', async function (req, res, next) {
     const connection = await pool.getConnection();
     const deleteMedicionesQuery = 'DELETE FROM Mediciones WHERE dispositivoId = ?';
     const deleteDispositivoQuery = 'DELETE FROM Dispositivos WHERE dispositivoId = ?';
-    console.log('Comenzando transacción');
+    console.log('Comenzando transacción del ID: ', req.params.id);
     connection.beginTransaction(async (err) => {
       if (err) {
         connection.release();
@@ -198,9 +198,9 @@ app.delete('/dispositivos/:id', async function (req, res, next) {
         return;
       }
       try {
+        console.log('Borrando mediciones y dispositivo');
         await connection.query(deleteMedicionesQuery, req.params.id); // Primero eliminar las mediciones asociadas al dispositivo
         const result = await connection.query(deleteDispositivoQuery, req.params.id); // Luego eliminar el dispositivo
-        console.log('Borrando mediciones y dispositivo');
         // Commit la transacción si todo se realizó exitosamente
         connection.commit((commitErr) => {
           if (commitErr) {

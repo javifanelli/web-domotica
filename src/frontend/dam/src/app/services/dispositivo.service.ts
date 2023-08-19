@@ -28,6 +28,7 @@ export class DispositivoService {
   }
 
   public deleteDevice(id: number): Observable<any> {
+    console.log('Borrando dispositivo con ID:', id);
     return this._http.delete(this.URLServer + '/dispositivos/' + id);
   }
 }

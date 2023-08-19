@@ -20,7 +20,6 @@ export class LoginService {
 
       if (response && response.token) {
         this.router.navigate(['home']);
-        console.log(response);
         localStorage.setItem('token', response.token);
         return true; // Autenticación exitosa
       } else {
