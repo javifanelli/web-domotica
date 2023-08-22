@@ -10,14 +10,13 @@ const jwt = require('jsonwebtoken');
 const mqtt = require('mqtt');
 const fs = require('fs');
 const mqttClient = require('./mqtt-handler');
+const { authRouter, comparePasswords } = require('./routes/auth');
+const { JWT_Secret } = require('./routes/auth');
 
 var corsOptions = {
   origin: '*',
   optionsSuccessStatus: 200
 };
-
-// DECLARE JWT-secret
-const JWT_Secret = 'your_secret_key';
 
 const auth = function (req, res, next) {
   let autHeader = req.headers.authorization || '';
@@ -35,15 +34,6 @@ const auth = function (req, res, next) {
   next();
 };
 
-function comparePasswords(plainPassword, hashedPassword) {
-  try {
-    const isMatch = plainPassword === hashedPassword;
-    return isMatch;
-  } catch (error) {
-    console.error('Error al comparar contraseñas:', error);
-    throw error;
-  }
-}
 
 // to parse application/json
 app.use(express.json());
@@ -54,39 +44,6 @@ app.use(cors(corsOptions));
 
 
 //=======[ Main module code ]==================================================
-app.post('/authenticate', async (req, res) => {
-  const { username, password } = req.body;
-
-  try {
-    // Consultar la base de datos para verificar si el usuario existe
-    const connection = await pool.getConnection();
-    const queryResult = await connection.query(
-      'SELECT * FROM Usuarios WHERE user = ?',
-      [username]
-    );
-    
-    if (queryResult.length === 1) {
-      // Verificar la contraseña del usuario
-      const user = queryResult[0];
-      const isPasswordValid = comparePasswords(password, user.password);
-
-      if (isPasswordValid) {
-        // Generar el token JWT
-        const token = jwt.sign({ username: user.user }, JWT_Secret);
-        res.status(200).send({ token });
-      } else {
-        res.status(401).send({ message: 'Credenciales inválidas' });
-      }
-    } else {
-      res.status(401).send({ message: 'Credenciales inválidas' });
-    }
-
-    connection.release(); // Liberar la conexión después de usarla
-  } catch (err) {
-    console.error('Error al procesar la solicitud de inicio de sesión:', err);
-    res.status(500).send({ message: 'Error en el servidor' });
-  }
-});
 
 mqttClient.on('message', async (topic, message) => {
   console.log('Mensaje recibido en el topic:', topic);
@@ -124,6 +81,8 @@ mqttClient.on('message', async (topic, message) => {
     }
   }
 });
+
+app.use('/', authRouter);
 
 app.get('/dispositivos/', async function (req, res, next) {
   try {
@@ -248,4 +207,4 @@ app.listen(PORT, function (req, res) {
   console.log('NodeJS API running correctly on:', PORT);
 });
 
-//=======[ End of file ]================================================-------
+//=======[ End of Main module code ]================================================-------
