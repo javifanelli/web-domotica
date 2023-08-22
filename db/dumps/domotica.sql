@@ -35,9 +35,9 @@ CREATE TABLE `Dispositivos` (
 -- Volcado de datos para la tabla `Dispositivos`
 
 INSERT INTO `Dispositivos` (`dispositivoId`, `nombre`, `ubicacion`, `mac`, `tipo`) VALUES
-(1, 'ESP32+DHT22', 'Habitación', '7C:DF:A1:D0:33:00', 'Temperatura'), -- 7C:DF:A1:D0:33:00
-(2, 'ESP32', 'Habitación', '94:B5:55:2B:FF:64', 'Luz dimmer'), -- 94:B5:55:2B:FF:64
-(3, 'ESP32-C3+simluada', 'Living', '0C:B8:15:D8:7A:6C', 'Temperatura'); -- 0C:B8:15:D8:7A:6C
+(1, 'ESP32+DHT22', 'Habitación', '94:B5:55:2B:FF:64', 'Temperatura'),
+(2, 'ESP32', 'Habitación', '0C:B8:15:D8:7A:6C', 'Luz dimmer'),
+(3, 'ESP32-C3+simluada', 'Living', '7C:DF:A1:D0:33:00', 'Temperatura');
 
 -- Estructura de tabla para la tabla `Usuarios`
 

@@ -47,10 +47,12 @@ export class ListaDispComponent implements OnInit, OnDestroy {
                   return [];
                 }),
                 finalize(() => {
-                  // Puede que aquí quieras actualizar la lista de dispositivos
                 })
               )
-              .subscribe();
+              .subscribe(() => {
+                // Actualiza la página
+                window.location.reload();
+              });
           },
         },
       ],

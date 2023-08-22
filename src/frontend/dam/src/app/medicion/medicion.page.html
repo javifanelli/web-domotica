@@ -32,6 +32,7 @@
         <ion-row>
           <ion-col class="titulo">Fecha</ion-col>
           <ion-col class="titulo">Hora</ion-col>
+          <ion-col class="titulo">Valor</ion-col>
           <ion-col class="titulo">Set point</ion-col>
           <ion-col class="titulo">Modo</ion-col>
           <ion-col class="titulo">Salida</ion-col>
@@ -39,9 +40,10 @@
         <ion-row *ngFor="let medicion of mediciones">
           <ion-col>{{medicion.fecha | date}}</ion-col>
           <ion-col>{{medicion.fecha | date:"HH:mm:ss"}}</ion-col>
+          <ion-col>{{medicion.salida}}</ion-col>
           <ion-col>{{medicion.set_point}}</ion-col>
           <ion-col>{{medicion.modo}}</ion-col>
-          <ion-col>{{medicion.salida === 100 ? 'Encendido' : 'Apagado'}}</ion-col>
+          <ion-col>{{medicion.salida === 0 ? 'Apagado' : 'Encendido' }}</ion-col>
         </ion-row>
       </ion-grid>
     </ng-container>
