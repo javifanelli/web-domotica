@@ -1,0 +1,129 @@
+const express = require('express');
+const dispositivosRouter = express.Router();
+const ultMedicionRouter = express.Router(); // Agrega estas líneas
+const graficoRouter = express.Router(); // Agrega estas líneas
+const medicionesRouter = express.Router(); // Agrega estas líneas
+const deleteDispositivoRouter = express.Router(); // Agrega estas líneas
+const estadoConexionRouter = express.Router(); // Agrega estas líneas
+const pool = require('../mysql-connector');
+
+dispositivosRouter.get('/', async function (req, res, next) {
+    try {
+      const connection = await pool.getConnection();
+      const result = await connection.query('SELECT * FROM Dispositivos');
+      connection.release();
+      res.send(JSON.stringify(result)).status(200);
+    } catch (err) {
+      res.send(err).status(400);
+    }
+  });
+  
+dispositivosRouter.get('/:id', async function (req, res, next) {
+    try {
+      const connection = await pool.getConnection();
+      const result = await connection.query('SELECT * FROM Dispositivos WHERE dispositivoId = ?', req.params.id);
+      connection.release();
+      res.send(JSON.stringify(result)).status(200);
+    } catch (err) {
+      res.send(err).status(400);
+    }
+  });
+  
+ultMedicionRouter.get('/:id', async function (req, res, next) {
+    try {
+      const connection = await pool.getConnection();
+      const result = await connection.query('SELECT * FROM Mediciones m WHERE m.medicionId = (SELECT MAX(medicionId) FROM Mediciones WHERE dispositivoId = ?)', req.params.id);
+      connection.release();
+      res.send(JSON.stringify(result)).status(200);
+    } catch (err) {
+      res.send(err).status(400);
+    }
+  });
+  
+graficoRouter.get('/:id', async function (req, res, next) {
+    try {
+      const connection = await pool.getConnection();
+      const result = await connection.query('SELECT * FROM Mediciones WHERE dispositivoId = ? ORDER BY fecha DESC LIMIT 10', req.params.id);
+      console.log('Mandando grafico');
+      connection.release();
+      res.send(JSON.stringify(result)).status(200);
+      console.log(JSON.stringify(result));
+    } catch (err) {
+      res.send(err).status(400);
+    }
+  });
+  
+medicionesRouter.get('/:id/mediciones/', async function (req, res, next) {
+    try {
+      const connection = await pool.getConnection();
+      const result = await connection.query('SELECT * FROM Mediciones WHERE dispositivoId = ?', req.params.id);
+      connection.release();
+      res.send(JSON.stringify(result)).status(200);
+    } catch (err) {
+      res.send(err).status(400);
+    }
+  });
+  
+deleteDispositivoRouter.delete('/:id', async function (req, res, next) {
+    try {
+      const connection = await pool.getConnection();
+      const deleteMedicionesQuery = 'DELETE FROM Mediciones WHERE dispositivoId = ?';
+      const deleteDispositivoQuery = 'DELETE FROM Dispositivos WHERE dispositivoId = ?';
+      console.log('Comenzando transacción del ID: ', req.params.id);
+      connection.beginTransaction(async (err) => {
+        if (err) {
+          connection.release();
+          res.send(err).status(400);
+          console.log('Error en la transaccion');
+          return;
+        }
+        try {
+          console.log('Borrando mediciones y dispositivo');
+          await connection.query(deleteMedicionesQuery, req.params.id); // Primero eliminar las mediciones asociadas al dispositivo
+          const result = await connection.query(deleteDispositivoQuery, req.params.id); // Luego eliminar el dispositivo
+          // Commit la transacción si todo se realizó exitosamente
+          connection.commit((commitErr) => {
+            if (commitErr) {
+              connection.rollback(() => {
+                connection.release();
+                res.send(commitErr).status(400);
+                console.log('Error en el commit');
+              });
+              return;
+            }
+            connection.release();
+            res.send(JSON.stringify(result)).status(200);
+            console.log('Solicitud de eliminación recibida para dispositivoId:', req.params.id);
+  
+          });
+        } catch (err) {
+          // Rollback la transacción en caso de error
+          connection.rollback(() => {
+            connection.release();
+            res.send(err).status(400);
+            console.log('Haciendo un rollback');
+          });
+        }
+      });
+    } catch (err) {
+      res.send(err).status(400);
+      console.log('Error antes de hacer la transacción');
+    }
+  });
+  
+estadoConexionRouter.get('/:id', async function (req, res, next) {
+    try {
+      const connection = await pool.getConnection();
+      const result = await connection.query('SELECT fecha FROM Mediciones WHERE dispositivoId = ? ORDER BY fecha DESC LIMIT 1', req.params.id);
+      connection.release();
+      const fechaUltimaMedicion = result[0].fecha;
+      const fechaActual = new Date();
+      const tiempoInactividad = fechaActual.getTime() - fechaUltimaMedicion.getTime();
+      const estado = tiempoInactividad > 300000 ? 'OFFLINE' : 'ONLINE';
+      res.send({ estado }).status(200);
+    } catch (err) {
+      res.send(err).status(400);
+    }
+  });
+
+module.exports = { dispositivosRouter, ultMedicionRouter, graficoRouter, medicionesRouter, deleteDispositivoRouter, estadoConexionRouter };
