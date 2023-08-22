@@ -59,12 +59,16 @@ mqttClient.on('message', async (topic, message) => {
         set_point: mensaje.set_point,
         modo: mensaje.modo,
         salida: mensaje.salida,
+        hon: mensaje.hon,
+        mon: mensaje.mon,
+        hoff: mensaje.hoff,
+        moff: mensaje. moff
       };
       console.log('Mensaje convertido a JSON');
       connection = await pool.getConnection();
       const result = await connection.query(
-        'INSERT INTO Mediciones (dispositivoId, tipo, fecha, valor, set_point, modo, salida) VALUES (?, ?, ?, ?, ?, ?, ?)',
-        [medicion.dispositivoId, medicion.tipo, medicion.fecha, medicion.valor, medicion.set_point, medicion.modo, medicion.salida]
+        'INSERT INTO Mediciones (dispositivoId, tipo, fecha, valor, set_point, modo, salida, hon, mon, hoff, moff) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        [medicion.dispositivoId, medicion.tipo, medicion.fecha, medicion.valor, medicion.set_point, medicion.modo, medicion.salida, medicion.hon, medicion.mon, medicion.hoff, medicion.moff]
       );
       console.log('Medición insertada correctamente en la base de datos.');
     } catch (error) {

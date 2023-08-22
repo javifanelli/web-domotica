@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Dispositivo } from '../interfaces/dispositivo';
 import { DispositivoService } from '../services/dispositivo.service';
+import { AlertController } from '@ionic/angular';
 import * as Highcharts from 'highcharts';
 require('highcharts/highcharts-more')(Highcharts);
 require('highcharts/modules/solid-gauge')(Highcharts);
@@ -15,17 +16,25 @@ export class DispositivoPage implements OnInit, OnDestroy {
   public device!: Dispositivo;
   public dispositivoId!: number;
   public valoractual!: number;
+  public setPoint!: number;
   public tipo!: string;
   public ultfecha: any;
+  public salida!: number;
   public estadoConexion!: string;
   public myChart: any;
+  public nuevoSetPoint: number = 0;
+  public horaEncendido: string = '';
+  public minutoEncendido: string = '';
+  public horaApagado: string = '';
+  public minutoApagado: string = '';
   private chartOptions: any;
   private activatedRoute: ActivatedRoute;
   private updateIntervalId: any;
 
   constructor(
     private dispositivoService: DispositivoService,
-    private _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
+    private alertController: AlertController
   ) {
     this.activatedRoute = _activatedRoute;
     this.updateIntervalId = setInterval(() => {
@@ -52,12 +61,14 @@ export class DispositivoPage implements OnInit, OnDestroy {
       this.generarChartLuzDimmer();
     } 
   }
-
+  
   refrescamedicion() {
     const id = this.activatedRoute.snapshot.paramMap.get('id') as string;
     this.dispositivoService.getUltMedicion(parseInt(id, 10)).subscribe((data) => {
       this.valoractual = parseInt(data[0].valor, 10);
       this.ultfecha = new Date(data[0].fecha);
+      this.setPoint = data[0].set_point;
+      this.salida = data[0].salida;
       this.updateEstadoConexion();
     });
   }
@@ -65,6 +76,15 @@ export class DispositivoPage implements OnInit, OnDestroy {
   refrescaChart() {
     this.refrescamedicion();
     this.updateChart();
+  }
+
+  actualizarNuevoSetPoint() {
+    if (this.nuevoSetPoint >= 0 && this.nuevoSetPoint <= 100) {
+      this.setPoint = this.nuevoSetPoint;
+      console.log('Nuevo set point actualizado:', this.setPoint);
+    } else {
+      console.log('Nuevo set point fuera de rango');
+    }
   }
 
   updateChart() {
@@ -91,6 +111,7 @@ export class DispositivoPage implements OnInit, OnDestroy {
     }]});
     }
   }
+
   generarChartTemp() {
     this.chartOptions={
       chart: {

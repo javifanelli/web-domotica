@@ -66,15 +66,19 @@ CREATE TABLE `Mediciones` (
   `valor` int(10) DEFAULT NULL,
   `set_point` int(10) DEFAULT NULL,
   `modo` varchar(100) DEFAULT NULL,
-  `salida` int(11) NOT NULL
+  `salida` int(11) NOT NULL,
+  `hon` int(11) NOT NULL,
+  `mon` int(11) NOT NULL,
+  `hoff` int(11) NOT NULL,
+  `moff` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Volcado de datos para la tabla `Mediciones`
 
-INSERT INTO `Mediciones` (`medicionId`, `dispositivoId`, `tipo`, `fecha`, `valor`, `set_point`, `modo`, `salida`) VALUES
-(1, 1, 'Temperatura' ,'2023-04-20 21:19:41', 19, 22, "Manual", 0),
-(2, 2, 'Luz dimmer', '2023-04-20 21:42:41', 40, 40, "Automático", 40),
-(3, 3, 'Temperatura' ,'2023-04-20 21:23:41', 22, 20, "Manual", 100);
+INSERT INTO `Mediciones` (`medicionId`, `dispositivoId`, `tipo`, `fecha`, `valor`, `set_point`, `modo`, `salida`, `hon`, `mon`, `hoff`, `moff`) VALUES
+(1, 1, 'Temperatura' ,'2023-04-20 21:19:41', 19, 22, "Manual", 0, 20, 0, 8, 0),
+(2, 2, 'Luz dimmer', '2023-04-20 21:42:41', 40, 40, "Automático", 40, 20, 0, 8, 0),
+(3, 3, 'Temperatura' ,'2023-04-20 21:23:41', 22, 20, "Manual", 100, 20, 0, 8, 0);
 
 -- Indices de la tabla `Dispositivos`
 

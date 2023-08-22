@@ -31,9 +31,6 @@ export class MedicionPage implements OnInit, OnDestroy {
       }
     });
     
-    this.subscription = this.dispositivoService.getMediciones(this.dispositivoId).subscribe(data => {
-      this.mediciones = data;
-    });
   }
 
   ngOnDestroy() {
