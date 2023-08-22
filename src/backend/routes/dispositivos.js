@@ -63,53 +63,32 @@ medicionesRouter.get('/:id/mediciones/', async function (req, res, next) {
       res.send(err).status(400);
     }
   });
-  
+
+
 deleteDispositivoRouter.delete('/:id', async function (req, res, next) {
+    const id = req.params.id;
+    let connection;
     try {
-      const connection = await pool.getConnection();
-      const deleteMedicionesQuery = 'DELETE FROM Mediciones WHERE dispositivoId = ?';
-      const deleteDispositivoQuery = 'DELETE FROM Dispositivos WHERE dispositivoId = ?';
-      console.log('Comenzando transacción del ID: ', req.params.id);
-      connection.beginTransaction(async (err) => {
-        if (err) {
-          connection.release();
-          res.send(err).status(400);
-          console.log('Error en la transaccion');
-          return;
-        }
-        try {
-          console.log('Borrando mediciones y dispositivo');
-          await connection.query(deleteMedicionesQuery, req.params.id); // Primero eliminar las mediciones asociadas al dispositivo
-          const result = await connection.query(deleteDispositivoQuery, req.params.id); // Luego eliminar el dispositivo
-          // Commit la transacción si todo se realizó exitosamente
-          connection.commit((commitErr) => {
-            if (commitErr) {
-              connection.rollback(() => {
-                connection.release();
-                res.send(commitErr).status(400);
-                console.log('Error en el commit');
-              });
-              return;
-            }
-            connection.release();
-            res.send(JSON.stringify(result)).status(200);
-            console.log('Solicitud de eliminación recibida para dispositivoId:', req.params.id);
-  
-          });
+        connection = await pool.getConnection();
+        await connection.beginTransaction();
+        const deleteMedicionesQuery = 'DELETE FROM Mediciones WHERE dispositivoId = ?';
+        const deleteDispositivoQuery = 'DELETE FROM Dispositivos WHERE dispositivoId = ?';
+        await connection.query(deleteMedicionesQuery, id);
+        await connection.query(deleteDispositivoQuery, id);
+        await connection.commit();
+        connection.release();
+        res.send({ message: 'Dispositivo eliminado exitosamente' }).status(200);
+        console.log('Solicitud de eliminación recibida para dispositivoId:', id);
         } catch (err) {
-          // Rollback la transacción en caso de error
-          connection.rollback(() => {
-            connection.release();
+            if (connection) {
+                await connection.rollback();
+                connection.release();
+            }
             res.send(err).status(400);
-            console.log('Haciendo un rollback');
-          });
+            console.log('Error al eliminar dispositivo:', err);
         }
-      });
-    } catch (err) {
-      res.send(err).status(400);
-      console.log('Error antes de hacer la transacción');
     }
-  });
+);
   
 estadoConexionRouter.get('/:id', async function (req, res, next) {
     try {

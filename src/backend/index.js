@@ -35,14 +35,12 @@ const auth = function (req, res, next) {
   next();
 };
 
-
 // to parse application/json
 app.use(express.json());
 // to serve static files
 app.use(express.static('/home/node/app/static/'));
 // to enable cors
 app.use(cors(corsOptions));
-
 
 //=======[ Main module code ]==================================================
 
@@ -85,7 +83,7 @@ app.use('/dispositivos', dispositivosRouter);
 app.use('/ultmedicion', ultMedicionRouter);
 app.use('/grafico', graficoRouter);
 app.use('/dispositivos', medicionesRouter);
-app.use('/deletedispositivo', deleteDispositivoRouter);
+app.use('/dispositivos', deleteDispositivoRouter);
 app.use('/estadoconexion', estadoConexionRouter);
 
 app.listen(PORT, function (req, res) {
