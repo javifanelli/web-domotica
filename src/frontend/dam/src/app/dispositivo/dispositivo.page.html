@@ -38,8 +38,13 @@
           <ion-label>Nuevo set point</ion-label>
         </ion-col>
         <ion-col size="2.1">  
-          <ion-input class="custom-input" type="number" min="0" max="100" step="10" [(ngModel)]="nuevoSetPoint"></ion-input>
-        </ion-col>
+          <ng-container *ngIf="tipo === 'Temperatura'">
+            <ion-input class="custom-input" type="number" min="15" max="30" step="1" [(ngModel)]="nuevoSetPoint"></ion-input>
+          </ng-container>
+          <ng-container *ngIf="tipo === 'Luz dimmer'">
+            <ion-input class="custom-input" type="number" min="0" max="100" step="10" [(ngModel)]="nuevoSetPoint"></ion-input>
+          </ng-container>
+          </ion-col>
       </ion-row>
       <ion-row class="ion-align-items-center">
         <ion-col size="2">
