@@ -10,9 +10,9 @@ const jwt = require('jsonwebtoken');
 const mqtt = require('mqtt');
 const fs = require('fs');
 const mqttClient = require('./mqtt-handler');
-const { authRouter, comparePasswords } = require('./routes/auth');
-const { JWT_Secret } = require('./routes/auth');
-const { dispositivosRouter, ultMedicionRouter, graficoRouter, medicionesRouter, deleteDispositivoRouter, estadoConexionRouter } = require('./routes/dispositivos');
+const { authRouter, comparePasswords } = require('./auth');
+const { JWT_Secret } = require('./auth');
+const { dispositivosRouter, ultMedicionRouter, graficoRouter, medicionesRouter, deleteDispositivoRouter, estadoConexionRouter } = require('./dispositivos');
 
 var corsOptions = {
   origin: '*',
@@ -48,7 +48,7 @@ mqttClient.on('message', async (topic, message) => {
   console.log('Mensaje recibido en el topic:', topic);
   console.log('Contenido del mensaje:', message.toString());
   if (topic === "/home/temperatura/data" || topic === "/home/dimmer/data") {
-    let connection; // Definir la variable connection fuera del bloque try
+    let connection;
     try {
       const mensaje = JSON.parse(message.toString());
       const medicion = {
@@ -75,9 +75,27 @@ mqttClient.on('message', async (topic, message) => {
       console.error('Error al insertar la medición en la base de datos:', error);
     } finally {
       if (connection) {
-        connection.release(); // Liberar la conexión en el bloque finally
+        connection.release();
       }
     }
+  }
+});
+
+app.post('/enviardatos', async (req, res) => {
+  try {
+    const { nuevoSetPoint, horaEncendido, minutoEncendido, horaApagado, minutoApagado } = req.body;
+    const datos = {
+      setpoint: nuevoSetPoint,
+      hon: horaEncendido,
+      mon: minutoEncendido,
+      hoff: horaApagado,
+      moff: minutoApagado
+    };
+    mqttClient.publish('/home/temperatura/settings', JSON.stringify(datos));
+    res.status(200).send({ message: 'Datos enviados correctamente por MQTT' });
+  } catch (error) {
+    console.error('Error al enviar los datos por MQTT:', error);
+    res.status(500).send({ message: 'Error al enviar los datos por MQTT' });
   }
 });
 

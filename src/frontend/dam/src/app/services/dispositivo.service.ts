@@ -30,4 +30,8 @@ export class DispositivoService {
   public deleteDevice(id: number): Observable<any> {
     return this._http.delete(this.URLServer + '/dispositivos/' + id);
   }
+
+  public enviarDatos(datos: any): Observable<any> {
+    return this._http.post(this.URLServer + '/enviardatos', datos);
+  }
 }

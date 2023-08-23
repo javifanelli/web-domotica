@@ -5,7 +5,7 @@ const graficoRouter = express.Router(); // Agrega estas líneas
 const medicionesRouter = express.Router(); // Agrega estas líneas
 const deleteDispositivoRouter = express.Router(); // Agrega estas líneas
 const estadoConexionRouter = express.Router(); // Agrega estas líneas
-const pool = require('../mysql-connector');
+const pool = require('./mysql-connector');
 
 dispositivosRouter.get('/', async function (req, res, next) {
     try {

@@ -6,5 +6,9 @@ export interface Medicion {
     valor: string,
     set_point: number,
     modo: string,
-    salida: number
+    salida: number,
+    hon: number,
+    mon: number,
+    hoff: number,
+    moff: number
 }

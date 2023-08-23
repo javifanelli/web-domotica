@@ -87,6 +87,25 @@ export class DispositivoPage implements OnInit, OnDestroy {
     }
   }
 
+  enviarDatos() {
+    const datos = {
+      nuevoSetPoint: this.nuevoSetPoint,
+      horaEncendido: this.horaEncendido,
+      minutoEncendido: this.minutoEncendido,
+      horaApagado: this.horaApagado,
+      minutoApagado: this.minutoApagado
+    };
+
+    this.dispositivoService.enviarDatos(datos).subscribe(
+      (response) => {
+        console.log('Datos enviados correctamente:', response);
+      },
+      (error) => {
+        console.error('Error al enviar los datos:', error);
+      }
+    );
+  }
+
   updateChart() {
     if (this.tipo === 'Temperatura') {
       if (this.valoractual>40)

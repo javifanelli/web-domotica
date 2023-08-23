@@ -1,7 +1,7 @@
 const express = require('express');
 const authRouter = express.Router();
 const jwt = require('jsonwebtoken'); 
-const pool = require('../mysql-connector'); 
+const pool = require('./mysql-connector'); 
 // DECLARE JWT-secret
 const JWT_Secret = 'your_secret_key';
 
