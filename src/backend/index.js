@@ -83,7 +83,7 @@ mqttClient.on('message', async (topic, message) => {
 
 app.post('/enviardatos', async (req, res) => {
   try {
-    const { nuevoSetPoint, horaEncendido, minutoEncendido, horaApagado, minutoApagado } = req.body;
+    const { nuevoSetPoint, horaEncendido, minutoEncendido, horaApagado, minutoApagado, tipo } = req.body;
     const datos = {
       setpoint: nuevoSetPoint,
       hon: horaEncendido,
@@ -91,7 +91,10 @@ app.post('/enviardatos', async (req, res) => {
       hoff: horaApagado,
       moff: minutoApagado
     };
-    mqttClient.publish('/home/temperatura/settings', JSON.stringify(datos));
+    if(tipo==='Temperatura'){
+    mqttClient.publish('/home/temperatura/settings', JSON.stringify(datos));}
+    if(tipo==='Luz dimmer'){
+      mqttClient.publish('/home/dimmer/settings', JSON.stringify(datos));}
     res.status(200).send({ message: 'Datos enviados correctamente por MQTT' });
   } catch (error) {
     console.error('Error al enviar los datos por MQTT:', error);

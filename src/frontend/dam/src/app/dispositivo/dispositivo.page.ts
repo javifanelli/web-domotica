@@ -93,7 +93,8 @@ export class DispositivoPage implements OnInit, OnDestroy {
       horaEncendido: this.horaEncendido,
       minutoEncendido: this.minutoEncendido,
       horaApagado: this.horaApagado,
-      minutoApagado: this.minutoApagado
+      minutoApagado: this.minutoApagado,
+      tipo: this.tipo
     };
 
     this.dispositivoService.enviarDatos(datos).subscribe(
