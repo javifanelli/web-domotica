@@ -34,4 +34,9 @@ export class DispositivoService {
   public enviarDatos(datos: any): Observable<any> {
     return this._http.post(this.URLServer + '/enviardatos', datos);
   }
+
+  public borrarTabla(id: number): Observable<any> {
+    return this._http.delete(this.URLServer + '/borrartabla/' + id);
+  }
+
 }

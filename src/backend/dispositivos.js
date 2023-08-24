@@ -1,10 +1,11 @@
 const express = require('express');
 const dispositivosRouter = express.Router();
-const ultMedicionRouter = express.Router(); // Agrega estas líneas
-const graficoRouter = express.Router(); // Agrega estas líneas
-const medicionesRouter = express.Router(); // Agrega estas líneas
-const deleteDispositivoRouter = express.Router(); // Agrega estas líneas
-const estadoConexionRouter = express.Router(); // Agrega estas líneas
+const ultMedicionRouter = express.Router();
+const graficoRouter = express.Router();
+const medicionesRouter = express.Router();
+const deleteDispositivoRouter = express.Router();
+const estadoConexionRouter = express.Router();
+const borrarTablaRouter = express.Router();
 const pool = require('./mysql-connector');
 
 dispositivosRouter.get('/', async function (req, res, next) {
@@ -89,7 +90,7 @@ deleteDispositivoRouter.delete('/:id', async function (req, res, next) {
         }
     }
 );
-  
+
 estadoConexionRouter.get('/:id', async function (req, res, next) {
     try {
       const connection = await pool.getConnection();
@@ -105,4 +106,27 @@ estadoConexionRouter.get('/:id', async function (req, res, next) {
     }
   });
 
-module.exports = { dispositivosRouter, ultMedicionRouter, graficoRouter, medicionesRouter, deleteDispositivoRouter, estadoConexionRouter };
+borrarTablaRouter.delete('/:id', async function (req, res, next) {
+  const id = req.params.id;
+  let connection;
+  try {
+      connection = await pool.getConnection();
+      await connection.beginTransaction();
+      const deleteMedicionesQuery = 'DELETE FROM Mediciones WHERE dispositivoId = ?';
+      await connection.query(deleteMedicionesQuery, id);
+      await connection.commit();
+      connection.release();
+      res.send({ message: 'Mediciones eliminadas exitosamente' }).status(200);
+      console.log('Solicitud de eliminación recibida para dispositivoId:', id);
+      } catch (err) {
+          if (connection) {
+              await connection.rollback();
+              connection.release();
+          }
+          res.send(err).status(400);
+          console.log('Error al eliminar mediciones:', err);
+      }
+  }
+);
+
+module.exports = { dispositivosRouter, ultMedicionRouter, graficoRouter, medicionesRouter, deleteDispositivoRouter, estadoConexionRouter, borrarTablaRouter };

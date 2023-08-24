@@ -50,7 +50,6 @@ export class ListaDispComponent implements OnInit, OnDestroy {
                 })
               )
               .subscribe(() => {
-                // Actualiza la página
                 window.location.reload();
               });
           },
