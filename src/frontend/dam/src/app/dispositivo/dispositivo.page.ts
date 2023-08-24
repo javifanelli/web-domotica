@@ -50,12 +50,13 @@ export class DispositivoPage implements OnInit, OnDestroy {
   }
 
   ionViewDidEnter() {
-    if (this.tipo === 'Temperatura') {
-      this.generarChartTemp();
-    }
-    else if (this.tipo === 'Luz dimmer') {
-      this.generarChartLuzDimmer();
-    } 
+    setTimeout(() => {
+      if (this.tipo === 'Temperatura') {
+        this.generarChartTemp();
+      } else if (this.tipo === 'Luz dimmer') {
+        this.generarChartLuzDimmer();
+      }
+    }, 100);
   }
   
   refrescamedicion() {

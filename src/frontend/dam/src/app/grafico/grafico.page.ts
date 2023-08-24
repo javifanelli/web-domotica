@@ -13,6 +13,7 @@ export class GraficoPage implements OnInit {
 
   dispositivoId!: number;
   mediciones: Medicion[] = [];
+  tipo!: string;
   myChart: any;
 
   constructor(
@@ -24,7 +25,7 @@ export class GraficoPage implements OnInit {
     this.dispositivoId = parseInt(this.activatedRoute.snapshot.paramMap.get('id') || '0', 10);
     this.dispositivoService.getMediciones(this.dispositivoId).subscribe((data: Medicion[]) => {
       this.mediciones = data;
-      console.log('Mediciones:', this.mediciones);
+      this.tipo = data[0].tipo;
       this.renderChart();
     });
   }
@@ -32,14 +33,14 @@ export class GraficoPage implements OnInit {
   renderChart() {
     this.myChart = Highcharts.chart('chart-container', {
         title: {
-            text: 'Continuous trend line chart'
+          text: this.tipo
           },
       xAxis: {
         type: 'datetime'
       },
       yAxis: {
         title: {
-          text: 'Value'
+          text: 'Valor'
         }
       },
       legend: {
