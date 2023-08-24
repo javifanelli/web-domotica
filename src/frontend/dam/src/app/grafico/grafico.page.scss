@@ -1,3 +1,14 @@
 #chart-container {
     height: 400px;
 }
+
+.titulo {
+    font-size: 18px;
+    color: #fff;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

@@ -21,6 +21,7 @@ export class DispositivoPage implements OnInit, OnDestroy {
   public ultfecha: any;
   public salida!: number;
   public estadoConexion!: string;
+  public modo!: string;
   public myChart: any;
   private chartOptions: any;
   private activatedRoute: ActivatedRoute;
@@ -64,6 +65,7 @@ export class DispositivoPage implements OnInit, OnDestroy {
       this.ultfecha = new Date(data[0].fecha);
       this.setPoint = data[0].set_point;
       this.salida = data[0].salida;
+      this.modo = data[0].modo;
       this.updateEstadoConexion();
     });
   }
