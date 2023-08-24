@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import * as Highcharts from 'highcharts';
+import { ActivatedRoute } from '@angular/router';
+import { DispositivoService } from '../services/dispositivo.service';
+import { Medicion } from '../interfaces/medicion';
 
 @Component({
   selector: 'app-grafico',
@@ -10,22 +12,28 @@ import * as Highcharts from 'highcharts';
 export class GraficoPage implements OnInit {
 
   dispositivoId!: number;
+  mediciones: Medicion[] = [];
+  myChart: any;
 
-  constructor(private activatedRoute: ActivatedRoute) { }
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private dispositivoService: DispositivoService
+  ) {}
 
   ngOnInit() {
-    const dispositivoIdParam = this.activatedRoute.snapshot.paramMap.get('dispositivoId');
-if (dispositivoIdParam !== null) {
-  this.dispositivoId = parseInt(dispositivoIdParam, 10);
-}
-    this.renderChart();
+    this.dispositivoId = parseInt(this.activatedRoute.snapshot.paramMap.get('id') || '0', 10);
+    this.dispositivoService.getMediciones(this.dispositivoId).subscribe((data: Medicion[]) => {
+      this.mediciones = data;
+      console.log('Mediciones:', this.mediciones);
+      this.renderChart();
+    });
   }
 
   renderChart() {
-    Highcharts.chart('chart-container', {
-      title: {
-        text: 'Continuous trend line chart'
-      },
+    this.myChart = Highcharts.chart('chart-container', {
+        title: {
+            text: 'Continuous trend line chart'
+          },
       xAxis: {
         type: 'datetime'
       },
@@ -39,18 +47,28 @@ if (dispositivoIdParam !== null) {
       },
       plotOptions: {
         series: {
-          pointStart: Date.UTC(2015, 0, 1),
+          pointStart: Date.UTC(2023, 4, 10),
           pointInterval: 24 * 3600 * 1000 // one day
         }
       },
-      series: [{
-        data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-        type: 'line',
-        name: 'Data',
-        marker: {
-          enabled: false
+      series: [
+        {
+            data: this.mediciones.map(medicion => [new Date(medicion.fecha).getTime(), medicion.valor]),
+            type: 'line',
+            name: 'Data',
+            marker: {
+            enabled: false
         }
-      }]
+        }
+      ],
     });
   }
+  
+  ngOnDestroy() {
+    if (this.myChart) {
+      this.myChart.destroy();
+      console.log('Chart destroyed');
+    }
+  }
+  
 }

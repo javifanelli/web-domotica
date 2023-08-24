@@ -22,11 +22,6 @@ export class DispositivoPage implements OnInit, OnDestroy {
   public salida!: number;
   public estadoConexion!: string;
   public myChart: any;
-  public nuevoSetPoint: number = 0;
-  public horaEncendido: string = '';
-  public minutoEncendido: string = '';
-  public horaApagado: string = '';
-  public minutoApagado: string = '';
   private chartOptions: any;
   private activatedRoute: ActivatedRoute;
   private updateIntervalId: any;
@@ -115,24 +110,19 @@ export class DispositivoPage implements OnInit, OnDestroy {
         ,title: {
           text: 'Dispositivo ' + this.device.dispositivoId + ' - ' + this.device.ubicacion
         }
-
         ,credits:{enabled:false}
-          
         ,pane: {
             startAngle: -150,
             endAngle: 150
         } 
-        
       ,yAxis: {
         min: 0,
         max: 40,
-  
         minorTickInterval: 'auto',
         minorTickWidth: 1,
         minorTickLength: 10,
         minorTickPosition: 'inside',
         minorTickColor: '#666',
-  
         tickPixelInterval: 10,
         tickWidth: 2,
         tickPosition: 'inside',
@@ -167,7 +157,6 @@ export class DispositivoPage implements OnInit, OnDestroy {
         }]
     },
     // colores: verde #55BF3B, amarillo #DDDF0D, rojo #DF5353, azul #3339FF
-    
     series: [{
         name: 'Temperatura actual',
         data: [this.valoractual],
@@ -175,7 +164,6 @@ export class DispositivoPage implements OnInit, OnDestroy {
             valueSuffix: ' °C'
         }
     }]
-
     };
     this.myChart = Highcharts.chart('highcharts', this.chartOptions );
   }
@@ -192,24 +180,19 @@ export class DispositivoPage implements OnInit, OnDestroy {
         ,title: {
           text: 'Dispositivo ' + this.device.dispositivoId + ' - ' + this.device.ubicacion
         }
-
         ,credits:{enabled:false}
-          
         ,pane: {
             startAngle: -150,
             endAngle: 150
         } 
-        
       ,yAxis: {
         min: 0,
         max: 100,
-  
         minorTickInterval: 'auto',
         minorTickWidth: 1,
         minorTickLength: 10,
         minorTickPosition: 'inside',
         minorTickColor: '#666',
-  
         tickPixelInterval: 10,
         tickWidth: 2,
         tickPosition: 'inside',
@@ -239,7 +222,6 @@ export class DispositivoPage implements OnInit, OnDestroy {
         }]
     },
     // colores: verde #55BF3B, amarillo #DDDF0D, rojo #DF5353, azul #3339FF
-    
     series: [{
         name: 'Salida actual',
         data: [this.valoractual],
@@ -247,7 +229,6 @@ export class DispositivoPage implements OnInit, OnDestroy {
             valueSuffix: ' %'
         }
     }]
-
     };
     this.myChart = Highcharts.chart('highcharts', this.chartOptions );
   }
