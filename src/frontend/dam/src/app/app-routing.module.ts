@@ -35,6 +35,10 @@ const routes: Routes = [
     loadChildren: () => import('./config/config.module').then((m) => m.ConfigModule),
   },
 
+  { path: 'grafico/:id',
+    loadChildren: () => import('./grafico/grafico.module').then(m => m.GraficoPageModule)
+  },
+
 ];
 
 @NgModule({
