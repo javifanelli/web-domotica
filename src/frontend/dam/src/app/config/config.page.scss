@@ -2,3 +2,20 @@
     font-size: 18px;
     color: #fff;
   }
+
+.custom-input {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px;
+  text-align: center;
+}
+
+.content-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  border-radius: 10px;
+  padding: 20px;
+  box-sizing: border-box;
+}

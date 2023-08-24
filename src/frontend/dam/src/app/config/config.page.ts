@@ -12,12 +12,13 @@ import { AlertController } from '@ionic/angular';
 export class ConfigPage implements OnInit, OnDestroy {
   public device!: Dispositivo;
   public dispositivoId!: number;
-  public valoractual!: number;
   public setPoint!: number;
   public tipo!: string;
-  public ultfecha: any;
-  public myChart: any;
   public nuevoSetPoint!: number;
+  public hon!: number;
+  public mon!: number;
+  public hoff!: number;
+  public moff!: number;
   public horaEncendido: string = '';
   public minutoEncendido: string = '';
   public horaApagado: string = '';
@@ -43,19 +44,24 @@ export class ConfigPage implements OnInit, OnDestroy {
       this.device = data[0];
       this.tipo = data[0].tipo;
     });
-    this.refrescamedicion();
+    this.leerdatos();
   }
   
-  refrescamedicion() {
+  leerdatos() {
     const id = this.activatedRoute.snapshot.paramMap.get('id') as string;
     this.dispositivoService.getUltMedicion(parseInt(id, 10)).subscribe((data) => {
-      this.valoractual = parseInt(data[0].valor, 10);
-      this.ultfecha = new Date(data[0].fecha);
       this.setPoint = data[0].set_point;
       this.nuevoSetPoint = this.setPoint;
+      this.hon = data[0].hon;
+      this.horaEncendido = this.hon.toString();
+      this.mon = data[0].mon;
+      this.minutoEncendido = this.mon.toString();
+      this.hoff = data[0].hoff;
+      this.horaApagado = this.hoff.toString();
+      this.moff = data[0].moff;
+      this.minutoApagado = this.moff.toString();
     });
   }
-
 
   actualizarNuevoSetPoint() {
     if (this.nuevoSetPoint >= 0 && this.nuevoSetPoint <= 100) {
@@ -88,9 +94,5 @@ export class ConfigPage implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     clearInterval(this.updateIntervalId);
-    if (this.myChart) {
-      this.myChart.destroy();
-      console.log('Chart destroyed');
-    }
   }
 }
