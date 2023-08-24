@@ -3,7 +3,7 @@ import { Dispositivo } from '../interfaces/dispositivo';
 import { DispositivoService } from '../services/dispositivo.service';
 import { Subscription } from 'rxjs';
 import { catchError, tap, finalize } from 'rxjs/operators';
-import { AlertController } from '@ionic/angular'; // Agrega esta importación
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-listadisp',
@@ -13,7 +13,7 @@ import { AlertController } from '@ionic/angular'; // Agrega esta importación
 export class ListaDispComponent implements OnInit, OnDestroy {
   constructor(
     private deviceService: DispositivoService,
-    private alertController: AlertController // Agrega el servicio AlertController
+    private alertController: AlertController
   ) {}
 
   devices?: Dispositivo[];

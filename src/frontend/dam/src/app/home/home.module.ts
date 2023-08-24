@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { ListaDispComponent } from '../listadisp/listadisp.component';
-import { SubrayaDirective } from '../directives/subraya.directive';
 import { ListadispModule } from '../listadisp/listadisp.module';
 
 @NgModule({
@@ -16,7 +15,7 @@ import { ListadispModule } from '../listadisp/listadisp.module';
     HomePageRoutingModule,
     ListadispModule
   ],
-  declarations: [HomePage, ListaDispComponent, SubrayaDirective]
+  declarations: [HomePage, ListaDispComponent]
 })
 
 export class HomePageModule {}
