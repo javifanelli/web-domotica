@@ -83,7 +83,7 @@ export class DispositivoPage implements OnInit, OnDestroy {
       if (this.valoractual>40)
         {this.valoractual=40}
       this.myChart.update({series: [{
-        name: 'Valor actual',
+        name: 'Temperatura actual',
         data: [this.valoractual],
         tooltip: {
           valueSuffix: ' ºC'

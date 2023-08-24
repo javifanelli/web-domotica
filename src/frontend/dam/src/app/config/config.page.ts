@@ -16,15 +16,12 @@ export class ConfigPage implements OnInit, OnDestroy {
   public setPoint!: number;
   public tipo!: string;
   public ultfecha: any;
-  public salida!: number;
-  public estadoConexion!: string;
   public myChart: any;
-  public nuevoSetPoint: number = 0;
+  public nuevoSetPoint!: number;
   public horaEncendido: string = '';
   public minutoEncendido: string = '';
   public horaApagado: string = '';
   public minutoApagado: string = '';
-  private chartOptions: any;
   private activatedRoute: ActivatedRoute;
   private updateIntervalId: any;
 
@@ -55,7 +52,7 @@ export class ConfigPage implements OnInit, OnDestroy {
       this.valoractual = parseInt(data[0].valor, 10);
       this.ultfecha = new Date(data[0].fecha);
       this.setPoint = data[0].set_point;
-      this.salida = data[0].salida;
+      this.nuevoSetPoint = this.setPoint;
     });
   }
 

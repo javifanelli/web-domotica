@@ -3,8 +3,8 @@
       <ion-title class="ion-text-center">Configuración de dispositivo</ion-title>  
     </ion-toolbar>
   </ion-header>
-<ion-content>
-    <div class="ion-text-center">
+  <ion-content class="ion-align-items-center">
+    <div class="content-container">
       <ion-grid>
         <ion-row>
           <ion-col size="2">
@@ -17,7 +17,7 @@
             <ng-container *ngIf="tipo === 'Luz dimmer'">
               <ion-input class="custom-input" type="number" min="0" max="100" step="10" [(ngModel)]="nuevoSetPoint"></ion-input>
             </ng-container>
-            </ion-col>
+          </ion-col>
         </ion-row>
         <ion-row class="ion-align-items-center">
           <ion-col size="2">
@@ -44,7 +44,7 @@
           </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col size="6">
+          <ion-col size="6" class="button-container">
             <ion-button [routerLink]="'/home'">Inicio</ion-button>
             <ion-button [routerLink]="'/dispositivos/' + dispositivoId">Volver</ion-button>
             <ion-button color="success" (click)="enviarDatos()">Enviar datos</ion-button>
@@ -53,3 +53,4 @@
       </ion-grid>
     </div>
   </ion-content>
+  
