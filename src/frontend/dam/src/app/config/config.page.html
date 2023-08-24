@@ -1,0 +1,55 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-title class="ion-text-center">Configuración de dispositivo</ion-title>  
+    </ion-toolbar>
+  </ion-header>
+<ion-content>
+    <div class="ion-text-center">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="2">
+            <ion-label>Nuevo set point</ion-label>
+          </ion-col>
+          <ion-col size="2.1">  
+            <ng-container *ngIf="tipo === 'Temperatura'">
+              <ion-input class="custom-input" type="number" min="15" max="30" step="1" [(ngModel)]="nuevoSetPoint"></ion-input>
+            </ng-container>
+            <ng-container *ngIf="tipo === 'Luz dimmer'">
+              <ion-input class="custom-input" type="number" min="0" max="100" step="10" [(ngModel)]="nuevoSetPoint"></ion-input>
+            </ng-container>
+            </ion-col>
+        </ion-row>
+        <ion-row class="ion-align-items-center">
+          <ion-col size="2">
+            <ion-label class="ion-text-center">Hora de encendido (formato 24 hs):</ion-label>
+          </ion-col>
+          <ion-col size="1">
+            <ion-input class="custom-input" type="number" min="0" max="24" [(ngModel)]="horaEncendido"></ion-input>
+          </ion-col>
+          <ion-col size="0.1" class="ion-text-center">:</ion-col>
+          <ion-col size="1">
+            <ion-input class="custom-input" type="number" min="0" max="59" [(ngModel)]="minutoEncendido"></ion-input>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-align-items-center">
+          <ion-col size="2">
+            <ion-label class="ion-text-center">Hora de apagado (formato 24 hs):</ion-label>
+          </ion-col>
+          <ion-col size="1">
+            <ion-input class="custom-input" type="number" min="0" max="23" [(ngModel)]="horaApagado"></ion-input>
+          </ion-col>
+          <ion-col size="0.1" class="ion-text-center">:</ion-col>
+          <ion-col size="1">
+            <ion-input class="custom-input" type="number" min="0" max="59" [(ngModel)]="minutoApagado"></ion-input>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="6">
+            <ion-button [routerLink]="'/home'">Inicio</ion-button>
+            <ion-button [routerLink]="'/dispositivos/' + dispositivoId">Volver</ion-button>
+            <ion-button color="success" (click)="enviarDatos()">Enviar datos</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </ion-content>

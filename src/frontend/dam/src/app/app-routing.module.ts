@@ -29,6 +29,12 @@ const routes: Routes = [
     path: 'medicion/:id',
     loadChildren: () => import('./medicion/medicion.module').then( m => m.MedicionModule)
   },
+
+  {
+    path: 'config/:id',
+    loadChildren: () => import('./config/config.module').then((m) => m.ConfigModule),
+  },
+
 ];
 
 @NgModule({
