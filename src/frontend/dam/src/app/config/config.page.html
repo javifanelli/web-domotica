@@ -45,9 +45,9 @@
         </ion-row>
         <ion-row>
           <ion-col size="6" class="button-container">
-            <ion-button [routerLink]="'/home'">Inicio</ion-button>
-            <ion-button [routerLink]="'/dispositivos/' + dispositivoId">Volver</ion-button>
-            <ion-button color="success" (click)="enviarDatos()">Enviar datos</ion-button>
+            <ion-button [routerLink]="'/home'"><ion-icon slot="start" name="home"></ion-icon>Inicio</ion-button>
+            <ion-button [routerLink]="'/dispositivos/' + dispositivoId"><ion-icon slot="start" name="arrow-back"></ion-icon>Volver</ion-button>
+            <ion-button color="success" (click)="enviarDatos()"><ion-icon slot="start" name="wifi"></ion-icon>Enviar datos</ion-button>
           </ion-col>
         </ion-row>
       </ion-grid>

@@ -1,9 +1,11 @@
 <ion-card>
   <ion-card-header>
     <div class="header-container">
-      <ion-button [routerLink]="'/dispositivos/' + dispositivoId" class="volver-button">Volver</ion-button>
+      <ion-button [routerLink]="'/dispositivos/' + dispositivoId" class="volver-button"><ion-icon slot="start" name="arrow-back"></ion-icon>Volver</ion-button>
+      <ion-button [routerLink]="'/home'" class="volver-button"><ion-icon slot="start" name="home"></ion-icon>Inicio</ion-button>
       <div class="titulo">Dispositivo {{dispositivoId}} - {{tipo}}</div>
-      <ion-button [routerLink]="'/grafico/' + dispositivoId" class="ver-grafico-button">Gráfico</ion-button>
+      <ion-button [routerLink]="'/grafico/' + dispositivoId" color="danger" class="ver-grafico-button"><ion-icon slot="start" name="warning"></ion-icon>Borrar</ion-button>
+      <ion-button [routerLink]="'/grafico/' + dispositivoId" class="ver-grafico-button"><ion-icon slot="start" name="image"></ion-icon>Gráfico</ion-button>
     </div>
   </ion-card-header>
   <ion-card-content class="scrollable">
