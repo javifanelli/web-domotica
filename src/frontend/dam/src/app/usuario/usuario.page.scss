@@ -5,5 +5,15 @@
 .header-container {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    color: white;
+}
+
+.dato {
+    text-align: left;
+    size: 5;
+}
+
+.center-buttons {
+    display: flex;
+    justify-content: center;
   }

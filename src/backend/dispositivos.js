@@ -144,6 +144,29 @@ borrarTablaRouter.delete('/:id', async function (req, res, next) {
     } catch (err) {
       res.status(500).json({ error: 'Error en el servidor' });
     }
-  });  
+  });
+
+  usuariosRouter.put('/:user', async function (req, res, next) {
+    try {
+      const connection = await pool.getConnection();
+      const updatedUser = req.body;
+      const queryParams = [
+        updatedUser.nombre,
+        updatedUser.apellido,
+        updatedUser.email,
+        updatedUser.password,
+        req.params.user
+      ];
+      const updateQuery = 'UPDATE Usuarios SET nombre = ?, apellido = ?, email = ?, password = ? WHERE user = ?';
+      await connection.query(updateQuery, queryParams);
+      connection.release();
+      res.status(200).send('Usuario actualizado exitosamente');
+      console.log("Datos insertados:", req.body);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Error al actualizar el usuario');
+    }
+  });
+    
 
 module.exports = { dispositivosRouter, ultMedicionRouter, graficoRouter, medicionesRouter, deleteDispositivoRouter, estadoConexionRouter, borrarTablaRouter, usuariosRouter };

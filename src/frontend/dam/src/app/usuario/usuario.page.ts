@@ -40,4 +40,19 @@ export class UsuarioPage implements OnInit {
     });
   }
 
+  actualizarDatos() {
+    if (this.userData) {
+      this.usuarioService.updateUser(this.username, this.userData).subscribe({
+        next: () => {
+          console.log('Datos del usuario actualizados exitosamente');
+        },
+        error: (error) => {
+          console.error('Error al actualizar los datos del usuario:', error);
+        }
+      });
+    } else {
+      console.error('No hay datos de usuario para actualizar');
+    }
+  }  
+
 }

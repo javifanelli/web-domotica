@@ -44,4 +44,9 @@ export class DispositivoService {
     return this._http.get<Usuario>(this.URLServer + '/usuario/' + user);
   }
 
+  public updateUser(user: string, userData: Usuario): Observable<any> {
+    const url = this.URLServer + '/usuario/' + user;
+    return this._http.put(url, userData);
+  }
+
 }
