@@ -85,7 +85,7 @@ INSERT INTO `Mediciones` (`medicionId`, `dispositivoId`, `tipo`, `fecha`, `valor
 ALTER TABLE `Dispositivos`
   ADD PRIMARY KEY (`dispositivoId`,`mac`);
 
--- Indices de la tabla `Dispositivos`
+-- Indices de la tabla `Usuarios`
 
 ALTER TABLE `Usuarios`
   ADD PRIMARY KEY (`userId`,`user`);

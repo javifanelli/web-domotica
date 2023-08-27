@@ -6,6 +6,7 @@ const medicionesRouter = express.Router();
 const deleteDispositivoRouter = express.Router();
 const estadoConexionRouter = express.Router();
 const borrarTablaRouter = express.Router();
+const usuariosRouter = express.Router();
 const pool = require('./mysql-connector');
 
 dispositivosRouter.get('/', async function (req, res, next) {
@@ -126,7 +127,23 @@ borrarTablaRouter.delete('/:id', async function (req, res, next) {
           res.send(err).status(400);
           console.log('Error al eliminar mediciones:', err);
       }
-  }
-);
+  });
 
-module.exports = { dispositivosRouter, ultMedicionRouter, graficoRouter, medicionesRouter, deleteDispositivoRouter, estadoConexionRouter, borrarTablaRouter };
+  usuariosRouter.get('/:user', async function (req, res, next) {
+    try {
+      const connection = await pool.getConnection();
+      const result = await connection.query('SELECT * FROM Usuarios WHERE user = ?', req.params.user);
+      console.log("Los datos del usuario son:", req.params.user)
+      connection.release();
+      if (result.length > 0) {
+        const userData = result[0];
+        res.json(userData).status(200);
+      } else {
+        res.status(404).json({ message: 'Usuario no encontrado' });
+      }
+    } catch (err) {
+      res.status(500).json({ error: 'Error en el servidor' });
+    }
+  });  
+
+module.exports = { dispositivosRouter, ultMedicionRouter, graficoRouter, medicionesRouter, deleteDispositivoRouter, estadoConexionRouter, borrarTablaRouter, usuariosRouter };

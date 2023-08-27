@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Dispositivo } from '../interfaces/dispositivo';
 import { Medicion } from '../interfaces/medicion';
+import { Usuario } from '../interfaces/usuario';
 
 @Injectable({
   providedIn: 'root',
@@ -37,6 +38,10 @@ export class DispositivoService {
 
   public borrarTabla(id: number): Observable<any> {
     return this._http.delete(this.URLServer + '/borrartabla/' + id);
+  }
+
+  public getUser(user: string): Observable<Usuario> {
+    return this._http.get<Usuario>(this.URLServer + '/usuario/' + user);
   }
 
 }

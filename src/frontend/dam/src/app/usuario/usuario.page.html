@@ -1,0 +1,27 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-title class="center">Detalles del Usuario</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content [fullscreen]="true">
+    <ion-card *ngIf="userData"> <!-- Verifica que userData esté definido -->
+      <ion-card-header>
+        <ion-card-subtitle>Detalles de Usuario</ion-card-subtitle>
+        <ion-card-title>{{ userData.nombre }} {{ userData.apellido }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item>
+            <ion-label>Usuario</ion-label>
+            <ion-note slot="end">{{ userData.user }}</ion-note>
+          </ion-item>
+          <ion-item>
+            <ion-label>Email</ion-label>
+            <ion-note slot="end">{{ userData.email }}</ion-note>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </ion-content>
+  
