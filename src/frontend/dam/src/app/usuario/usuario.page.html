@@ -1,11 +1,15 @@
-<ion-header [translucent]="true">
-    <ion-toolbar>
-      <ion-title class="center">Detalles del Usuario</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-card>  
+  <ion-header [translucent]="true">
+
+      <div class="header-container">
+      <ion-card-header class="titulo">Detalles del Usuario</ion-card-header>
+      <ion-button [routerLink]="'/home'" class="volver-button"><ion-icon slot="start" name="home"></ion-icon>Inicio</ion-button>
+    </div>
   
-  <ion-content [fullscreen]="true">
-    <ion-card *ngIf="userData"> <!-- Verifica que userData esté definido -->
+  </ion-header>
+</ion-card>
+  <ion-content>
+    <ion-card *ngIf="userData">
       <ion-card-header>
         <ion-card-subtitle>Detalles de Usuario</ion-card-subtitle>
         <ion-card-title>{{ userData.nombre }} {{ userData.apellido }}</ion-card-title>

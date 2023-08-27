@@ -54,7 +54,8 @@ CREATE TABLE `Usuarios` (
 
 INSERT INTO `Usuarios` (`userId`, `user`, `password`, `nombre`, `apellido`, `email`) VALUES
 (1, 'javier', 'ceiot' , 'Javier', 'Fanelli', 'javifanelli@gmail.com'),
-(2, 'jperez', '123456' , 'Juan', 'Perez', 'jperez@cualmail.com');
+(2, 'jperez', '123456' , 'Juan', 'Pérez', 'jperez@cualmail.com'),
+(3, 'maria', 'abcdef' , 'María', 'Fernández', 'mariaf@cualmail.com');
 
 -- Estructura de tabla para la tabla `Mediciones`
 
@@ -104,7 +105,7 @@ ALTER TABLE `Dispositivos`
 -- AUTO_INCREMENT de la tabla `Usuarios`
 
 ALTER TABLE `Usuarios`
-  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 -- AUTO_INCREMENT de la tabla `Mediciones`
 
