@@ -11,6 +11,7 @@ import { Usuario } from '../interfaces/usuario';
 export class UsuarioPage implements OnInit {
   userData!: Usuario;
   username!: string;
+  userDataUpdated: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -42,6 +43,7 @@ export class UsuarioPage implements OnInit {
 
   actualizarDatos() {
     if (this.userData) {
+      this.userDataUpdated = true;
       this.usuarioService.updateUser(this.username, this.userData).subscribe({
         next: () => {
           console.log('Datos del usuario actualizados exitosamente');
