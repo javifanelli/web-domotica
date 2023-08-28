@@ -23,6 +23,7 @@ export class ConfigPage implements OnInit, OnDestroy {
   public minutoEncendido: string = '';
   public horaApagado: string = '';
   public minutoApagado: string = '';
+  public mododisp!: string;
   private activatedRoute: ActivatedRoute;
   private updateIntervalId: any;
 
@@ -60,6 +61,7 @@ export class ConfigPage implements OnInit, OnDestroy {
       this.horaApagado = this.hoff.toString();
       this.moff = data[0].moff;
       this.minutoApagado = this.moff.toString();
+      this.mododisp = data[0].modo;
     });
   }
 
@@ -79,12 +81,14 @@ export class ConfigPage implements OnInit, OnDestroy {
       minutoEncendido: this.minutoEncendido,
       horaApagado: this.horaApagado,
       minutoApagado: this.minutoApagado,
+      dispositivoId: this.dispositivoId,
+      mododisp: this.mododisp,
       tipo: this.tipo
     };
-
     this.dispositivoService.enviarDatos(datos).subscribe(
       (response) => {
         console.log('Datos enviados correctamente:', response);
+        console.log("Datos enviados:", datos);
       },
       (error) => {
         console.error('Error al enviar los datos:', error);
