@@ -130,6 +130,9 @@ borrarTablaRouter.delete('/:id', async function (req, res, next) {
   });
 
   usuariosRouter.get('/:userId', async function (req, res, next) {
+    res.header('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.header('Pragma', 'no-cache');
+    res.header('Expires', '0');
     try {
       const connection = await pool.getConnection();
       const result = await connection.query('SELECT * FROM Usuarios WHERE userId = ?', req.params.userId);
@@ -146,7 +149,7 @@ borrarTablaRouter.delete('/:id', async function (req, res, next) {
     }
   });
 
-  usuariosRouter.put('/:user', async function (req, res, next) {
+  usuariosRouter.put('/:userId', async function (req, res, next) {
     try {
       const connection = await pool.getConnection();
       const updatedUser = req.body;
@@ -155,9 +158,10 @@ borrarTablaRouter.delete('/:id', async function (req, res, next) {
         updatedUser.apellido,
         updatedUser.email,
         updatedUser.password,
-        req.params.user
+        updatedUser.user,
+        updatedUser.userId
       ];
-      const updateQuery = 'UPDATE Usuarios SET nombre = ?, apellido = ?, email = ?, password = ? WHERE user = ?';
+      const updateQuery = 'UPDATE Usuarios SET nombre = ?, apellido = ?, email = ?, password = ?, user = ? WHERE userId = ?';
       await connection.query(updateQuery, queryParams);
       connection.release();
       res.status(200).send('Usuario actualizado exitosamente');
@@ -167,6 +171,5 @@ borrarTablaRouter.delete('/:id', async function (req, res, next) {
       res.status(500).send('Error al actualizar el usuario');
     }
   });
-    
 
 module.exports = { dispositivosRouter, ultMedicionRouter, graficoRouter, medicionesRouter, deleteDispositivoRouter, estadoConexionRouter, borrarTablaRouter, usuariosRouter };

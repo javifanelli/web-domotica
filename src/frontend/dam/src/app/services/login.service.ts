@@ -20,14 +20,10 @@ export class LoginService {
       if (response && response.token) {
         this.router.navigate(['home']);
         localStorage.setItem('token', response.token);
-        
         if (typeof response.userId === 'number') {
           localStorage.setItem('userId', response.userId.toString());
-          console.log("Respuesta", response);
-        } else {
-          console.log("El userId en la respuesta no es un número válido:", response.userId);
+          console.log("Id obtenido con exito", response.userId.toString());
         }
-        
         return true;
       } else {
         console.log('Credenciales inválidas');
@@ -39,7 +35,6 @@ export class LoginService {
     }
   }
   
-
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('userId');

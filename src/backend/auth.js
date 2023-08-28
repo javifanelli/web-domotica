@@ -6,6 +6,9 @@ const pool = require('./mysql-connector');
 const JWT_Secret = 'your_secret_key';
 
 authRouter.post('/authenticate', async (req, res) => {
+  res.header('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.header('Pragma', 'no-cache');
+  res.header('Expires', '0');
   const { username, password } = req.body;
   try {
     const connection = await pool.getConnection();
