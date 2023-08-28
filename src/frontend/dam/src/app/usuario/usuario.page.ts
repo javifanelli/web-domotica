@@ -10,7 +10,7 @@ import { Usuario } from '../interfaces/usuario';
 })
 export class UsuarioPage implements OnInit {
   userData!: Usuario;
-  username!: string;
+  userId!: number;
   userDataUpdated: boolean = false;
 
   constructor(
@@ -19,17 +19,17 @@ export class UsuarioPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    const usernameParam = this.route.snapshot.paramMap.get('user');
-    if (usernameParam !== null) {
-      this.username = usernameParam;
+    const userIdParam = this.route.snapshot.paramMap.get('userId');
+    if (userIdParam !== null) {
+      this.userId = +userIdParam;
       this.loadUserData();
     } else {
-      console.error('No se proporcionó un nombre de usuario en la URL.');
+      console.error('No se proporcionó un userId en la URL.');
     }
-  }
+  }  
 
   loadUserData() {
-    this.usuarioService.getUser(this.username).subscribe({
+    this.usuarioService.getUser(this.userId).subscribe({
       next: (data: Usuario) => {
         this.userData = data;
         console.log("Datos son:", this.userData);
@@ -44,7 +44,7 @@ export class UsuarioPage implements OnInit {
   actualizarDatos() {
     if (this.userData) {
       this.userDataUpdated = true;
-      this.usuarioService.updateUser(this.username, this.userData).subscribe({
+      this.usuarioService.updateUser(this.userId, this.userData).subscribe({
         next: () => {
           console.log('Datos del usuario actualizados exitosamente');
         },

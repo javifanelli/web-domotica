@@ -129,11 +129,11 @@ borrarTablaRouter.delete('/:id', async function (req, res, next) {
       }
   });
 
-  usuariosRouter.get('/:user', async function (req, res, next) {
+  usuariosRouter.get('/:userId', async function (req, res, next) {
     try {
       const connection = await pool.getConnection();
-      const result = await connection.query('SELECT * FROM Usuarios WHERE user = ?', req.params.user);
-      console.log("Los datos del usuario son:", req.params.user)
+      const result = await connection.query('SELECT * FROM Usuarios WHERE userId = ?', req.params.userId);
+      console.log("Los datos del usuario son:", req.params.userId)
       connection.release();
       if (result.length > 0) {
         const userData = result[0];

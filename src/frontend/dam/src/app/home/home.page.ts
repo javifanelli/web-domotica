@@ -12,7 +12,7 @@ import { Usuario } from '../interfaces/usuario';
 })
 export class HomePage implements OnInit {
   userData!: Usuario;
-  user!: string;
+  userId!: number;
 
   constructor(
     private loginService: LoginService,
@@ -22,9 +22,13 @@ export class HomePage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.user = this.loginService.getCurrentUser() || ''; // Obtener el nombre de usuario autenticado
-    console.log("Usuario al inicio:", this.user);
-    /* this.loadUserData(); */
+    const userId = this.loginService.getCurrentUser();
+    if (userId !== null) {
+      this.userId = userId;
+      console.log("Usuario al inicio:", this.userId);
+    } else {
+      console.error("El usuario actual es nulo");
+    }
   }
 
   async logout() {
@@ -52,19 +56,19 @@ export class HomePage implements OnInit {
   }  
 
   loadUserData() {
-    const username = this.loginService.getCurrentUser();
-    if (username) {
-      this.usuarioService.getUser(this.user).subscribe(
-        (data: Usuario) => {
-          this.userData = data;
-        },
-        (error) => {
-          console.error('Error al cargar los datos del usuario en home:', error);
-        }
-      );
+    const userId = this.loginService.getCurrentUser();
+    if (userId) {
+      this.usuarioService.getUser(userId).subscribe({
+      next: (data: Usuario) => {
+        this.userData = data;
+      },
+      error: (error) => {
+        console.error('Error al cargar los datos del usuario en home:', error);
+      }
+    });
     } else {
-      console.error('No se proporcionó un nombre de usuario en home.');
+      console.error('No se proporcionó un userId en home.');
     }
-  }
-  
+  }  
+
 }

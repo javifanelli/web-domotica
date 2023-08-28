@@ -17,33 +17,44 @@ export class LoginService {
   async login(username: string, password: string): Promise<boolean> {
     try {
       let response = await firstValueFrom(this.http.post<any>(this.uri + '/authenticate', { username: username, password: password }));
-
       if (response && response.token) {
         this.router.navigate(['home']);
         localStorage.setItem('token', response.token);
-        localStorage.setItem('username', username); // Almacena el nombre de usuario
-        console.log("Datos de usuario en el servicio login:", username);
-        return true; // Autenticación exitosa
+        
+        if (typeof response.userId === 'number') {
+          localStorage.setItem('userId', response.userId.toString());
+          console.log("Respuesta", response);
+        } else {
+          console.log("El userId en la respuesta no es un número válido:", response.userId);
+        }
+        
+        return true;
       } else {
         console.log('Credenciales inválidas');
-        return false; // Autenticación fallida
+        return false;
       }
     } catch (error) {
       console.error('Error en el servicio de inicio de sesión:', error);
-      return false; // Error en la petición
+      return false;
     }
   }
+  
 
   logout() {
     localStorage.removeItem('token');
-    localStorage.removeItem('username');
+    localStorage.removeItem('userId');
   }
 
   public get logIn(): boolean {
     return localStorage.getItem('token') !== null;
   }
 
-  getCurrentUser(): string | null {
-    return localStorage.getItem('username');
+  getCurrentUser(): number | null {
+    const userIdString = localStorage.getItem('userId');
+    if (userIdString) {
+      return parseInt(userIdString, 10);
+    }
+    return null;
   }
+  
 }

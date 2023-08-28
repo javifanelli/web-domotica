@@ -40,7 +40,7 @@ const routes: Routes = [
   },
 
   { 
-    path: 'usuario/:user',
+    path: 'usuario/:userId',
     loadChildren: () => import('./usuario/usuario.module').then(m => m.UsuarioPageModule)
   },
   

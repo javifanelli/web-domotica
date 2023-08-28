@@ -40,13 +40,12 @@ export class DispositivoService {
     return this._http.delete(this.URLServer + '/borrartabla/' + id);
   }
 
-  public getUser(user: string): Observable<Usuario> {
-    return this._http.get<Usuario>(this.URLServer + '/usuario/' + user);
+  public getUser(userId: number): Observable<Usuario> {
+    return this._http.get<Usuario>(this.URLServer + '/usuario/' + userId);
   }
 
-  public updateUser(user: string, userData: Usuario): Observable<any> {
-    const url = this.URLServer + '/usuario/' + user;
-    return this._http.put(url, userData);
+  public updateUser(userId: number, userData: Usuario): Observable<any> {
+    return this._http.put(this.URLServer + '/usuario/' + userId, userData);
   }
 
 }

@@ -89,7 +89,7 @@ ALTER TABLE `Dispositivos`
 -- Indices de la tabla `Usuarios`
 
 ALTER TABLE `Usuarios`
-  ADD PRIMARY KEY (`userId`,`user`);
+  ADD PRIMARY KEY (`userId`);
 
 -- Indices de la tabla `Mediciones`
 

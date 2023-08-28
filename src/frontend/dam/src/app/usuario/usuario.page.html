@@ -10,8 +10,9 @@
     <ion-card-content>
       <ion-list>
         <ion-item>
-          <ion-label>Usuario: {{ userData.user }}</ion-label>
+          <ion-label>Usuario: <ion-input [(ngModel)]="userData.user" required></ion-input></ion-label>
         </ion-item>
+        <ion-note *ngIf="userData.user?.length === 0 && userDataUpdated">Usuario es requerido.</ion-note>
         <ion-item>
           <ion-label>Nombre: <ion-input [(ngModel)]="userData.nombre" required></ion-input></ion-label>
         </ion-item>
