@@ -11,11 +11,6 @@ import { Usuario } from '../interfaces/usuario';
 export class UsuarioPage implements OnInit {
   userData!: Usuario;
   userId!: number;
-  user!: string;
-  password!: string;
-  nombre!: string;
-  apellido!: string;
-  email!: string;
   userDataUpdated: boolean = false;
 
   constructor(

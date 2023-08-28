@@ -25,10 +25,13 @@
           <ion-label class="ion-text-center">Modo: {{ modo }}</ion-label>
         </div>
         <div class="center-content">
-          <ion-input class="custom-input" placeholder="Salida:" type="number" min="15" max="30" step="1"></ion-input>
-          <ion-button color="success" [routerLink]="'/home'">
-            <ion-icon slot="start" name="wifi"></ion-icon>Cambiar salida
-          </ion-button>
+          <ng-container *ngIf="tipo === 'Temperatura'">
+            <ion-input class="custom-input" value="{{ setPoint }}" type="number" min="15" max="30" step="1"></ion-input>
+          </ng-container>
+          <ng-container *ngIf="tipo === 'Luz dimmer'">
+            <ion-input class="custom-input" value="{{ salida }}" type="number" min="0" max="100" step="10"></ion-input>
+          </ng-container>
+          <ion-button color="success" [routerLink]="'/home'"><ion-icon slot="start" name="wifi"></ion-icon>Cambiar salida</ion-button>
         </div>        
         <ion-button [routerLink]="'/home'"><ion-icon slot="start" name="home"></ion-icon>Inicio</ion-button>
         <ion-button [routerLink]="'/medicion/' + dispositivoId"><ion-icon slot="start" name="speedometer"></ion-icon>Mediciones</ion-button>
