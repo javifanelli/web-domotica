@@ -54,26 +54,37 @@ mqttClient.on('message', async (topic, message) => {
     let connection;
     try {
       const mensaje = JSON.parse(message.toString());
-      const medicion = {
-        dispositivoId: mensaje.ID,
-        tipo: mensaje.tipo,
-        fecha: mensaje.time,
-        valor: mensaje.valor,
-        set_point: mensaje.set_point,
-        modo: mensaje.modo,
-        salida: mensaje.salida,
-        hon: mensaje.hon,
-        mon: mensaje.mon,
-        hoff: mensaje.hoff,
-        moff: mensaje. moff
-      };
-      console.log('Mensaje convertido a JSON');
+      const dispositivoId = mensaje.ID;
+      const dispositivoMac = mensaje.MAC;
       connection = await pool.getConnection();
-      const result = await connection.query(
-        'INSERT INTO Mediciones (dispositivoId, tipo, fecha, valor, set_point, modo, salida, hon, mon, hoff, moff) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-        [medicion.dispositivoId, medicion.tipo, medicion.fecha, medicion.valor, medicion.set_point, medicion.modo, medicion.salida, medicion.hon, medicion.mon, medicion.hoff, medicion.moff]
-      );
-      console.log('Medición insertada correctamente en la base de datos.');
+      const macResult = await connection.query('SELECT mac FROM Dispositivos WHERE dispositivoId = ?', [dispositivoId]);
+      const macGuardada = macResult[0].mac;
+      if (!macGuardada) {
+        await connection.query('UPDATE Dispositivos SET mac = ? WHERE dispositivoId = ?', [dispositivoMac, dispositivoId]);
+        console.log('MAC del dispositivo actualizada en la tabla de dispositivos.');
+      } else if (dispositivoMac === macGuardada) {
+        const medicion = {
+          dispositivoId: dispositivoId,
+          tipo: mensaje.tipo,
+          fecha: mensaje.time,
+          valor: mensaje.valor,
+          set_point: mensaje.set_point,
+          modo: mensaje.modo,
+          salida: mensaje.salida,
+          hon: mensaje.hon,
+          mon: mensaje.mon,
+          hoff: mensaje.hoff,
+          moff: mensaje.moff
+        };
+        console.log('Mensaje convertido a JSON');
+        const result = await connection.query(
+          'INSERT INTO Mediciones (dispositivoId, tipo, fecha, valor, set_point, modo, salida, hon, mon, hoff, moff) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+          [medicion.dispositivoId, medicion.tipo, medicion.fecha, medicion.valor, medicion.set_point, medicion.modo, medicion.salida, medicion.hon, medicion.mon, medicion.hoff, medicion.moff]
+        );
+        console.log('Medición insertada correctamente en la base de datos.');
+      } else {
+        console.log('La MAC del dispositivo no coincide. Datos descartados.');
+      }
     } catch (error) {
       console.error('Error al insertar la medición en la base de datos:', error);
     } finally {
