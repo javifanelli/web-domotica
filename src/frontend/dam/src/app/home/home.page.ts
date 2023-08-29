@@ -34,12 +34,6 @@ export class HomePage implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
-    if (this.userDataSubscription) {
-      this.userDataSubscription.unsubscribe();
-    }
-  }
-
   async logout() {
     const alert = await this.alertController.create({
       header: 'Cerrar sesión',
@@ -78,5 +72,12 @@ export class HomePage implements OnInit, OnDestroy {
     } else {
       console.error('No se proporcionó un userId en home.');
     }
-  }  
+  }
+
+  ngOnDestroy() {
+    if (this.userDataSubscription) {
+      this.userDataSubscription.unsubscribe();
+    }
+  }
+
 }
