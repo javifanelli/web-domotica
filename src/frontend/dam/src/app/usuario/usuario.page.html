@@ -22,11 +22,11 @@
         </ion-item>
         <ion-note *ngIf="userData.apellido?.length === 0 && userDataUpdated">Apellido es requerido.</ion-note>
         <ion-item>
-          <ion-label>Email: <ion-input [(ngModel)]="userData.email" required></ion-input></ion-label>
+          <ion-label>Email: <ion-input type="email" [(ngModel)]="userData.email" required></ion-input></ion-label>
         </ion-item>
         <ion-note *ngIf="userData.email?.length === 0 && userDataUpdated">Email es requerido.</ion-note>
         <ion-item>
-          <ion-label>Contraseña: <ion-input [readonly]="false" [(ngModel)]="userData.password" required minlength="5"></ion-input></ion-label>
+          <ion-label>Contraseña: <ion-input [(ngModel)]="userData.password" required minlength="5"></ion-input></ion-label>
         </ion-item>
         <ion-note *ngIf="userData.password?.length === 0 && userDataUpdated">Contraseña es requerida.</ion-note>
         <ion-note *ngIf="userData.password && userData.password.length < 5 && userDataUpdated">La contraseña debe tener al menos 5 caracteres.</ion-note>

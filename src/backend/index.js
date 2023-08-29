@@ -86,7 +86,7 @@ mqttClient.on('message', async (topic, message) => {
 
 app.post('/enviardatos', async (req, res) => {
   try {
-    const { nuevoSetPoint, horaEncendido, minutoEncendido, horaApagado, minutoApagado, tipo, dispositivoId, mododisp } = req.body;
+    const { nuevoSetPoint, horaEncendido, minutoEncendido, horaApagado, minutoApagado, tipo, dispositivoId, mododisp, salida } = req.body;
     const datos = {
       setpoint: nuevoSetPoint,
       hon: horaEncendido,
@@ -95,6 +95,7 @@ app.post('/enviardatos', async (req, res) => {
       moff: minutoApagado,
       id: dispositivoId,
       modo: mododisp,
+      salida: salida,
     };
     if(tipo==='Temperatura'){
     mqttClient.publish('/home/temperatura/settings', JSON.stringify(datos));}

@@ -1,33 +1,43 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title class="ion-text-center">Configuración de dispositivo {{ dispositivoId }}</ion-title>  
+    <ion-title class="ion-text-center">Configuración de dispositivo {{ dispositivoId }}</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content [fullscreen]="true">
+
+<ion-content [fullscreen]="true" class="content-container">
   <div class="center-content">
     <ion-title class="ion-text-center">Datos de modo manual</ion-title>
-    <ion-label>Salida</ion-label>
-    <ng-container *ngIf="tipo === 'Temperatura'">
-      <ion-input class="custom-input" value="{{ setPoint }}" type="number" min="15" max="30" step="1"></ion-input>
-    </ng-container>
-    <ng-container *ngIf="tipo === 'Luz dimmer'">
-      <ion-input class="custom-input"  type="number" min="0" max="100" step="10"></ion-input>
-    </ng-container>
+    <div class="input-container">
+      <ion-label class="salida-label">Salida</ion-label>
+      <ng-container *ngIf="tipo === 'Temperatura'">
+        <ion-segment [(ngModel)]="outsend" value="salida">
+          <ion-segment-button value="0">
+            Apagado
+          </ion-segment-button>
+          <ion-segment-button value="100">
+            Prendido
+          </ion-segment-button>
+        </ion-segment>
+      </ng-container>
+      <ng-container *ngIf="tipo === 'Luz dimmer'">
+        <ion-input class="custom-input-salida" [(ngModel)]="outsend" type="number" min="0" max="100" step="10"></ion-input>
+      </ng-container>
+    </div>
   </div>
-  <div class="content-container">
-    
+
+  <div class="center-content">
+    <ion-title class="ion-text-center">Datos de modo automático</ion-title>
     <ion-grid>
-      <ion-title class="ion-text-center">Datos de modo automático</ion-title>
       <ion-row>
         <ion-col size="2">
-          <ion-label>Nuevo set point</ion-label>
+          <ion-label>Set point</ion-label>
         </ion-col>
         <ion-col size="2.1">  
           <ng-container *ngIf="tipo === 'Temperatura'">
-            <ion-input class="custom-input" type="number" min="15" max="30" step="1" [(ngModel)]="nuevoSetPoint"></ion-input>
+            <ion-input class="custom-input" type="number" min="15" max="30" step="1" [(ngModel)]="spsend"></ion-input>
           </ng-container>
           <ng-container *ngIf="tipo === 'Luz dimmer'">
-            <ion-input class="custom-input" type="number" min="0" max="100" step="10" [(ngModel)]="nuevoSetPoint"></ion-input>
+            <ion-input class="custom-input" type="number" min="0" max="100" step="10" [(ngModel)]="spsend"></ion-input>
           </ng-container>
         </ion-col>
       </ion-row>
@@ -38,9 +48,9 @@
         <ion-col size="1">
           <ion-input class="custom-input" type="number" min="0" max="23" [(ngModel)]="horaEncendido"></ion-input>
         </ion-col>
-          <ion-col size="0.1" class="ion-text-center">:</ion-col>
-          <ion-col size="1">
-            <ion-input class="custom-input" type="number" min="0" max="59" [(ngModel)]="minutoEncendido"></ion-input>
+        <ion-col size="0.1" class="ion-text-center">:</ion-col>
+        <ion-col size="1">
+          <ion-input class="custom-input" type="number" min="0" max="59" [(ngModel)]="minutoEncendido"></ion-input>
         </ion-col>
       </ion-row>
       <ion-row class="ion-align-items-center">
@@ -63,5 +73,16 @@
         </ion-col>
       </ion-row>
     </ion-grid>
+  </div>
+  <div class="center-content">
+    <ion-title class="ion-text-center">Selección de modo</ion-title>
+    <ion-segment [(ngModel)]="mododisp" value="modo">
+      <ion-segment-button value="Automatico">
+        Automático
+      </ion-segment-button>
+      <ion-segment-button value="Manual">
+        Manual
+      </ion-segment-button>
+    </ion-segment>
   </div>
 </ion-content>
