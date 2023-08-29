@@ -7,6 +7,7 @@ const deleteDispositivoRouter = express.Router();
 const estadoConexionRouter = express.Router();
 const borrarTablaRouter = express.Router();
 const usuariosRouter = express.Router();
+const agregaRouter = express.Router();
 const pool = require('./mysql-connector');
 
 dispositivosRouter.get('/', async function (req, res, next) {
@@ -172,4 +173,29 @@ borrarTablaRouter.delete('/:id', async function (req, res, next) {
     }
   });
 
-module.exports = { dispositivosRouter, ultMedicionRouter, graficoRouter, medicionesRouter, deleteDispositivoRouter, estadoConexionRouter, borrarTablaRouter, usuariosRouter };
+  agregaRouter.post('/', async function (req, res, next) {
+    const nuevoDispositivo = req.body;
+    let connection;
+    try {
+        connection = await pool.getConnection();
+        await connection.beginTransaction();
+        const insertDispositivoQuery = 'INSERT INTO Dispositivos (nombre, ubicacion, mac, tipo) VALUES (?, ?, ?, ?)';
+        const insertDispositivoParams = [nuevoDispositivo.nombre, nuevoDispositivo.ubicacion, nuevoDispositivo.mac, nuevoDispositivo.tipo];
+        const result = await connection.query(insertDispositivoQuery, insertDispositivoParams);
+        await connection.commit();
+        connection.release();
+        const dispositivoId = Number(result.insertId);
+        res.send({ message: 'Dispositivo agregado exitosamente', dispositivoId }).status(201);
+        console.log('Dispositivo agregado:', nuevoDispositivo);
+    } catch (err) {
+        if (connection) {
+            await connection.rollback();
+            connection.release();
+        }
+        res.send(err).status(400);
+        console.log('Error al agregar dispositivo:', err);
+    }
+});
+
+
+module.exports = { dispositivosRouter, ultMedicionRouter, graficoRouter, medicionesRouter, deleteDispositivoRouter, estadoConexionRouter, borrarTablaRouter, usuariosRouter, agregaRouter };

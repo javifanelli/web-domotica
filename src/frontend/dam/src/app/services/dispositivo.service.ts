@@ -48,4 +48,8 @@ export class DispositivoService {
     return this._http.put(this.URLServer + '/usuario/' + userId, userData);
   }
 
+  agregarDispositivo(dispositivo: Dispositivo): Observable<any> {
+    return this._http.post(this.URLServer + '/agregar/', dispositivo);
+  }
+
 }

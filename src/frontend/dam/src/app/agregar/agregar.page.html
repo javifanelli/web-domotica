@@ -1,0 +1,35 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>Agregar Dispositivo</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-list>
+      <ion-item>
+        <ion-label position="stacked">Nombre</ion-label>
+        <ion-input [(ngModel)]="nuevoDispositivo.nombre" type="text"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label position="stacked">Ubicación</ion-label>
+        <ion-input [(ngModel)]="nuevoDispositivo.ubicacion" type="text"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label position="stacked">MAC</ion-label>
+        <ion-input [(ngModel)]="nuevoDispositivo.mac" type="text"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label>Tipo</ion-label>
+        <ion-select [(ngModel)]="nuevoDispositivo.tipo">
+          <ion-select-option value="Temperatura">Temperatura</ion-select-option>
+          <ion-select-option value="Luz dimmer">Luz dimmer</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+  
+    <ion-button (click)="agregarDispositivo()">Agregar Dispositivo</ion-button>
+  </ion-content>
+  

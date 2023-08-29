@@ -43,6 +43,9 @@ const routes: Routes = [
     path: 'usuario/:userId',
     loadChildren: () => import('./usuario/usuario.module').then(m => m.UsuarioPageModule)
   },
+  {
+    path: 'agregar', loadChildren: () => import('./agregar/agregar.module').then(m => m.AgregarPageModule)
+  },
   
 ];
 

@@ -6,4 +6,3 @@ export interface Usuario {
     apellido: string,
     email: string
   }
-  
