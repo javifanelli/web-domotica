@@ -3,24 +3,17 @@
       <ion-title>Agregar Dispositivo</ion-title>
     </ion-toolbar>
   </ion-header>
-  
+
   <ion-content>
     <ion-list>
       <ion-item>
         <ion-label position="stacked">Nombre</ion-label>
         <ion-input [(ngModel)]="nuevoDispositivo.nombre" type="text"></ion-input>
       </ion-item>
-  
       <ion-item>
         <ion-label position="stacked">Ubicación</ion-label>
         <ion-input [(ngModel)]="nuevoDispositivo.ubicacion" type="text"></ion-input>
       </ion-item>
-  
-      <ion-item>
-        <ion-label position="stacked">MAC</ion-label>
-        <ion-input [(ngModel)]="nuevoDispositivo.mac" type="text"></ion-input>
-      </ion-item>
-  
       <ion-item>
         <ion-label>Tipo</ion-label>
         <ion-select [(ngModel)]="nuevoDispositivo.tipo">
