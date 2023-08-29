@@ -58,4 +58,15 @@ export class AgregarPage {
       }
     });
   }
+
+  limpiarCampos() {
+    this.nuevoDispositivo = {
+      dispositivoId: 0,
+      nombre: '',
+      ubicacion: '',
+      mac: '',
+      tipo: ''
+    };
+  }
+
 }

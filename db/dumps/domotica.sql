@@ -36,8 +36,7 @@ CREATE TABLE `Dispositivos` (
 
 INSERT INTO `Dispositivos` (`dispositivoId`, `nombre`, `ubicacion`, `mac`, `tipo`) VALUES
 (1, 'ESP32+DHT22', 'Habitación', '94:B5:55:2B:FF:64', 'Temperatura'),
-(2, 'ESP32', 'Sala', '0C:B8:15:D8:7A:6C', 'Luz dimmer'),
-(3, 'ESP32-C3+simluada', 'Living', '7C:DF:A1:D0:33:00', 'Temperatura');
+(2, 'ESP32', 'Sala', '0C:B8:15:D8:7A:6C', 'Luz dimmer');
 
 -- Estructura de tabla para la tabla `Usuarios`
 
@@ -100,7 +99,7 @@ ALTER TABLE `Mediciones`
 -- AUTO_INCREMENT de la tabla `Dispositivos`
 
 ALTER TABLE `Dispositivos`
-  MODIFY `dispositivoId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `dispositivoId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 -- AUTO_INCREMENT de la tabla `Usuarios`
 

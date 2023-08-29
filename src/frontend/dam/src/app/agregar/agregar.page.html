@@ -23,7 +23,8 @@
       </ion-item>
     </ion-list>
     <div class="center-content">
-      <ion-button (click)="agregarDispositivo()"><ion-icon slot="start" name="checkmark"></ion-icon>Confirmar</ion-button>
+      <ion-button color="success" (click)="agregarDispositivo()"><ion-icon name="checkmark"></ion-icon>Confirmar</ion-button>
+      <ion-button color="danger" (click)="limpiarCampos()"><ion-icon name="close"></ion-icon>Borrar</ion-button>
       <ion-button [routerLink]="'/home'"><ion-icon slot="start" name="home"></ion-icon>Inicio</ion-button>
     </div>
     </ion-content>
