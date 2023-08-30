@@ -14,11 +14,15 @@
         <div>MAC: {{ dispositivo.mac }}</div>
       </ion-card-content>
       <ion-item detail="false" class="ver-detalle">
-        <ion-button [routerLink]="'/dispositivos/' + dispositivo.dispositivoId">Ver</ion-button>
+        <ion-button [routerLink]="'/dispositivos/' + dispositivo.dispositivoId">
+          <ion-icon name="enter"></ion-icon>Ver
+        </ion-button>
         <ion-button [routerLink]="'/modificar/' + dispositivo.dispositivoId">
           <ion-icon name="create"></ion-icon>Modificar
         </ion-button>
-        <ion-button class="boton-borrar" (click)="confirmarBorrar(dispositivo.dispositivoId)">Borrar</ion-button>
+        <ion-button class="boton-borrar" (click)="confirmarBorrar(dispositivo.dispositivoId)">
+          <ion-icon name="close"></ion-icon>Borrar
+        </ion-button>
       </ion-item>
     </ion-card>
   </div>

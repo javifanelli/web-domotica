@@ -44,38 +44,18 @@ export class UsuarioPage implements OnInit {
     });
   }
 
-  async mostrarMensajeExitoso() {
-    const alert = await this.alertController.create({
-      header: 'Éxito',
-      message: 'Datos del usuario actualizados exitosamente.',
-      buttons: ['Aceptar']
-    });
-
-    await alert.present();
-  }
-
-  async mostrarError(error: any) {
-    const alert = await this.alertController.create({
-      header: 'Error',
-      message: 'Ha ocurrido un error al actualizar los datos del usuario.',
-      buttons: ['Aceptar']
-    });
-
-    await alert.present();
-  }
-
   actualizarDatos() {
     if (this.userData && this.userId) {
       this.userDataUpdated = true;
       this.usuarioService.updateUser(this.userId, this.userData).subscribe({
         next: () => {
           console.log('Datos del usuario actualizados exitosamente');
-          this.mostrarMensajeExitoso(); // Mostrar mensaje exitoso
+          this.mostrarMensajeExitoso();
           this.loadUserData();
         },
         error: (error) => {
           console.error('Error al actualizar los datos del usuario:', this.userId, error);
-          this.mostrarError(error); // Mostrar mensaje de error
+          this.mostrarError(error);
         }
       });
     } else {
@@ -86,13 +66,22 @@ export class UsuarioPage implements OnInit {
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
-
-  limpiarCampos() {
-    this.userData.user= '',
-    this.userData.nombre = '',
-    this.userData.apellido = '',
-    this.userData.email = '',
-    this.userData.password = ''
-  };
   
+  async mostrarMensajeExitoso() {
+    const alert = await this.alertController.create({
+      header: 'Éxito',
+      message: 'Datos del usuario actualizados exitosamente.',
+      buttons: ['Aceptar']
+    });
+    await alert.present();
+  }
+
+  async mostrarError(error: any) {
+    const alert = await this.alertController.create({
+      header: 'Error',
+      message: 'Ha ocurrido un error al actualizar los datos del usuario.',
+      buttons: ['Aceptar']
+    });
+    await alert.present();
+  }
 }

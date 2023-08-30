@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DispositivoService } from '../services/dispositivo.service';
 import { Dispositivo } from '../interfaces/dispositivo';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-modificar',
@@ -22,7 +23,8 @@ export class ModificarPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private dispositivoService: DispositivoService
+    private dispositivoService: DispositivoService,
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {
@@ -53,9 +55,11 @@ export class ModificarPage implements OnInit {
       if (this.dispositivo) {
         this.dispositivoService.actualizarDispositivo(this.dispositivo).subscribe(
           (next) => {
+            this.mostrarMensajeExitoso();
             this.router.navigate(['/home']);
           },
           (error) => {
+            this.mostrarError(error);
             console.error('Error al actualizar:', error);
           }
         );
@@ -65,5 +69,22 @@ export class ModificarPage implements OnInit {
     }
   }
   
+  async mostrarMensajeExitoso() {
+    const alert = await this.alertController.create({
+      header: 'Éxito',
+      message: 'Datos del dispositivo actualizados exitosamente.',
+      buttons: ['Aceptar']
+    });
+    await alert.present();
+  }
+
+  async mostrarError(error: any) {
+    const alert = await this.alertController.create({
+      header: 'Error',
+      message: 'Ha ocurrido un error al actualizar los datos del dispositivo.',
+      buttons: ['Aceptar']
+    });
+    await alert.present();
+  }
 
 }
