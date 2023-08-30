@@ -1,6 +1,6 @@
 <ion-header>
     <ion-toolbar>
-      <ion-title>Modificar Dispositivo</ion-title>
+      <ion-title>Modificar dispositivo {{ dispositivo.dispositivoId }}</ion-title>
     </ion-toolbar>
   </ion-header>
   
@@ -8,30 +8,30 @@
     <ion-card class="custom-card">
       <ion-card-header>
         <ion-card-title>
-          {{ dispositivo.ubicacion }}
-          <ion-icon *ngIf="dispositivo.tipo === 'Temperatura'" name="thermometer"></ion-icon>
-          <ion-icon *ngIf="dispositivo.tipo === 'Luz dimmer'" name="sunny"></ion-icon>
+          {{ ubicacionold }}
         </ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <ion-item>
-          <ion-label position="stacked">Ubicación</ion-label>
-          <ion-input [(ngModel)]="dispositivo.ubicacion" type="text"></ion-input>
+          <ion-label position="floating">Ubicación</ion-label>
+          <ion-input [(ngModel)]="dispositivo.ubicacion" type="text" [clearInput]="true" required></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="stacked">Nombre</ion-label>
-          <ion-input [(ngModel)]="dispositivo.nombre" type="text"></ion-input>
+          <ion-label position="floating">Nombre</ion-label>
+          <ion-input [(ngModel)]="dispositivo.nombre" type="text" [clearInput]="true" required></ion-input>
         </ion-item>
         <ion-item>
           <ion-label>Tipo</ion-label>
+          <ion-icon *ngIf="dispositivo.tipo === 'Temperatura'" name="thermometer"></ion-icon>
+          <ion-icon *ngIf="dispositivo.tipo === 'Luz dimmer'" name="sunny"></ion-icon>
           <ion-select [(ngModel)]="dispositivo.tipo">
             <ion-select-option value="Temperatura">Temperatura</ion-select-option>
             <ion-select-option value="Luz dimmer">Luz dimmer</ion-select-option>
           </ion-select>
         </ion-item>
         <ion-item>
-          <ion-label>MAC address</ion-label>
-          <ion-input [(ngModel)]="dispositivo.mac" type="text"></ion-input>
+          <ion-label position="floating">MAC address</ion-label>
+          <ion-input [(ngModel)]="dispositivo.mac" type="text" [clearInput]="true" required minlength="17" maxlength="17"></ion-input>
         </ion-item>
       </ion-card-content>
     </ion-card>

@@ -63,7 +63,6 @@ export class MedicionPage implements OnInit, OnDestroy {
   
     await confirmar.present();
   }
-  
 
   ngOnDestroy() {
     this.subscription.unsubscribe();

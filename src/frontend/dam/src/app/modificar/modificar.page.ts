@@ -10,6 +10,7 @@ import { Dispositivo } from '../interfaces/dispositivo';
 })
 export class ModificarPage implements OnInit {
   dispositivoId!: number;
+  ubicacionold!: string;
   dispositivo: Dispositivo = {
     dispositivoId: 0,
     nombre: '',
@@ -35,6 +36,7 @@ export class ModificarPage implements OnInit {
         dispositivos => {
           if (dispositivos && dispositivos.length > 0) {
             this.dispositivo = dispositivos[0];
+            this.ubicacionold = dispositivos[0].ubicacion;
           }
         },
         error => {
@@ -50,11 +52,11 @@ export class ModificarPage implements OnInit {
     try {
       if (this.dispositivo) {
         this.dispositivoService.actualizarDispositivo(this.dispositivo).subscribe(
-          () => {
+          (next) => {
             this.router.navigate(['/home']);
           },
-          error => {
-            console.error('Error al guardar los cambios:', error);
+          (error) => {
+            console.error('Error al actualizar:', error);
           }
         );
       }

@@ -1,24 +1,24 @@
 <ion-header>
     <ion-toolbar>
-      <ion-title>Agregar Dispositivo</ion-title>
+      <ion-title>Agregar dispositivo</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <ion-content>
     <ion-list>
       <ion-item>
-        <ion-label>Ubicación</ion-label>
+        <ion-label position="floating">Ubicación</ion-label>
         <ion-input [(ngModel)]="nuevoDispositivo.ubicacion" type="text" required></ion-input>
       </ion-item>
       <ion-note  *ngIf="nuevoDispositivo.ubicacion?.length===0">Ubicación requerida</ion-note>
       <ion-item>
-        <ion-label>Nombre</ion-label>
+        <ion-label position="floating">Nombre</ion-label>
         <ion-input [(ngModel)]="nuevoDispositivo.nombre" type="text" required></ion-input>
       </ion-item>
       <ion-note  *ngIf="nuevoDispositivo.nombre?.length===0">Nombre requerido</ion-note>
       <ion-item>
-      <ion-label>MAC address</ion-label>
-        <ion-input [(ngModel)]="nuevoDispositivo.mac" type="text" required minlength="17" required></ion-input>
+      <ion-label position="floating">MAC address</ion-label>
+        <ion-input [(ngModel)]="nuevoDispositivo.mac" type="text" required minlength="17" maxlength="17" required></ion-input>
       </ion-item>
       <ion-note  *ngIf="nuevoDispositivo.mac.length !== 17">La MAC debe contener 17 dígitos</ion-note>
       <ion-item>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DispositivoService } from '../services/dispositivo.service';
 import { Usuario } from '../interfaces/usuario';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-usuario',
@@ -16,7 +17,8 @@ export class UsuarioPage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private usuarioService: DispositivoService
+    private usuarioService: DispositivoService,
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {
@@ -42,17 +44,38 @@ export class UsuarioPage implements OnInit {
     });
   }
 
+  async mostrarMensajeExitoso() {
+    const alert = await this.alertController.create({
+      header: 'Éxito',
+      message: 'Datos del usuario actualizados exitosamente.',
+      buttons: ['Aceptar']
+    });
+
+    await alert.present();
+  }
+
+  async mostrarError(error: any) {
+    const alert = await this.alertController.create({
+      header: 'Error',
+      message: 'Ha ocurrido un error al actualizar los datos del usuario.',
+      buttons: ['Aceptar']
+    });
+
+    await alert.present();
+  }
+
   actualizarDatos() {
-    console.log(this.userId, this.userData);
     if (this.userData && this.userId) {
       this.userDataUpdated = true;
       this.usuarioService.updateUser(this.userId, this.userData).subscribe({
         next: () => {
           console.log('Datos del usuario actualizados exitosamente');
+          this.mostrarMensajeExitoso(); // Mostrar mensaje exitoso
           this.loadUserData();
         },
         error: (error) => {
           console.error('Error al actualizar los datos del usuario:', this.userId, error);
+          this.mostrarError(error); // Mostrar mensaje de error
         }
       });
     } else {
@@ -64,4 +87,12 @@ export class UsuarioPage implements OnInit {
     this.showPassword = !this.showPassword;
   }
 
+  limpiarCampos() {
+    this.userData.user= '',
+    this.userData.nombre = '',
+    this.userData.apellido = '',
+    this.userData.email = '',
+    this.userData.password = ''
+  };
+  
 }

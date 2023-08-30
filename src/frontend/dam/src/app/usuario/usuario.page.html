@@ -1,5 +1,5 @@
 <ion-card>
-  <ion-header [translucent]="true">
+  <ion-header>
     <div class="header-container">
       <ion-title class="titulo">Detalles del usuario (ID: {{ userId }})</ion-title>
     </div>
@@ -10,33 +10,28 @@
     <ion-card-content>
       <ion-list>
         <ion-item>
-          <ion-label>Usuario: 
-            <ion-input [(ngModel)]="userData.user" required></ion-input>
-          </ion-label>
+          <ion-label position="floating">Usuario</ion-label>
+          <ion-input [(ngModel)]="userData.user" required></ion-input>
         </ion-item>
         <ion-note *ngIf="userData.user?.length === 0 && userDataUpdated">Usuario es requerido.</ion-note>
         <ion-item>
-          <ion-label>Nombre: 
-            <ion-input [(ngModel)]="userData.nombre" required></ion-input>
-          </ion-label>
+          <ion-label position="floating">Nombre</ion-label>
+          <ion-input [(ngModel)]="userData.nombre" required></ion-input>
         </ion-item>
         <ion-note *ngIf="userData.nombre?.length === 0 && userDataUpdated">Nombre es requerido.</ion-note>
         <ion-item>
-          <ion-label>Apellido: 
-            <ion-input [(ngModel)]="userData.apellido" required></ion-input>
-          </ion-label>
+          <ion-label position="floating">Apellido</ion-label>
+          <ion-input [(ngModel)]="userData.apellido" required></ion-input>
         </ion-item>
         <ion-note *ngIf="userData.apellido?.length === 0 && userDataUpdated">Apellido es requerido.</ion-note>
         <ion-item>
-          <ion-label>Email: 
-            <ion-input type="email" [(ngModel)]="userData.email" required></ion-input>
-          </ion-label>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input type="email" [(ngModel)]="userData.email" required></ion-input>
         </ion-item>
         <ion-note *ngIf="userData.email?.length === 0 && userDataUpdated">Email es requerido.</ion-note>
         <ion-item>
-          <ion-label>Contraseña: 
-            <ion-input [(ngModel)]="userData.password" required minlength="5" [type]="showPassword ? 'text' : 'password'" inputmode="text"></ion-input>
-          </ion-label>
+          <ion-label position="floating">Contraseña</ion-label>
+          <ion-input [(ngModel)]="userData.password" required minlength="5" [type]="showPassword ? 'text' : 'password'" inputmode="text"></ion-input>
           <ion-button slot="end" (click)="togglePasswordVisibility()" color="medium">
             <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
           </ion-button>
@@ -49,6 +44,7 @@
   <ion-col class="center-content">
     <div class="center-buttons">
       <ion-button color="success" (click)="actualizarDatos()"><ion-icon name="checkmark"></ion-icon>Actualizar datos</ion-button>
+      <ion-button color="danger" (click)="limpiarCampos()"><ion-icon name="close"></ion-icon>Borrar</ion-button>
       <ion-button [routerLink]="'/home'" class="volver-button"><ion-icon slot="start" name="home"></ion-icon>Inicio</ion-button>
     </div>
   </ion-col>
