@@ -8,6 +8,7 @@ const estadoConexionRouter = express.Router();
 const borrarTablaRouter = express.Router();
 const usuariosRouter = express.Router();
 const agregaRouter = express.Router();
+const modificarDispositivoRouter = express.Router();
 const pool = require('./mysql-connector');
 
 dispositivosRouter.get('/', async function (req, res, next) {
@@ -197,5 +198,28 @@ borrarTablaRouter.delete('/:id', async function (req, res, next) {
     }
 });
 
+  modificarDispositivoRouter.put('/:id', async function (req, res, next) {
+    const dispositivoId = req.params.id;
+    const nuevoDispositivo = req.body;
+    let connection;
+    try {
+      connection = await pool.getConnection();
+      await connection.beginTransaction();
+      const updateDispositivoQuery = 'UPDATE Dispositivos SET nombre = ?, ubicacion = ?, mac = ?, tipo = ? WHERE dispositivoId = ?';
+      const updateDispositivoParams = [nuevoDispositivo.nombre, nuevoDispositivo.ubicacion, nuevoDispositivo.mac, nuevoDispositivo.tipo, dispositivoId];
+      await connection.query(updateDispositivoQuery, updateDispositivoParams);
+      await connection.commit();
+      connection.release();
+      res.status(200).send('Dispositivo actualizado exitosamente');
+      console.log('Dispositivo actualizado:', nuevoDispositivo);
+    } catch (err) {
+      if (connection) {
+        await connection.rollback();
+        connection.release();
+      }
+      res.status(500).send('Error al actualizar el dispositivo');
+      console.log('Error al actualizar dispositivo:', err);
+  }
+});
 
-module.exports = { dispositivosRouter, ultMedicionRouter, graficoRouter, medicionesRouter, deleteDispositivoRouter, estadoConexionRouter, borrarTablaRouter, usuariosRouter, agregaRouter };
+module.exports = { dispositivosRouter, ultMedicionRouter, graficoRouter, medicionesRouter, deleteDispositivoRouter, estadoConexionRouter, borrarTablaRouter, usuariosRouter, agregaRouter, modificarDispositivoRouter };

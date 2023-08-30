@@ -12,7 +12,7 @@ const fs = require('fs');
 const mqttClient = require('./mqtt-handler');
 const { authRouter, comparePasswords } = require('./auth');
 const { JWT_Secret } = require('./auth');
-const { dispositivosRouter, ultMedicionRouter, graficoRouter, medicionesRouter, deleteDispositivoRouter, estadoConexionRouter, borrarTablaRouter, usuariosRouter, agregaRouter } = require('./dispositivos');
+const { dispositivosRouter, ultMedicionRouter, graficoRouter, medicionesRouter, deleteDispositivoRouter, estadoConexionRouter, borrarTablaRouter, usuariosRouter, agregaRouter, modificarDispositivoRouter } = require('./dispositivos');
 
 var corsOptions = {
   origin: '*',
@@ -130,6 +130,7 @@ app.use('/estadoconexion', estadoConexionRouter);
 app.use('/borrartabla', borrarTablaRouter);
 app.use('/usuario', usuariosRouter);
 app.use('/agregar', agregaRouter);
+app.use('/modificar', modificarDispositivoRouter);
 
 app.listen(PORT, function (req, res) {
   console.log('NodeJS API running correctly on:', PORT);

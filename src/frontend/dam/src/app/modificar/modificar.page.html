@@ -1,0 +1,44 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>Modificar Dispositivo</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-card class="custom-card">
+      <ion-card-header>
+        <ion-card-title>
+          {{ dispositivo.ubicacion }}
+          <ion-icon *ngIf="dispositivo.tipo === 'Temperatura'" name="thermometer"></ion-icon>
+          <ion-icon *ngIf="dispositivo.tipo === 'Luz dimmer'" name="sunny"></ion-icon>
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="stacked">Ubicación</ion-label>
+          <ion-input [(ngModel)]="dispositivo.ubicacion" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Nombre</ion-label>
+          <ion-input [(ngModel)]="dispositivo.nombre" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Tipo</ion-label>
+          <ion-select [(ngModel)]="dispositivo.tipo">
+            <ion-select-option value="Temperatura">Temperatura</ion-select-option>
+            <ion-select-option value="Luz dimmer">Luz dimmer</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label>MAC address</ion-label>
+          <ion-input [(ngModel)]="dispositivo.mac" type="text"></ion-input>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+  
+    <div class="button-container">
+      <ion-button class="center-button" (click)="guardarCambios()" color="success"><ion-icon slot="start" name="checkmark"></ion-icon>Guardar Cambios</ion-button>
+      <ion-button [routerLink]="'/home'" class="volver-button"><ion-icon slot="start" name="home"></ion-icon>Inicio</ion-button>
+    </div>
+  </ion-content>
+  

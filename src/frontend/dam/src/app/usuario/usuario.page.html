@@ -37,7 +37,9 @@
           <ion-label>Contraseña: 
             <ion-input [(ngModel)]="userData.password" required minlength="5" [type]="showPassword ? 'text' : 'password'" inputmode="text"></ion-input>
           </ion-label>
-          <ion-button slot="end" (click)="togglePasswordVisibility()" color="medium">{{ showPassword ? 'Ocultar' : 'Mostrar' }}</ion-button>
+          <ion-button slot="end" (click)="togglePasswordVisibility()" color="medium">
+            <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
+          </ion-button>
         </ion-item>
         <ion-note *ngIf="userData.password?.length === 0 && userDataUpdated">Contraseña es requerida.</ion-note>
         <ion-note *ngIf="userData.password && userData.password.length < 5 && userDataUpdated">La contraseña debe tener al menos 5 caracteres.</ion-note>

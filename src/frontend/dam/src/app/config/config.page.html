@@ -27,7 +27,7 @@
 
   <div>
     <ion-title class="ion-text-center">Datos de modo automático</ion-title>
-    <ion-grid>
+
       <ion-row>
         <ion-col offset="4" size="2">
           <ion-label>Set point</ion-label>
@@ -65,14 +65,8 @@
           <ion-input class="custom-input" type="number" min="0" max="59" [(ngModel)]="minutoApagado"></ion-input>
         </ion-col>
       </ion-row>
-      <ion-row>
-        <ion-col offset="4" size="6">
-          <ion-button [routerLink]="'/home'"><ion-icon slot="start" name="home"></ion-icon>Inicio</ion-button>
-          <ion-button [routerLink]="'/dispositivos/' + dispositivoId"><ion-icon slot="start" name="arrow-back"></ion-icon>Volver</ion-button>
-          <ion-button color="success" (click)="enviarDatos()"><ion-icon slot="start" name="wifi"></ion-icon>Enviar datos</ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+      
+
   </div>
   <div class="center-content">
     <ion-title class="ion-text-center">Selección de modo</ion-title>
@@ -85,4 +79,11 @@
       </ion-segment-button>
     </ion-segment>
   </div>
+  <ion-row>
+    <ion-col offset="4" size="6">
+      <ion-button [routerLink]="'/home'"><ion-icon slot="start" name="home"></ion-icon>Inicio</ion-button>
+      <ion-button [routerLink]="'/dispositivos/' + dispositivoId"><ion-icon slot="start" name="arrow-back"></ion-icon>Volver</ion-button>
+      <ion-button color="success" (click)="enviarDatos()"><ion-icon slot="start" name="wifi"></ion-icon>Enviar datos</ion-button>
+    </ion-col>
+  </ion-row>
 </ion-content>
