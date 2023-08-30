@@ -7,16 +7,23 @@
   <ion-content>
     <ion-list>
       <ion-item>
-        <ion-label position="stacked">Nombre</ion-label>
-        <ion-input [(ngModel)]="nuevoDispositivo.nombre" type="text"></ion-input>
+        <ion-label>Ubicación</ion-label>
+        <ion-input [(ngModel)]="nuevoDispositivo.ubicacion" type="text" required [clearInput]="true"></ion-input>
       </ion-item>
+      <ion-note  *ngIf="nuevoDispositivo.ubicacion?.length===0">Ubicación requerida</ion-note>
       <ion-item>
-        <ion-label position="stacked">Ubicación</ion-label>
-        <ion-input [(ngModel)]="nuevoDispositivo.ubicacion" type="text"></ion-input>
+        <ion-label>Nombre</ion-label>
+        <ion-input [(ngModel)]="nuevoDispositivo.nombre" type="text" required [clearInput]="true"></ion-input>
       </ion-item>
+      <ion-note  *ngIf="nuevoDispositivo.nombre?.length===0">Nombre requerido</ion-note>
+      <ion-item>
+      <ion-label>MAC address</ion-label>
+        <ion-input [(ngModel)]="nuevoDispositivo.mac" type="text" required minlength="17" [clearInput]="true"></ion-input>
+      </ion-item>
+      <ion-note  *ngIf="nuevoDispositivo.mac.length < 17 && nuevoDispositivo.mac.length > 17">La MAC debe contener 17 dígitos</ion-note>
       <ion-item>
         <ion-label>Tipo</ion-label>
-        <ion-select [(ngModel)]="nuevoDispositivo.tipo">
+        <ion-select [(ngModel)]="nuevoDispositivo.tipo" required>
           <ion-select-option value="Temperatura">Temperatura</ion-select-option>
           <ion-select-option value="Luz dimmer">Luz dimmer</ion-select-option>
         </ion-select>

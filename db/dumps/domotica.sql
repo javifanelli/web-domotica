@@ -73,13 +73,6 @@ CREATE TABLE `Mediciones` (
   `moff` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Volcado de datos para la tabla `Mediciones`
-
-INSERT INTO `Mediciones` (`medicionId`, `dispositivoId`, `tipo`, `fecha`, `valor`, `set_point`, `modo`, `salida`, `hon`, `mon`, `hoff`, `moff`) VALUES
-(1, 1, 'Temperatura' ,'2023-08-23 21:19:41', 19, 22, "Manual", 0, 20, 0, 8, 0),
-(2, 2, 'Luz dimmer', '2023-08-23 21:42:41', 40, 40, "Automático", 40, 20, 0, 8, 0),
-(3, 3, 'Temperatura' ,'2023-08-23 21:23:41', 22, 20, "Manual", 100, 20, 0, 8, 0);
-
 -- Indices de la tabla `Dispositivos`
 
 ALTER TABLE `Dispositivos`
@@ -109,7 +102,7 @@ ALTER TABLE `Usuarios`
 -- AUTO_INCREMENT de la tabla `Mediciones`
 
 ALTER TABLE `Mediciones`
-  MODIFY `medicionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `medicionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 -- Filtros para la tabla `Mediciones`
 
