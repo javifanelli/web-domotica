@@ -12,6 +12,7 @@ export class UsuarioPage implements OnInit {
   userData!: Usuario;
   userId!: number;
   userDataUpdated: boolean = false;
+  showPassword: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -57,6 +58,10 @@ export class UsuarioPage implements OnInit {
     } else {
       console.error('No hay datos de usuario o userId para actualizar');
     }
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 
 }
