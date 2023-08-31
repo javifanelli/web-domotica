@@ -166,7 +166,7 @@ borrarTablaRouter.delete('/:id', async function (req, res, next) {
       const updateQuery = 'UPDATE Usuarios SET nombre = ?, apellido = ?, email = ?, password = ?, user = ? WHERE userId = ?';
       await connection.query(updateQuery, queryParams);
       connection.release();
-      res.status(200).send('Usuario actualizado exitosamente');
+      res.send({ message: 'Datos del usuario actualizados exitosamente' }).status(200);
       console.log("Datos insertados:", req.body);
     } catch (err) {
       console.error(err);
@@ -210,7 +210,7 @@ borrarTablaRouter.delete('/:id', async function (req, res, next) {
       await connection.query(updateDispositivoQuery, updateDispositivoParams);
       await connection.commit();
       connection.release();
-      res.status(200).send('Dispositivo actualizado exitosamente');
+      res.send({ message: 'Datos del dispositivo actualizados exitosamente' }).status(200);
       console.log('Dispositivo actualizado:', nuevoDispositivo);
     } catch (err) {
       if (connection) {

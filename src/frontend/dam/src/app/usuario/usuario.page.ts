@@ -45,6 +45,7 @@ export class UsuarioPage implements OnInit {
   }
 
   actualizarDatos() {
+    console.log("Datos", this.userData);
     if (this.userData && this.userId) {
       this.userDataUpdated = true;
       this.usuarioService.updateUser(this.userId, this.userData).subscribe({
@@ -62,7 +63,7 @@ export class UsuarioPage implements OnInit {
       console.error('No hay datos de usuario o userId para actualizar');
     }
   }
-
+  
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
@@ -84,4 +85,5 @@ export class UsuarioPage implements OnInit {
     });
     await alert.present();
   }
+
 }

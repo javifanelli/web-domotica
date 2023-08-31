@@ -45,10 +45,10 @@ export class DispositivoService {
   }
 
   public updateUser(userId: number, userData: Usuario): Observable<any> {
-    return this._http.put(this.URLServer + '/usuario/' + userId, userData);
+    return this._http.put(this.URLServer + '/usuario/' + userId, userData)
   }
 
-  agregarDispositivo(dispositivo: Dispositivo): Observable<any> {
+  public agregarDispositivo(dispositivo: Dispositivo): Observable<any> {
     return this._http.post(this.URLServer + '/agregar/', dispositivo);
   }
 
