@@ -22,12 +22,12 @@
   padding: 4px 8px;
   border-radius: 20px;
   text-transform: uppercase;
-  
+
   &.success {
     background-color: green;
     color: white;
   }
-  
+
   &.danger {
     background-color: red;
     color: white;
@@ -47,4 +47,18 @@
   flex-direction: row;
   align-items: center;
   margin-top: 20px;
+}
+
+#highcharts {
+  height: 300px;
+  margin: 0 auto;
+
+  @media (max-width: 767px) {
+    width: 100%;
+    max-width: none;
+  }
+
+  @media (min-width: 768px) {
+    max-width: 25%;
+  }
 }
