@@ -22,7 +22,6 @@ export class LoginService {
         localStorage.setItem('token', response.token);
         if (typeof response.userId === 'number') {
           localStorage.setItem('userId', response.userId.toString());
-          console.log("Id obtenido con exito", response.userId.toString());
         }
         return true;
       } else {
