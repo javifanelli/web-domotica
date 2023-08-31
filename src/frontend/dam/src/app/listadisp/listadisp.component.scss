@@ -62,7 +62,7 @@ div.valor {
   }
   
   ion-button {
-    margin: 5px;
+    margin: 7px;
   }
 }
 
@@ -76,4 +76,11 @@ div.valor {
 .center-button {
   text-align: center;
   width: auto;
+}
+
+.ver-detalle{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

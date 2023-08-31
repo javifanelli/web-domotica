@@ -13,17 +13,19 @@
         <div>Tipo: {{ dispositivo.tipo }}</div>
         <div>MAC: {{ dispositivo.mac }}</div>
       </ion-card-content>
-      <ion-item detail="false" class="ver-detalle">
-        <ion-button [routerLink]="'/dispositivos/' + dispositivo.dispositivoId">
+      <div class="ver-detalle">
+
+        <ion-button [routerLink]="'/dispositivos/' + dispositivo.dispositivoId" size="small">
           <ion-icon name="enter"></ion-icon>Ver
         </ion-button>
-        <ion-button [routerLink]="'/modificar/' + dispositivo.dispositivoId">
+        <ion-button [routerLink]="'/modificar/' + dispositivo.dispositivoId" size="small">
           <ion-icon name="create"></ion-icon>Modificar
         </ion-button>
-        <ion-button class="boton-borrar" (click)="confirmarBorrar(dispositivo.dispositivoId)">
+        <ion-button class="boton-borrar" (click)="confirmarBorrar(dispositivo.dispositivoId)" size="small">
           <ion-icon name="close"></ion-icon>Borrar
         </ion-button>
-      </ion-item>
+
+    </div>
     </ion-card>
   </div>
 

@@ -131,94 +131,93 @@ borrarTablaRouter.delete('/:id', async function (req, res, next) {
       }
   });
 
-  usuariosRouter.get('/:userId', async function (req, res, next) {
-    res.header('Cache-Control', 'no-cache, no-store, must-revalidate');
-    res.header('Pragma', 'no-cache');
-    res.header('Expires', '0');
-    try {
-      const connection = await pool.getConnection();
-      const result = await connection.query('SELECT * FROM Usuarios WHERE userId = ?', req.params.userId);
-      console.log("Los datos del usuario son:", req.params.userId)
-      connection.release();
-      if (result.length > 0) {
-        const userData = result[0];
-        res.json(userData).status(200);
-      } else {
-        res.status(404).json({ message: 'Usuario no encontrado' });
-      }
-    } catch (err) {
-      res.status(500).json({ error: 'Error en el servidor' });
+usuariosRouter.get('/:userId', async function (req, res, next) {
+  res.header('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.header('Pragma', 'no-cache');
+  res.header('Expires', '0');
+  try {
+    const connection = await pool.getConnection();
+    const result = await connection.query('SELECT * FROM Usuarios WHERE userId = ?', req.params.userId);
+    connection.release();
+    if (result.length > 0) {
+      const userData = result[0];
+      res.json(userData).status(200);
+    } else {
+      res.status(404).json({ message: 'Usuario no encontrado' });
     }
-  });
-
-  usuariosRouter.put('/:userId', async function (req, res, next) {
-    try {
-      const connection = await pool.getConnection();
-      const updatedUser = req.body;
-      const queryParams = [
-        updatedUser.nombre,
-        updatedUser.apellido,
-        updatedUser.email,
-        updatedUser.password,
-        updatedUser.user,
-        updatedUser.userId
-      ];
-      const updateQuery = 'UPDATE Usuarios SET nombre = ?, apellido = ?, email = ?, password = ?, user = ? WHERE userId = ?';
-      await connection.query(updateQuery, queryParams);
-      connection.release();
-      res.send({ message: 'Datos del usuario actualizados exitosamente' }).status(200);
-      console.log("Datos insertados:", req.body);
-    } catch (err) {
-      console.error(err);
-      res.status(500).send('Error al actualizar el usuario');
-    }
-  });
-
-  agregaRouter.post('/', async function (req, res, next) {
-    const nuevoDispositivo = req.body;
-    let connection;
-    try {
-        connection = await pool.getConnection();
-        await connection.beginTransaction();
-        const insertDispositivoQuery = 'INSERT INTO Dispositivos (nombre, ubicacion, mac, tipo) VALUES (?, ?, ?, ?)';
-        const insertDispositivoParams = [nuevoDispositivo.nombre, nuevoDispositivo.ubicacion, nuevoDispositivo.mac, nuevoDispositivo.tipo];
-        const result = await connection.query(insertDispositivoQuery, insertDispositivoParams);
-        await connection.commit();
-        connection.release();
-        const dispositivoId = Number(result.insertId);
-        res.send({ message: 'Dispositivo agregado exitosamente', dispositivoId }).status(201);
-        console.log('Dispositivo agregado:', nuevoDispositivo);
-    } catch (err) {
-        if (connection) {
-            await connection.rollback();
-            connection.release();
-        }
-        res.send(err).status(400);
-        console.log('Error al agregar dispositivo:', err);
-    }
+  } catch (err) {
+    res.status(500).json({ error: 'Error en el servidor' });
+  }
 });
 
-  modificarDispositivoRouter.put('/:id', async function (req, res, next) {
-    const dispositivoId = req.params.id;
-    const nuevoDispositivo = req.body;
-    let connection;
-    try {
+usuariosRouter.put('/:userId', async function (req, res, next) {
+  try {
+    const connection = await pool.getConnection();
+    const updatedUser = req.body;
+    const queryParams = [
+      updatedUser.nombre,
+      updatedUser.apellido,
+      updatedUser.email,
+      updatedUser.password,
+      updatedUser.user,
+      updatedUser.userId
+    ];
+    const updateQuery = 'UPDATE Usuarios SET nombre = ?, apellido = ?, email = ?, password = ?, user = ? WHERE userId = ?';
+    await connection.query(updateQuery, queryParams);
+    connection.release();
+    res.send({ message: 'Datos del usuario actualizados exitosamente' }).status(200);
+    console.log("Datos insertados:", req.body);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error al actualizar el usuario');
+  }
+});
+
+agregaRouter.post('/', async function (req, res, next) {
+  const nuevoDispositivo = req.body;
+  let connection;
+  try {
       connection = await pool.getConnection();
       await connection.beginTransaction();
-      const updateDispositivoQuery = 'UPDATE Dispositivos SET nombre = ?, ubicacion = ?, mac = ?, tipo = ? WHERE dispositivoId = ?';
-      const updateDispositivoParams = [nuevoDispositivo.nombre, nuevoDispositivo.ubicacion, nuevoDispositivo.mac, nuevoDispositivo.tipo, dispositivoId];
-      await connection.query(updateDispositivoQuery, updateDispositivoParams);
+      const insertDispositivoQuery = 'INSERT INTO Dispositivos (nombre, ubicacion, mac, tipo) VALUES (?, ?, ?, ?)';
+      const insertDispositivoParams = [nuevoDispositivo.nombre, nuevoDispositivo.ubicacion, nuevoDispositivo.mac, nuevoDispositivo.tipo];
+      const result = await connection.query(insertDispositivoQuery, insertDispositivoParams);
       await connection.commit();
       connection.release();
-      res.send({ message: 'Datos del dispositivo actualizados exitosamente' }).status(200);
-      console.log('Dispositivo actualizado:', nuevoDispositivo);
-    } catch (err) {
+      const dispositivoId = Number(result.insertId);
+      res.send({ message: 'Dispositivo agregado exitosamente', dispositivoId }).status(201);
+      console.log('Dispositivo agregado:', nuevoDispositivo);
+  } catch (err) {
       if (connection) {
-        await connection.rollback();
-        connection.release();
+          await connection.rollback();
+          connection.release();
       }
-      res.status(500).send('Error al actualizar el dispositivo');
-      console.log('Error al actualizar dispositivo:', err);
+      res.send(err).status(400);
+      console.log('Error al agregar dispositivo:', err);
+  }
+});
+
+modificarDispositivoRouter.put('/:id', async function (req, res, next) {
+  const dispositivoId = req.params.id;
+  const nuevoDispositivo = req.body;
+  let connection;
+  try {
+    connection = await pool.getConnection();
+    await connection.beginTransaction();
+    const updateDispositivoQuery = 'UPDATE Dispositivos SET nombre = ?, ubicacion = ?, mac = ?, tipo = ? WHERE dispositivoId = ?';
+    const updateDispositivoParams = [nuevoDispositivo.nombre, nuevoDispositivo.ubicacion, nuevoDispositivo.mac, nuevoDispositivo.tipo, dispositivoId];
+    await connection.query(updateDispositivoQuery, updateDispositivoParams);
+    await connection.commit();
+    connection.release();
+    res.send({ message: 'Datos del dispositivo actualizados exitosamente' }).status(200);
+    console.log('Dispositivo actualizado:', nuevoDispositivo);
+  } catch (err) {
+    if (connection) {
+      await connection.rollback();
+      connection.release();
+    }
+    res.status(500).send('Error al actualizar el dispositivo');
+    console.log('Error al actualizar dispositivo:', err);
   }
 });
 
