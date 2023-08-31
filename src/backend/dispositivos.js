@@ -179,8 +179,8 @@ agregaRouter.post('/', async function (req, res, next) {
   try {
       connection = await pool.getConnection();
       await connection.beginTransaction();
-      const insertDispositivoQuery = 'INSERT INTO Dispositivos (nombre, ubicacion, mac, tipo) VALUES (?, ?, ?, ?)';
-      const insertDispositivoParams = [nuevoDispositivo.nombre, nuevoDispositivo.ubicacion, nuevoDispositivo.mac, nuevoDispositivo.tipo];
+      const insertDispositivoQuery = 'INSERT INTO Dispositivos (dispositivoId, nombre, ubicacion, tipo) VALUES (?, ?, ?, ?)';
+      const insertDispositivoParams = [nuevoDispositivo.dispositivoId, nuevoDispositivo.nombre, nuevoDispositivo.ubicacion, nuevoDispositivo.tipo];
       const result = await connection.query(insertDispositivoQuery, insertDispositivoParams);
       await connection.commit();
       connection.release();

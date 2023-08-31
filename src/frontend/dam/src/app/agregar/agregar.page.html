@@ -17,10 +17,10 @@
       </ion-item>
       <ion-note  *ngIf="nuevoDispositivo.nombre?.length===0">Nombre requerido</ion-note>
       <ion-item>
-      <ion-label position="floating">MAC address</ion-label>
-        <ion-input [(ngModel)]="nuevoDispositivo.mac" type="text" required minlength="17" maxlength="17" required></ion-input>
+      <ion-label position="floating">ID fabricante</ion-label>
+        <ion-input [(ngModel)]="nuevoDispositivo.dispositivoId" type="text" required></ion-input>
       </ion-item>
-      <ion-note  *ngIf="nuevoDispositivo.mac.length !== 17">La MAC debe contener 17 dígitos</ion-note>
+      <ion-note  *ngIf="nuevoDispositivo.mac.length !== 17">El ID debe contener 13 dígitos</ion-note>
       <ion-item>
         <ion-label>Tipo</ion-label>
         <ion-select [(ngModel)]="nuevoDispositivo.tipo" required>

@@ -12,7 +12,7 @@ import { AlertController } from '@ionic/angular';
 export class AgregarPage {
 
   nuevoDispositivo: Dispositivo = {
-    dispositivoId: 0,
+    dispositivoId: '',
     nombre: '',
     ubicacion: '',
     mac: '',
@@ -61,7 +61,7 @@ export class AgregarPage {
 
   limpiarCampos() {
     this.nuevoDispositivo = {
-      dispositivoId: 0,
+      dispositivoId: '',
       nombre: '',
       ubicacion: '',
       mac: '',

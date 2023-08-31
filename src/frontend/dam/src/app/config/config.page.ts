@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
 })
 export class ConfigPage implements OnInit, OnDestroy {
   public device!: Dispositivo;
-  public dispositivoId!: number;
+  public dispositivoId!: string;
   public setPoint!: number;
   public tipo!: string;
   public nuevoSetPoint!: number;
@@ -46,7 +46,7 @@ export class ConfigPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     const deviceId = this.activatedRoute.snapshot.paramMap.get('id') as string;
-    this.dispositivoId = parseInt(deviceId, 10);
+    this.dispositivoId = deviceId, 10;
     this.subscription = this.dispositivoService.getDeviceById(this.dispositivoId).subscribe((data) => {
       this.device = data[0];
       this.tipo = data[0].tipo;
@@ -56,7 +56,7 @@ export class ConfigPage implements OnInit, OnDestroy {
   
   leerdatos() {
     const id = this.activatedRoute.snapshot.paramMap.get('id') as string;
-    this.dispositivoService.getUltMedicion(parseInt(id, 10)).subscribe((data) => {
+    this.dispositivoService.getUltMedicion(id).subscribe((data) => {
       this.salida = data[0].salida;
       this.outsend = this.salida;
       this.setPoint = data[0].set_point;

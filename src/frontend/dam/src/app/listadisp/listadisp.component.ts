@@ -25,7 +25,7 @@ export class ListaDispComponent implements OnInit, OnDestroy {
     });
   }
 
-  async confirmarBorrar(dispositivoId: number) {
+  async confirmarBorrar(dispositivoId: string) {
     const alert = await this.alertController.create({
       header: 'Confirmación',
       message: '¿Estás seguro de que deseas borrar este dispositivo?',

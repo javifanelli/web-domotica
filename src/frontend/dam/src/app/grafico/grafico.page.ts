@@ -11,7 +11,7 @@ import { Medicion } from '../interfaces/medicion';
 })
 export class GraficoPage implements OnInit {
 
-  dispositivoId!: number;
+  dispositivoId!: string;
   mediciones: Medicion[] = [];
   tipo!: string;
   myChart: any;
@@ -22,7 +22,7 @@ export class GraficoPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.dispositivoId = parseInt(this.activatedRoute.snapshot.paramMap.get('id') || '0', 10);
+    this.dispositivoId = this.activatedRoute.snapshot.paramMap.get('id') || '0';
     this.dispositivoService.getMediciones(this.dispositivoId).subscribe((data: Medicion[]) => {
       this.mediciones = data;
       this.tipo = data[0].tipo;

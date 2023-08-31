@@ -1,6 +1,6 @@
 export interface Medicion {
     medicionId?: number,
-    dispositivoId: number,
+    dispositivoId: string,
     tipo: string,
     fecha: string,
     valor: string,

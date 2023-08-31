@@ -10,10 +10,10 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./modificar.page.scss'],
 })
 export class ModificarPage implements OnInit {
-  dispositivoId!: number;
+  dispositivoId!: string;
   ubicacionold!: string;
   dispositivo: Dispositivo = {
-    dispositivoId: 0,
+    dispositivoId: '',
     nombre: '',
     ubicacion: '',
     mac: '',
@@ -28,7 +28,7 @@ export class ModificarPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.dispositivoId = parseInt(this.route.snapshot.paramMap.get('id') || '0', 10);
+    this.dispositivoId = this.route.snapshot.paramMap.get('id') || '0';
     this.cargarDispositivo();
   }
 

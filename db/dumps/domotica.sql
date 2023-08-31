@@ -25,18 +25,18 @@ USE `temperatura`;
 -- Tabla `Dispositivos`
 
 CREATE TABLE `Dispositivos` (
-  `dispositivoId` int(17) NOT NULL,
+  `dispositivoId` varchar(17) NOT NULL,
   `nombre` varchar(200) DEFAULT NULL,
   `ubicacion` varchar(200) DEFAULT NULL,
-  `mac` varchar(17) NOT NULL,
+  `mac` varchar(17) NOT NULL DEFAULT '',
   `tipo` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Volcado de datos para la tabla `Dispositivos`
 
 INSERT INTO `Dispositivos` (`dispositivoId`, `nombre`, `ubicacion`, `mac`, `tipo`) VALUES
-(1, 'ESP32+DHT22', 'Habitación', '94:B5:55:2B:FF:64', 'Temperatura'),
-(2, 'ESP32', 'Sala', '0C:B8:15:D8:7A:6C', 'Luz dimmer');
+('0028192332001', 'ESP32+DHT22', 'Habitación', '94:B5:55:2B:FF:64', 'Temperatura'),
+('0128192332001', 'ESP32', 'Sala', '0C:B8:15:D8:7A:6C', 'Luz dimmer');
 
 -- Estructura de tabla para la tabla `Usuarios`
 
@@ -60,7 +60,7 @@ INSERT INTO `Usuarios` (`userId`, `user`, `password`, `nombre`, `apellido`, `ema
 
 CREATE TABLE `Mediciones` (
   `medicionId` int(11) NOT NULL,
-  `dispositivoId` int(17) NOT NULL,
+  `dispositivoId` varchar(17) NOT NULL,
   `tipo` varchar(100) NOT NULL,
   `fecha` datetime DEFAULT NULL,
   `valor` int(10) DEFAULT NULL,
@@ -91,8 +91,8 @@ ALTER TABLE `Mediciones`
 
 -- AUTO_INCREMENT de la tabla `Dispositivos`
 
-ALTER TABLE `Dispositivos`
-  MODIFY `dispositivoId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+/* ALTER TABLE `Dispositivos`
+  MODIFY `dispositivoId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3; */
 
 -- AUTO_INCREMENT de la tabla `Usuarios`
 

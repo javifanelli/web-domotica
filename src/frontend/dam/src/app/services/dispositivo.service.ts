@@ -16,19 +16,19 @@ export class DispositivoService {
     return this._http.get<Dispositivo[]>(this.URLServer + '/dispositivos');
   }
 
-  public getUltMedicion(id: number): Observable<Medicion[]> {
+  public getUltMedicion(id: string): Observable<Medicion[]> {
     return this._http.get<Medicion[]>(this.URLServer + '/ultmedicion/' + id);
   }
 
-  public getMediciones(id: number): Observable<Medicion[]> {
+  public getMediciones(id: string): Observable<Medicion[]> {
     return this._http.get<Medicion[]>(this.URLServer + '/dispositivos/' + id + '/mediciones');
   }
 
-  public getDeviceById(id: number): Observable<Dispositivo[]> {
+  public getDeviceById(id: string): Observable<Dispositivo[]> {
     return this._http.get<Dispositivo[]>(this.URLServer + '/dispositivos/' + id);
   }
 
-  public deleteDevice(id: number): Observable<any> {
+  public deleteDevice(id: string): Observable<any> {
     return this._http.delete(this.URLServer + '/dispositivos/' + id);
   }
 
@@ -36,7 +36,7 @@ export class DispositivoService {
     return this._http.post(this.URLServer + '/enviardatos', datos);
   }
 
-  public borrarTabla(id: number): Observable<any> {
+  public borrarTabla(id: string): Observable<any> {
     return this._http.delete(this.URLServer + '/borrartabla/' + id);
   }
 

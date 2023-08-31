@@ -20,13 +20,13 @@ export class MedicionPage implements OnInit, OnDestroy {
   ) {}
 
   mediciones!: Medicion[];
-  dispositivoId!: number;
+  dispositivoId!: string;
   tipo!: string;
   private subscription: Subscription = new Subscription();
 
   ngOnInit() {
     const deviceId = this.activatedRoute.snapshot.paramMap.get('id') as string;
-    this.dispositivoId = parseInt(deviceId, 10);
+    this.dispositivoId = deviceId;
     this.subscription = this.dispositivoService.getMediciones(this.dispositivoId).subscribe(data => {
       this.mediciones = data;
       if (data.length > 0) {
@@ -35,7 +35,7 @@ export class MedicionPage implements OnInit, OnDestroy {
     });
   }
 
-  async borrarTabla(id: number) {
+  async borrarTabla(id: string) {
     console.log("Vamos a borrar el dispositivo:", id);
     const confirmar = await this.alertController.create({
       header: 'Confirmar Borrado',
@@ -52,7 +52,7 @@ export class MedicionPage implements OnInit, OnDestroy {
               await this.dispositivoService.borrarTabla(id).toPromise();
               console.log('Tabla de mediciones borrada correctamente.');
               // Redirigir al usuario a la página anterior o a la página de inicio
-              this.navCtrl.back(); // Puede variar según tu estructura de navegación
+              this.navCtrl.back();
             } catch (error) {
               console.error('Error al borrar la tabla de mediciones:', error);
             }

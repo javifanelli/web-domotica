@@ -1,5 +1,5 @@
 export interface Dispositivo {
-    dispositivoId: number,
+    dispositivoId: string,
     nombre: string,
     ubicacion: string,
     mac: string,

@@ -14,7 +14,7 @@ require('highcharts/modules/solid-gauge')(Highcharts);
 })
 export class DispositivoPage implements OnInit, OnDestroy {
   public device!: Dispositivo;
-  public dispositivoId!: number;
+  public dispositivoId!: string;
   public valoractual!: number;
   public setPoint!: number;
   public tipo!: string;
@@ -41,7 +41,7 @@ export class DispositivoPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     const deviceId = this.activatedRoute.snapshot.paramMap.get('id') as string;
-    this.dispositivoId = parseInt(deviceId, 10);
+    this.dispositivoId = deviceId;
     this.dispositivoService.getDeviceById(this.dispositivoId).subscribe((data) => {
       this.device = data[0];
       this.tipo = data[0].tipo;
@@ -61,7 +61,7 @@ export class DispositivoPage implements OnInit, OnDestroy {
   
   refrescamedicion() {
     const id = this.activatedRoute.snapshot.paramMap.get('id') as string;
-    this.dispositivoService.getUltMedicion(parseInt(id, 10)).subscribe((data) => {
+    this.dispositivoService.getUltMedicion(id).subscribe((data) => {
       this.valoractual = parseInt(data[0].valor, 10);
       this.ultfecha = new Date(data[0].fecha);
       this.setPoint = data[0].set_point;
