@@ -90,7 +90,7 @@ export class ConfigPage implements OnInit, OnDestroy {
       minutoEncendido: Number(this.minutoEncendido),
       horaApagado: Number(this.horaApagado),
       minutoApagado: Number(this.minutoApagado),
-      dispositivoId: Number(this.dispositivoId),
+      dispositivoId: this.dispositivoId,
       mododisp: this.mododisp,
       tipo: this.tipo,
       salida: Number(this.outsend),

@@ -1,14 +1,17 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title class="ion-text-center">Configuración de dispositivo {{ dispositivoId }}</ion-title>
+    <h5 class="center-content">{{ tipo }} - {{ device.ubicacion }}</h5>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="content-container">
   <div class="center-content">
     <ion-title class="ion-text-center">Datos de modo manual</ion-title>
+    <div class="salida-label">
+      <ion-label>Salida</ion-label>
+    </div>
     <div class="input-container">
-      <ion-label class="salida-label">Salida</ion-label>
       <ng-container *ngIf="tipo === 'Temperatura'">
         <ion-segment [(ngModel)]="outsend" value="salida">
           <ion-segment-button value="0">
@@ -27,7 +30,6 @@
 
   <div>
     <ion-title class="ion-text-center">Datos de modo automático</ion-title>
-
       <ion-row>
         <ion-col offset="4" size="2">
           <ion-label>Set point</ion-label>
