@@ -1,13 +1,20 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-button [routerLink]="'/usuario/' + userId" slot="start" color="primary"><ion-icon slot="start" name="person"></ion-icon>Usuario</ion-button>
-    <ion-title>Domótica - Listado de dispositivos</ion-title>  
-    <ion-button (click)="logout()" slot="end" color="primary">
-      <ion-icon slot="start" name="log-out"></ion-icon>Log out
-    </ion-button>
+    <ion-title>Sistema de monitoreo y control de ambientes a distancia</ion-title>
+    
+    <div class="button-container">
+      <ion-button [routerLink]="'/usuario/' + userId" slot="start" color="primary">
+        <ion-icon slot="start" name="person"></ion-icon>Usuario</ion-button>
+      <ion-button (click)="logout()" slot="end" color="primary">
+        <ion-icon slot="start" name="log-out"></ion-icon>Log out
+      </ion-button>
+    </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-toolbar>
+    <h5 class="subtitulo">Listado de dispositivos</h5>
+  </ion-toolbar>
   <app-listadisp></app-listadisp>
 </ion-content>
