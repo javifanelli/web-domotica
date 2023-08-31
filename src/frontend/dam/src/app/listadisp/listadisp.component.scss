@@ -80,7 +80,12 @@ div.valor {
 
 .ver-detalle{
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+@media (max-width: 768px) {
+  .custom-card {
+    width: 100%;
+  }
 }

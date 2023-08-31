@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Dispositivo } from '../interfaces/dispositivo';
 import { DispositivoService } from '../services/dispositivo.service';
 import { AlertController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dispositivo',
@@ -30,11 +31,12 @@ export class ConfigPage implements OnInit, OnDestroy {
   public outsend!: number;
   private activatedRoute: ActivatedRoute;
   private updateIntervalId: any;
+  subscription!: Subscription;
 
   constructor(
     private dispositivoService: DispositivoService,
     private _activatedRoute: ActivatedRoute,
-    private alertController: AlertController
+    private alertController: AlertController,
   ) {
     this.activatedRoute = _activatedRoute;
     this.updateIntervalId = setInterval(() => {
@@ -45,7 +47,7 @@ export class ConfigPage implements OnInit, OnDestroy {
   ngOnInit() {
     const deviceId = this.activatedRoute.snapshot.paramMap.get('id') as string;
     this.dispositivoId = parseInt(deviceId, 10);
-    this.dispositivoService.getDeviceById(this.dispositivoId).subscribe((data) => {
+    this.subscription = this.dispositivoService.getDeviceById(this.dispositivoId).subscribe((data) => {
       this.device = data[0];
       this.tipo = data[0].tipo;
     });
@@ -106,5 +108,7 @@ export class ConfigPage implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     clearInterval(this.updateIntervalId);
+    this.subscription.unsubscribe();
   }
+
 }

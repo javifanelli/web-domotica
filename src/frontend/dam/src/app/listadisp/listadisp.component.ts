@@ -56,7 +56,6 @@ export class ListaDispComponent implements OnInit, OnDestroy {
         },
       ],
     });
-  
     await alert.present();
   }
 
