@@ -46,15 +46,16 @@ CREATE TABLE `Usuarios` (
   `password` varchar(100) NOT NULL,
   `nombre` varchar(100) NOT NULL,
   `apellido` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL
+  `email` varchar(100) NOT NULL,
+  `updated` TINYINT(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Volcado de datos para la tabla `Usuarios`
 
-INSERT INTO `Usuarios` (`userId`, `user`, `password`, `nombre`, `apellido`, `email`) VALUES
-(1, 'javier', 'ceiot' , 'Javier', 'Fanelli', 'javifanelli@gmail.com'),
-(2, 'jperez', '123456' , 'Juan', 'Pérez', 'jperez@cualmail.com'),
-(3, 'maria', 'abcdef' , 'María', 'Fernández', 'mariaf@cualmail.com');
+INSERT INTO `Usuarios` (`userId`, `user`, `password`, `nombre`, `apellido`, `email`, `updated`) VALUES
+(1, 'user1', 'user' , 'Nombre', 'Apellido', 'user1@example.com', 0),
+(2, 'user2', 'user' , 'Nombre', 'Apellido', 'user2@example.com', 0),
+(3, 'user3', 'user' , 'Nombre', 'Apellido', 'user3@example.com', 0);
 
 -- Estructura de tabla para la tabla `Mediciones`
 

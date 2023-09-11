@@ -1,22 +1,40 @@
 .login-logo {
-  padding: 20px 0;
+  padding: 20px;
   min-height: 200px;
   text-align: center;
+  margin-top: 80px;
+  margin-bottom: 35px;
 }
 
 .login-logo img {
   max-width: 150px;
 }
 
-.list {
-  margin-bottom: 0;
-}
-
 .enlarged-image {
   transform: scale(2.5);
-  /* padding-top: 20px; */
 }
 
-.login-logo {
-  margin-top: 80px;
+.titulo {
+  text-align: center;
+}
+
+.lista {
+  width: 50%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  width: 100%;
+}
+
+.login-button-container {
+  width: 100%; /* Ocupa todo el ancho del formulario */
+  text-align: center; /* Centra horizontalmente el contenido */
+}
+
+.login-button {
+  width: 50%; /* Ocupa el 50% del ancho del contenedor */
+  margin-top: 10px;
 }
