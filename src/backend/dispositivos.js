@@ -142,6 +142,7 @@ usuariosRouter.get('/:userId', async function (req, res, next) {
     if (result.length > 0) {
       const userData = result[0];
       res.json(userData).status(200);
+      console.log("Datos de usuario:", userData);
     } else {
       res.status(404).json({ message: 'Usuario no encontrado' });
     }
@@ -160,9 +161,10 @@ usuariosRouter.put('/:userId', async function (req, res, next) {
       updatedUser.email,
       updatedUser.password,
       updatedUser.user,
+      updatedUser.updated,
       updatedUser.userId
     ];
-    const updateQuery = 'UPDATE Usuarios SET nombre = ?, apellido = ?, email = ?, password = ?, user = ? WHERE userId = ?';
+    const updateQuery = 'UPDATE Usuarios SET nombre = ?, apellido = ?, email = ?, password = ?, user = ?, updated = ? WHERE userId = ?';
     await connection.query(updateQuery, queryParams);
     connection.release();
     res.send({ message: 'Datos del usuario actualizados exitosamente' }).status(200);

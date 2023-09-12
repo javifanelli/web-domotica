@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
 })
 export class HomePage implements OnInit, OnDestroy {
   userData!: Usuario;
+  upd!: number;
   userId!: number;
   userDataSubscription: Subscription | undefined;
 
@@ -33,7 +34,7 @@ export class HomePage implements OnInit, OnDestroy {
       console.error("El usuario actual es nulo");
     }
   }
-
+  
   async logout() {
     const alert = await this.alertController.create({
       header: 'Cerrar sesión',
@@ -64,6 +65,10 @@ export class HomePage implements OnInit, OnDestroy {
       this.userDataSubscription = this.usuarioService.getUser(userId).subscribe({
         next: (data: Usuario) => {
           this.userData = data;
+          console.log('Valor de data.actualizado:', data.updated);
+          if (data.updated === 0) {
+            this.mostrarAviso();
+          }
         },
         error: (error) => {
           console.error('Error al cargar los datos del usuario en home:', error);
@@ -72,6 +77,16 @@ export class HomePage implements OnInit, OnDestroy {
     } else {
       console.error('No se proporcionó un userId en home.');
     }
+  }
+
+  async mostrarAviso() {
+    console.log('Mostrando aviso de actualización');
+    const alert = await this.alertController.create({
+      header: 'Aviso',
+      message: 'Debe actualizar los datos de usuario.',
+      buttons: ['Aceptar']
+    });
+    await alert.present();
   }
 
   ngOnDestroy() {

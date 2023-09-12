@@ -12,6 +12,6 @@ import { ConfigPage } from './config.page';
     IonicModule,
     ConfigPageRoutingModule,
   ],
-  declarations: [ConfigPage], // Cambio aquí
+  declarations: [ConfigPage],
 })
 export class ConfigModule {}
