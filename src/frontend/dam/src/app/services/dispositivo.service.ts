@@ -56,4 +56,8 @@ export class DispositivoService {
     return this._http.put(this.URLServer + '/modificar/' + dispositivo.dispositivoId, dispositivo);
   }
 
+  public getConfig(id: string): Observable<Medicion[]> {
+    return this._http.get<Medicion[]>(this.URLServer + '/ultmedicion/' + id);
+  }
+
 }

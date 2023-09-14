@@ -6,7 +6,7 @@ import { AlertController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-dispositivo',
+  selector: 'app-config',
   templateUrl: './config.page.html',
   styleUrls: ['./config.page.scss'],
 })
@@ -15,6 +15,7 @@ export class ConfigPage implements OnInit, OnDestroy {
   public dispositivoId!: string;
   public setPoint!: number;
   public tipo!: string;
+  public ubicacion!: string;
   public nuevoSetPoint!: number;
   public hon!: number;
   public mon!: number;
@@ -48,15 +49,17 @@ export class ConfigPage implements OnInit, OnDestroy {
     const deviceId = this.activatedRoute.snapshot.paramMap.get('id') as string;
     this.dispositivoId = deviceId, 10;
     this.subscription = this.dispositivoService.getDeviceById(this.dispositivoId).subscribe((data) => {
+      console.log(data);
       this.device = data[0];
       this.tipo = data[0].tipo;
+      this.ubicacion = data[0].ubicacion;
     });
     this.leerdatos();
   }
   
   leerdatos() {
     const id = this.activatedRoute.snapshot.paramMap.get('id') as string;
-    this.dispositivoService.getUltMedicion(id).subscribe((data) => {
+    this.dispositivoService.getConfig(id).subscribe((data) => {
       this.salida = data[0].salida;
       this.outsend = this.salida;
       this.setPoint = data[0].set_point;
