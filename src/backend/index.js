@@ -108,14 +108,23 @@ app.post('/enviardatos', async (req, res) => {
       modo: mododisp,
       salida: salida,
     };
-    if(tipo==='Temperatura'){
-    mqttClient.publish('/home/temperatura/settings', JSON.stringify(datos));}
-    if(tipo==='Luz dimmer'){
-      mqttClient.publish('/home/dimmer/settings', JSON.stringify(datos));}
-    res.status(200).send({ message: 'Datos enviados correctamente por MQTT' });
+    // Publicar datos por MQTT
+    if (tipo === 'Temperatura') {
+      mqttClient.publish('/home/temperatura/settings', JSON.stringify(datos));
+    } else if (tipo === 'Luz dimmer') {
+      mqttClient.publish('/home/dimmer/settings', JSON.stringify(datos));
+    }
+    // Actualizar la configuración en la base de datos
+    const updateQuery = `
+      UPDATE Configuracion 
+      SET modo = ?, hon = ?, mon = ?, hoff = ?, moff = ? 
+      WHERE dispositivoId = ?`;
+    const updateParams = [mododisp, horaEncendido, minutoEncendido, horaApagado, minutoApagado, dispositivoId];
+    await pool.query(updateQuery, updateParams);
+    res.status(200).send({ message: 'Datos enviados correctamente por MQTT y configuración actualizada' });
   } catch (error) {
-    console.error('Error al enviar los datos por MQTT:', error);
-    res.status(500).send({ message: 'Error al enviar los datos por MQTT' });
+    console.error('Error al enviar los datos por MQTT o actualizar la configuración:', error);
+    res.status(500).send({ message: 'Error al enviar los datos por MQTT o actualizar la configuración' });
   }
 });
 

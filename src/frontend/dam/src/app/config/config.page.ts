@@ -100,7 +100,6 @@ export class ConfigPage implements OnInit, OnDestroy {
     };
     this.dispositivoService.enviarDatos(datos).subscribe(
       (response) => {
-        console.log('Datos enviados correctamente:', response);
         console.log("Datos enviados:", datos);
       },
       (error) => {
