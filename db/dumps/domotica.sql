@@ -74,21 +74,6 @@ CREATE TABLE `Mediciones` (
   `moff` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `Configuracion` (
-  `dispositivoId` varchar(17) NOT NULL,
-  `modo` varchar(100) DEFAULT NULL,
-  `hon` int(11) NOT NULL,
-  `mon` int(11) NOT NULL,
-  `hoff` int(11) NOT NULL,
-  `moff` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- Volcado de datos para la tabla `Usuarios`
-
-INSERT INTO `Configuracion` (`dispositivoId`, `modo`, `hon`, `mon`, `hoff`, `moff`) VALUES
-('0028192332001', 'Manual', 20, 0, 8, 0),
-('0128192332001', 'Manual', 20, 0, 8, 0);
-
 -- Indices de la tabla `Dispositivos`
 
 ALTER TABLE `Dispositivos`
@@ -104,11 +89,6 @@ ALTER TABLE `Usuarios`
 ALTER TABLE `Mediciones`
   ADD PRIMARY KEY (`medicionId`,`dispositivoId`),
   ADD KEY `fk_Mediciones_Dispositivos_idx` (`dispositivoId`);
-
--- Indices de la tabla `Configuracion`
-
-ALTER TABLE `Configuracion`
-  ADD PRIMARY KEY (`dispositivoId`);
 
 -- AUTO_INCREMENT de la tabla `Usuarios`
 

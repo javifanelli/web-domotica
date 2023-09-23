@@ -23,6 +23,7 @@ const Topic_Temp_In = '/home/temperatura/data';
 const Topic_Temp_Out = '/home/temperatura/settings';
 const Topic_Luz_In = '/home/dimmer/data';
 const Topic_Luz_Out = '/home/dimmer/settings';
+const Topic_Config = '/home/config';
 const mqttClient = mqtt.connect(mqttOptions);
 
 mqttClient.on('error', (error) => {
@@ -73,6 +74,17 @@ mqttClient.on('connect', () => {
       console.error('Error al suscribirse al topic MQTT:', error);
     } else {
       console.log('Suscrito al topic MQTT:', Topic_Luz_Out);
+    }
+  });
+});
+
+mqttClient.on('connect', () => {
+  console.log('Conexión exitosa al broker MQTT');
+  mqttClient.subscribe(Topic_Config, (error) => {
+    if (error) {
+      console.error('Error al suscribirse al topic MQTT:', error);
+    } else {
+      console.log('Suscrito al topic MQTT:', Topic_Config);
     }
   });
 });

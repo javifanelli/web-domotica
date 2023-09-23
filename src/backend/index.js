@@ -93,6 +93,39 @@ mqttClient.on('message', async (topic, message) => {
       }
     }
   }
+  else if (topic === "/home/config") {
+    try {
+      const mensaje = JSON.parse(message.toString());
+      const dispositivoId = mensaje.ID;
+      console.log("Mensaje de configuración recibido en el topic config:", mensaje.ID);
+      // Obtener la configuración del dispositivo
+      const connection = await pool.getConnection();
+      const configResult = await connection.query('SELECT * FROM Mediciones WHERE dispositivoId = ?', [dispositivoId]);
+      let datosConfiguracion;
+      if (configResult.length > 0) {
+        const configuracion = configResult[0];
+        datosConfiguracion = {
+          ID: configuracion.dispositivoId,
+          set_point: configuracion.set_point,
+          modo: configuracion.modo,
+          salida: configuracion.salida,
+          hon: configuracion.hon,
+          mon: configuracion.mon,
+          hoff: configuracion.hoff,
+          moff: configuracion.moff
+        };
+        // Publicar los datos de configuración al dispositivo
+        mqttClient.publish('/home/setup', JSON.stringify(datosConfiguracion));
+        console.log('Datos de configuración enviados al dispositivo', datosConfiguracion);
+      } else {
+        console.log('No se encontró configuración para el dispositivo');
+      }
+      connection.release();
+    } catch (error) {
+      console.error('Error al obtener y enviar datos de configuración:', error);
+    }
+  }
+  
 });
 
 app.post('/enviardatos', async (req, res) => {
@@ -114,17 +147,10 @@ app.post('/enviardatos', async (req, res) => {
     } else if (tipo === 'Luz dimmer') {
       mqttClient.publish('/home/dimmer/settings', JSON.stringify(datos));
     }
-    // Actualizar la configuración en la base de datos
-    const updateQuery = `
-      UPDATE Configuracion 
-      SET modo = ?, hon = ?, mon = ?, hoff = ?, moff = ? 
-      WHERE dispositivoId = ?`;
-    const updateParams = [mododisp, horaEncendido, minutoEncendido, horaApagado, minutoApagado, dispositivoId];
-    await pool.query(updateQuery, updateParams);
-    res.status(200).send({ message: 'Datos enviados correctamente por MQTT y configuración actualizada' });
+    res.status(200).send({ message: 'Datos enviados correctamente por MQTT' });
   } catch (error) {
-    console.error('Error al enviar los datos por MQTT o actualizar la configuración:', error);
-    res.status(500).send({ message: 'Error al enviar los datos por MQTT o actualizar la configuración' });
+    console.error('Error al enviar los datos por MQTT:', error);
+    res.status(500).send({ message: 'Error al enviar los datos por MQTT' });
   }
 });
 
