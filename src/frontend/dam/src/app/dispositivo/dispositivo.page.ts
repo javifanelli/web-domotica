@@ -22,6 +22,8 @@ export class DispositivoPage implements OnInit, OnDestroy {
   public salida!: number;
   public estadoConexion!: string;
   public modo!: string;
+  public alarma!: number;
+  public act_al!: number;
   public myChart: any;
   private chartOptions: any;
   private activatedRoute: ActivatedRoute;
@@ -67,6 +69,8 @@ export class DispositivoPage implements OnInit, OnDestroy {
       this.setPoint = data[0].set_point;
       this.salida = data[0].salida;
       this.modo = data[0].modo;
+      this.alarma = this.device.alarma;
+      this.act_al = this.device.act_al;
       this.updateEstadoConexion();
     });
   }

@@ -29,14 +29,16 @@ CREATE TABLE `Dispositivos` (
   `nombre` varchar(200) DEFAULT NULL,
   `ubicacion` varchar(200) DEFAULT NULL,
   `mac` varchar(17) NOT NULL DEFAULT '',
-  `tipo` varchar(100) NOT NULL
+  `tipo` varchar(100) NOT NULL,
+  `alarma` int(11) NOT NULL,
+  `act_al` TINYINT(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Volcado de datos para la tabla `Dispositivos`
 
-INSERT INTO `Dispositivos` (`dispositivoId`, `nombre`, `ubicacion`, `mac`, `tipo`) VALUES
-('0028192332001', 'ESP32+DHT22', 'Habitación', '94:B5:55:2B:FF:64', 'Temperatura'),
-('0128192332001', 'ESP32', 'Sala', 'B0:A7:32:DD:18:0C', 'Luz dimmer');
+INSERT INTO `Dispositivos` (`dispositivoId`, `nombre`, `ubicacion`, `mac`, `tipo`, `alarma`, `act_al`) VALUES
+('0028192332001', 'ESP32+DHT22', 'Habitación', '94:B5:55:2B:FF:64', 'Temperatura', 30, 1),
+('0128192332001', 'ESP32', 'Sala', 'B0:A7:32:DD:18:0C', 'Luz dimmer', 0, 0);
 
 -- Estructura de tabla para la tabla `Usuarios`
 

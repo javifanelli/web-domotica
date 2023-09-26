@@ -18,6 +18,8 @@ export class ModificarPage implements OnInit {
     ubicacion: '',
     mac: '',
     tipo: '',
+    alarma: 0,
+    act_al: 0,
   };
 
   constructor(

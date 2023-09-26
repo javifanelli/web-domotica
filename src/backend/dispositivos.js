@@ -206,8 +206,8 @@ modificarDispositivoRouter.put('/:id', async function (req, res, next) {
   try {
     connection = await pool.getConnection();
     await connection.beginTransaction();
-    const updateDispositivoQuery = 'UPDATE Dispositivos SET nombre = ?, ubicacion = ?, mac = ?, tipo = ? WHERE dispositivoId = ?';
-    const updateDispositivoParams = [nuevoDispositivo.nombre, nuevoDispositivo.ubicacion, nuevoDispositivo.mac, nuevoDispositivo.tipo, dispositivoId];
+    const updateDispositivoQuery = 'UPDATE Dispositivos SET nombre = ?, ubicacion = ?, mac = ?, tipo = ?, alarma = ?, act_al = ? WHERE dispositivoId = ?';
+    const updateDispositivoParams = [nuevoDispositivo.nombre, nuevoDispositivo.ubicacion, nuevoDispositivo.mac, nuevoDispositivo.tipo, nuevoDispositivo.alarma, nuevoDispositivo.act_al, dispositivoId];
     await connection.query(updateDispositivoQuery, updateDispositivoParams);
     await connection.commit();
     connection.release();

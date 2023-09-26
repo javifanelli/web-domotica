@@ -16,7 +16,9 @@ export class AgregarPage {
     nombre: '',
     ubicacion: '',
     mac: '',
-    tipo: ''
+    tipo: '',
+    alarma: 0,
+    act_al: 0,
   };
 
   constructor(
@@ -65,7 +67,9 @@ export class AgregarPage {
       nombre: '',
       ubicacion: '',
       mac: '',
-      tipo: ''
+      tipo: '',
+      alarma: 0,
+      act_al: 0,
     };
   }
 
