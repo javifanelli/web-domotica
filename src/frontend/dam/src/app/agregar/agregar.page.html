@@ -23,7 +23,7 @@
       <ion-note *ngIf="nuevoDispositivo.dispositivoId.length !== 13">El ID debe contener 13 dígitos</ion-note>
       <ion-item>
         <ion-label>Tipo</ion-label>
-        <ion-select class="lista" [(ngModel)]="nuevoDispositivo.tipo" required>
+        <ion-select  placeholder="Tipo" interface="popover" class="lista" [(ngModel)]="nuevoDispositivo.tipo" required>
           <ion-select-option value="Temperatura">Temperatura</ion-select-option>
           <ion-select-option value="Luz dimmer">Luz dimmer</ion-select-option>
         </ion-select>
