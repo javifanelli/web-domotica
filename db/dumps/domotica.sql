@@ -36,7 +36,7 @@ CREATE TABLE `Dispositivos` (
 
 INSERT INTO `Dispositivos` (`dispositivoId`, `nombre`, `ubicacion`, `mac`, `tipo`) VALUES
 ('0028192332001', 'ESP32+DHT22', 'Habitación', '94:B5:55:2B:FF:64', 'Temperatura'),
-('0128192332001', 'ESP32', 'Sala', '0C:B8:15:D8:7A:6C', 'Luz dimmer');
+('0128192332001', 'ESP32', 'Sala', 'B0:A7:32:DD:18:0C', 'Luz dimmer');
 
 -- Estructura de tabla para la tabla `Usuarios`
 

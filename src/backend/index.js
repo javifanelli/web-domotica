@@ -98,14 +98,13 @@ mqttClient.on('message', async (topic, message) => {
       const mensaje = JSON.parse(message.toString());
       const dispositivoId = mensaje.ID;
       console.log("Mensaje de configuración recibido en el topic config:", mensaje.ID);
-      // Obtener la configuración del dispositivo
       const connection = await pool.getConnection();
-      const configResult = await connection.query('SELECT * FROM Mediciones WHERE dispositivoId = ?', [dispositivoId]);
+      const configResult = await connection.query('SELECT * FROM Mediciones WHERE dispositivoId = ? ORDER BY fecha DESC LIMIT 1', [dispositivoId]);
       let datosConfiguracion;
       if (configResult.length > 0) {
         const configuracion = configResult[0];
         datosConfiguracion = {
-          ID: configuracion.dispositivoId,
+          id: configuracion.dispositivoId,
           set_point: configuracion.set_point,
           modo: configuracion.modo,
           salida: configuracion.salida,
@@ -114,7 +113,6 @@ mqttClient.on('message', async (topic, message) => {
           hoff: configuracion.hoff,
           moff: configuracion.moff
         };
-        // Publicar los datos de configuración al dispositivo
         mqttClient.publish('/home/setup', JSON.stringify(datosConfiguracion));
         console.log('Datos de configuración enviados al dispositivo', datosConfiguracion);
       } else {
@@ -124,8 +122,7 @@ mqttClient.on('message', async (topic, message) => {
     } catch (error) {
       console.error('Error al obtener y enviar datos de configuración:', error);
     }
-  }
-  
+  }  
 });
 
 app.post('/enviardatos', async (req, res) => {

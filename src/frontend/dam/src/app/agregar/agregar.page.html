@@ -18,12 +18,12 @@
       <ion-note  *ngIf="nuevoDispositivo.nombre?.length===0">Nombre requerido</ion-note>
       <ion-item>
       <ion-label position="floating">ID fabricante</ion-label>
-        <ion-input maxlength="13" [(ngModel)]="nuevoDispositivo.dispositivoId" type="text" required [clearInput]="true"></ion-input>
+        <ion-input maxlength="13" minlength="13" [(ngModel)]="nuevoDispositivo.dispositivoId" type="text" required [clearInput]="true"></ion-input>
       </ion-item>
       <ion-note *ngIf="nuevoDispositivo.dispositivoId.length !== 13">El ID debe contener 13 dígitos</ion-note>
       <ion-item>
         <ion-label>Tipo</ion-label>
-        <ion-select [(ngModel)]="nuevoDispositivo.tipo" required>
+        <ion-select class="lista" [(ngModel)]="nuevoDispositivo.tipo" required>
           <ion-select-option value="Temperatura">Temperatura</ion-select-option>
           <ion-select-option value="Luz dimmer">Luz dimmer</ion-select-option>
         </ion-select>

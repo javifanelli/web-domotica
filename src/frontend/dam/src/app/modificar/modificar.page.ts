@@ -56,7 +56,6 @@ export class ModificarPage implements OnInit {
         this.dispositivoService.actualizarDispositivo(this.dispositivo as Dispositivo).subscribe(
           () => {
             this.mostrarMensajeExitoso();
-            this.router.navigate(['/home']);
           },
           (error) => {
             this.mostrarError(error);
