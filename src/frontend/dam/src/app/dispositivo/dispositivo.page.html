@@ -24,17 +24,19 @@
         <div>
           <ion-label class="ion-text-center">Modo: {{ modo }}</ion-label>
         </div>
+        <ng-container *ngIf="tipo === 'Temperatura'">
         <div>
           <ion-label class="ion-text-center">Valor de alarma: {{ alarma }}</ion-label>
         </div>
         <div>
           <ng-container *ngIf="act_al === 1">
-            <ion-label>Estado de alarma: Encendido</ion-label>
+            <ion-label>Estado de alarma: Activada</ion-label>
           </ng-container>
           <ng-container *ngIf="act_al === 0">
-            <ion-label>Estado de alarma: Apagado</ion-label>
+            <ion-label>Estado de alarma: Desactivada</ion-label>
           </ng-container>
         </div>
+        </ng-container>
         <ion-button [routerLink]="'/home'"><ion-icon slot="start" name="home"></ion-icon>Inicio</ion-button>
         <ion-button [routerLink]="'/medicion/' + dispositivoId"><ion-icon slot="start" name="speedometer"></ion-icon>Mediciones</ion-button>
         <ion-button color="warning" [routerLink]="'/config/' + dispositivoId"><ion-icon slot="start" name="cog"></ion-icon>Configurar</ion-button>

@@ -17,7 +17,7 @@ export class AgregarPage {
     ubicacion: '',
     mac: '',
     tipo: '',
-    alarma: 0,
+    alarma: 25,
     act_al: 0,
   };
 
@@ -59,18 +59,6 @@ export class AgregarPage {
         this.mostrarMensajeError();
       }
     });
-  }
-
-  limpiarCampos() {
-    this.nuevoDispositivo = {
-      dispositivoId: '',
-      nombre: '',
-      ubicacion: '',
-      mac: '',
-      tipo: '',
-      alarma: 0,
-      act_al: 0,
-    };
   }
 
 }
