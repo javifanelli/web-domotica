@@ -60,7 +60,7 @@ graficoRouter.get('/:id', async function (req, res, next) {
 medicionesRouter.get('/:id/mediciones/', async function (req, res, next) {
     try {
       const connection = await pool.getConnection();
-      const result = await connection.query('SELECT * FROM Mediciones WHERE dispositivoId = ?', req.params.id);
+      const result = await connection.query('SELECT * FROM Mediciones WHERE dispositivoId = ? ORDER BY fecha DESC', req.params.id);
       connection.release();
       res.send(JSON.stringify(result)).status(200);
     } catch (err) {
