@@ -68,7 +68,6 @@ medicionesRouter.get('/:id/mediciones/', async function (req, res, next) {
     }
   });
 
-
 deleteDispositivoRouter.delete('/:id', async function (req, res, next) {
     const id = req.params.id;
     let connection;

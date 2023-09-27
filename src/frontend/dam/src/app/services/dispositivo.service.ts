@@ -24,6 +24,10 @@ export class DispositivoService {
     return this._http.get<Medicion[]>(this.URLServer + '/dispositivos/' + id + '/mediciones');
   }
 
+  public getGrafico(id: string): Observable<Medicion[]> {
+    return this._http.get<Medicion[]>(this.URLServer + '/grafico/' + id);
+  }
+
   public getDeviceById(id: string): Observable<Dispositivo[]> {
     return this._http.get<Dispositivo[]>(this.URLServer + '/dispositivos/' + id);
   }

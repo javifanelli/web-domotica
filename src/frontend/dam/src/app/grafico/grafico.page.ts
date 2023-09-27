@@ -23,7 +23,7 @@ export class GraficoPage implements OnInit {
 
   ngOnInit() {
     this.dispositivoId = this.activatedRoute.snapshot.paramMap.get('id') || '0';
-    this.dispositivoService.getMediciones(this.dispositivoId).subscribe((data: Medicion[]) => {
+    this.dispositivoService.getGrafico(this.dispositivoId).subscribe((data: Medicion[]) => {
       this.mediciones = data;
       this.tipo = data[0].tipo;
       this.renderChart();
