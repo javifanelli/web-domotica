@@ -98,7 +98,7 @@ mqttClient.on('message', async (topic, message) => {
             from: 'automaticoh@gmail.com',
             to: mailList.join('; '),
             subject: 'Alarma de valor alto',
-            text: `Hola, el dispositivo ${dispositivoId} de la ubicación ${ubicacion} tiene un valor de temperatura alto. La última medición fue de ${mensaje.valor}º, revisá que todo esté bien.`
+            text: `Hola, el dispositivo ${dispositivoId} de la ubicación ${ubicacion} tiene un valor de temperatura alto. La última medición fue de ${mensaje.valor}º, y la alarma está seteada en ${alarm}º. Revisá que todo esté bien.`
           };
           transporter.sendMail(mailOptions, function(error, info){
             if (error) {
