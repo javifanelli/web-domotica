@@ -18,11 +18,11 @@
         <ion-label position="floating">Nombre</ion-label>
         <ion-input [(ngModel)]="dispositivo.nombre" type="text" [clearInput]="true" required></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item *ngIf="dispositivo.tipo === 'Temperatura'">
         <ion-label position="floating">Alarma</ion-label>
         <ion-input [(ngModel)]="dispositivo.alarma" type="text" [clearInput]="true" required></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item *ngIf="dispositivo.tipo === 'Temperatura'">
         <ion-label position="floating">Estado de alarma</ion-label>
         <ion-select interface="popover" [(ngModel)]="dispositivo.act_al" required>
           <ion-select-option value="0">Desactivada</ion-select-option>

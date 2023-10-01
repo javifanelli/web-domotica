@@ -35,19 +35,18 @@ export class ModificarPage implements OnInit {
   }
 
   async cargarDispositivo() {
-    try {
-      this.dispositivoService.getDeviceById(this.dispositivoId).subscribe(
-        dispositivos => {
+    try {this.dispositivoService.getDeviceById(this.dispositivoId).subscribe({
+        next: (dispositivos) => {
           if (dispositivos && dispositivos.length > 0) {
             this.dispositivo = dispositivos[0];
             this.ubicacionold = dispositivos[0].ubicacion;
             this.dispositivo.act_al = dispositivos[0].act_al;
           }
         },
-        error => {
+        error: (error) => {
           console.error('Error al cargar el dispositivo:', error);
         }
-      );
+    });
     } catch (error) {
       console.error('Error al cargar el dispositivo:', error);
     }
