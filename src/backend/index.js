@@ -83,6 +83,31 @@ mqttClient.on('message', async (topic, message) => {
           [medicion.dispositivoId, medicion.tipo, medicion.fecha, medicion.valor, medicion.set_point, medicion.modo, medicion.salida, medicion.hon, medicion.mon, medicion.hoff, medicion.moff]
         );
         console.log('Medición insertada correctamente en la base de datos.');
+        const alarmResult = await connection.query('SELECT alarma FROM Dispositivos WHERE dispositivoId = ?', [dispositivoId]);
+        const activeResult = await connection.query('SELECT act_al FROM Dispositivos WHERE dispositivoId = ?', [dispositivoId]);
+        const ubicacionResult = await connection.query('SELECT ubicacion FROM Dispositivos WHERE dispositivoId = ?', [dispositivoId]);
+        const alarm = alarmResult[0].alarma;
+        const active = activeResult[0].act_al;
+        const ubicacion = ubicacionResult[0].ubicacion;
+        const userResult = await connection.query('SELECT * FROM Usuarios WHERE updated = 1');
+        const mailList = userResult.map(user => user.email);
+        console.log('Lista de correos:', mailList);
+        if (medicion.valor >= alarm && active === 1) {
+          console.log("¡Ey! Los valores son altos para el dispositivo:", dispositivoId);
+          const mailOptions = {
+            from: 'automaticoh@gmail.com',
+            to: mailList.join('; '),
+            subject: 'Alarma de valor alto',
+            text: `Hola, el dispositivo ${dispositivoId} de la ubicación ${ubicacion} tiene un valor de temperatura alto. La última medición fue de ${mensaje.valor}º, revisá que todo esté bien.`
+          };
+          transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+              console.error('Error al enviar el correo:', error);
+            } else {
+              console.log('Correo enviado con éxito. Información:', info.response);
+            }
+          });
+        }
       } else {
         console.log('La MAC del dispositivo no coincide. Datos descartados.');
       }
