@@ -90,6 +90,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    localStorage.clear();
     if (this.userDataSubscription) {
       this.userDataSubscription.unsubscribe();
     }

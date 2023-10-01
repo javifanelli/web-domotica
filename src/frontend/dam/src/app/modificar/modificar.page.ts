@@ -41,6 +41,7 @@ export class ModificarPage implements OnInit {
           if (dispositivos && dispositivos.length > 0) {
             this.dispositivo = dispositivos[0];
             this.ubicacionold = dispositivos[0].ubicacion;
+            this.dispositivo.act_al = dispositivos[0].act_al;
           }
         },
         error => {
@@ -55,15 +56,15 @@ export class ModificarPage implements OnInit {
   async guardarCambios() {
     try {
       if (this.dispositivo) {
-        this.dispositivoService.actualizarDispositivo(this.dispositivo as Dispositivo).subscribe(
-          () => {
+        this.dispositivoService.actualizarDispositivo(this.dispositivo as Dispositivo).subscribe({
+          next: (response) => {
             this.mostrarMensajeExitoso();
           },
-          (error) => {
+          error: (error) => {
             this.mostrarError(error);
             console.error('Error al actualizar:', error);
           }
-        );
+      });
       }
     } catch (error) {
       console.error('Error al guardar los cambios:', error);

@@ -98,14 +98,14 @@ export class ConfigPage implements OnInit, OnDestroy {
       tipo: this.tipo,
       salida: Number(this.outsend),
     };
-    this.dispositivoService.enviarDatos(datos).subscribe(
-      (response) => {
+    this.dispositivoService.enviarDatos(datos).subscribe({
+      next: (response) => {
         console.log("Datos enviados:", datos);
       },
-      (error) => {
+      error: (error) => {
         console.error('Error al enviar los datos:', error);
       }
-    );
+  });
   }
 
   ngOnDestroy() {

@@ -23,11 +23,16 @@
         <ion-input [(ngModel)]="dispositivo.alarma" type="text" [clearInput]="true" required></ion-input>
       </ion-item>
       <ion-item>
-        <ion-select placeholder="Estado de alarma" interface="popover" [(ngModel)]="dispositivo.act_al" required>
+        <ion-label position="floating">Estado de alarma</ion-label>
+        <ion-select interface="popover" [(ngModel)]="dispositivo.act_al" required>
           <ion-select-option value="0">Desactivada</ion-select-option>
           <ion-select-option value="1">Activada</ion-select-option>
         </ion-select>
       </ion-item>      
+      <ion-item>
+        <ion-label position="floating">Tipo</ion-label>
+        <ion-input [(ngModel)]="dispositivo.tipo" type="text" [disabled]="true"></ion-input>
+      </ion-item>
       <ion-item>
         <ion-label position="floating">ID</ion-label>
         <ion-input [(ngModel)]="dispositivo.dispositivoId" type="text" [disabled]="true"></ion-input>
