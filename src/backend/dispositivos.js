@@ -44,18 +44,19 @@ ultMedicionRouter.get('/:id', async function (req, res, next) {
     }
   });
   
-graficoRouter.get('/:id', async function (req, res, next) {
+  graficoRouter.get('/:id', async function (req, res, next) {
     try {
-      const connection = await pool.getConnection();
-      const result = await connection.query('SELECT * FROM Mediciones WHERE dispositivoId = ? ORDER BY fecha DESC LIMIT 10', req.params.id);
-      console.log('Mandando grafico');
-      connection.release();
-      res.send(JSON.stringify(result)).status(200);
-      console.log(JSON.stringify(result));
+        const connection = await pool.getConnection();
+        const currentDate = new Date().toISOString().split('T')[0];
+        const query = 'SELECT * FROM Mediciones WHERE dispositivoId = ? AND DATE(fecha) = ? ORDER BY fecha DESC';
+        const result = await connection.query(query, [req.params.id, currentDate]);
+        console.log('Mandando gráfico');
+        connection.release();
+        res.send(JSON.stringify(result)).status(200);
     } catch (err) {
-      res.send(err).status(400);
+        res.send(err).status(400);
     }
-  });
+});
   
 medicionesRouter.get('/:id/mediciones/', async function (req, res, next) {
     try {
