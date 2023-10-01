@@ -1,4 +1,5 @@
 const express = require('express');
+const transporter = require('./nodemailer');
 const dispositivosRouter = express.Router();
 const ultMedicionRouter = express.Router();
 const graficoRouter = express.Router();
@@ -169,6 +170,19 @@ usuariosRouter.put('/:userId', async function (req, res, next) {
     connection.release();
     res.send({ message: 'Datos del usuario actualizados exitosamente' }).status(200);
     console.log("Datos insertados:", req.body);
+    const mailOptions = {
+      from: 'automaticoh@gmail.com',
+      to: updatedUser.email,
+      subject: 'Registro en sistema',
+      text: 'Hola, gracias por utilizar el sistema de monitoreo y control de ambientes a distancia. Configuraste esta dirección de correo. Si no fuiste vos, ponete en contacto con los administradores o envia un mail a automaticoh@gmail.com. A partir de ahora las notificaciones y alarmas van a llegarte por este medio. Espero que tu experiencia sea grata!'
+    };
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.error('Error al enviar el correo:', error);
+      } else {
+        console.log('Correo enviado con éxito. Información:', info.response);
+      }
+    });
   } catch (err) {
     console.error(err);
     res.status(500).send('Error al actualizar el usuario');
