@@ -6,7 +6,7 @@ const configmariadb = {
   port: '3306',
   user: 'root',
   password: 'userpass',
-  database: 'temperatura'
+  database: 'Domotica'
 };
 
 const pool = mariadb.createPool(configmariadb);

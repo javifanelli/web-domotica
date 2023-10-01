@@ -19,8 +19,8 @@ SET time_zone = "+00:00";
 
 -- Base de datos: `temperatura`
 
-CREATE DATABASE IF NOT EXISTS `temperatura` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `temperatura`;
+CREATE DATABASE IF NOT EXISTS `Domotica` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `Domotica`;
 
 -- Tabla `Dispositivos`
 
