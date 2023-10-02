@@ -45,6 +45,10 @@ const routes: Routes = [
     path: 'modificar/:id',
     loadChildren: () => import('./modificar/modificar.module').then((m) => m.ModificarPageModule),
   },
+  {
+    path: 'ayuda',
+    loadChildren: () => import('./ayuda/ayuda.module').then(m => m.AyudaPageModule)
+  },
 ];
 
 @NgModule({
