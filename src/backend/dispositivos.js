@@ -174,7 +174,14 @@ usuariosRouter.put('/:userId', async function (req, res, next) {
       from: 'automaticoh@gmail.com',
       to: updatedUser.email,
       subject: 'Registro en sistema',
-      text: 'Hola, gracias por utilizar el sistema de monitoreo y control de ambientes a distancia. Configuraste esta dirección de correo. Si no fuiste vos, ponete en contacto con los administradores o envia un mail a automaticoh@gmail.com. A partir de ahora las notificaciones y alarmas van a llegarte por este medio. Espero que tu experiencia sea grata!'
+      text: `Hola ${updatedUser.nombre} ${updatedUser.apellido},
+      gracias por utilizar el sistema de monitoreo y control de ambientes a distancia. Configuraste esta dirección de correo para recibir los avisos. Si no fuiste vos, ponete en contacto con los administradores o envia un mail a automaticoh@gmail.com.
+      A partir de ahora las notificaciones y alarmas van a llegarte por este medio.
+      Tu nombre de usuario es: ${updatedUser.user}.
+      Tu contraseña es: ${updatedUser.password}.
+      Esperamos que tu experiencia sea grata!
+      Saludos,
+      Equipo de Domótica.`
     };
     transporter.sendMail(mailOptions, function(error, info){
       if (error) {

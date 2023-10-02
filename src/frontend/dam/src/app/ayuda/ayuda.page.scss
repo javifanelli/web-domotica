@@ -9,3 +9,14 @@ ion-content {
 .titulo {
     text-align: center;
 }
+
+.content {
+    background-color: black;
+    color: white;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }

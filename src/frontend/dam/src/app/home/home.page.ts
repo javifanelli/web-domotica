@@ -13,7 +13,6 @@ import { Subscription } from 'rxjs';
 })
 export class HomePage implements OnInit, OnDestroy {
   userData!: Usuario;
-  upd!: number;
   userId!: number;
   userDataSubscription: Subscription | undefined;
 
@@ -48,6 +47,8 @@ export class HomePage implements OnInit, OnDestroy {
         {
           text: 'Cerrar sesión',
           handler: () => {
+            localStorage.removeItem('userId');
+            window.localStorage.clear();
             this.loginService.logout();
             this.router.navigate(['/login']);
           },
@@ -80,7 +81,6 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   async mostrarAviso() {
-    console.log('Mostrando aviso de actualización');
     const alert = await this.alertController.create({
       header: 'Aviso',
       message: 'Debe actualizar los datos de usuario.',
@@ -90,7 +90,6 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    window.localStorage.clear();
     if (this.userDataSubscription) {
       this.userDataSubscription.unsubscribe();
     }

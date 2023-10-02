@@ -37,6 +37,7 @@ export class LoginService {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
+    window.localStorage.clear();
   }
 
   public get logIn(): boolean {
