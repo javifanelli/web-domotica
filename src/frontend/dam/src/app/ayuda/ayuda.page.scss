@@ -6,8 +6,21 @@
     text-align: center;
 }
 
-.ion-button {
-  color: white;
+ion-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.content {
+  padding: 20px;
+  text-align: center;
+}
+
+.content img {
+  max-width: 100%;
+  height: auto;
 }
 
 .header-container {

@@ -1,6 +1,6 @@
-# Desarrollo de Aplicaciones para Internet de las cosas - TP final
+# Trabajo final - Especialización en Internet de las cosas
 
-El siguiente proyecto es el componente Web app full stack con Ionic como frontend del trabajo práctico final para la materia Desarrollo de Aplicaciones para Internet de las Cosas de la especialización de IoT, FIUBA. El proyecto consta de 2 componentes, el presente para el servidor y el ubicado [aquí](https://github.com/javifanelli/TP_DAIoT_embebido).
+El siguiente proyecto es el componente Web app full stack con Ionic como frontend del trabajo práctico final para la carrera de Especialización en Internet de las Cosas, FIUBA. El proyecto consta de 3 componentes, el presente para el servidor, el ubicado [aquí](https://github.com/javifanelli/embebido_luz-proyecto) para el control de dimmer de luz y el ubicado [aquí] para el control de temperatura (https://github.com/javifanelli/embebido_temp-proyecto).
 
 El trabajo está realizado en el entorno Docker y está hecho a partir del repositorio nombrado más abajo.
 
@@ -36,6 +36,4 @@ En caso de que al momento de correr el proyecto con *docker compose up --build* 
 En caso de querer ver la medición de un sensor con el gŕafico y que este no se muestre al entrar a la página de uno de ellos, debe refrescarse dicha página una vez seleccionado el dispositivo, ya que tiene un refresco automático de 20 segundos.
 
 ### Enlaces útiles
-Proyecto basado en
-[Web App Full Stack Base](https://github.com/PedroRosito/dam-docker)
-para la materia Desarrollo de aplicaciones multiplataforma.
+Proyecto basado en [Web App Full Stack Base](https://github.com/PedroRosito/dam-docker) para la materia Desarrollo de aplicaciones multiplataforma.
