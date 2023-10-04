@@ -24,6 +24,9 @@ export class HomePage implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    window.addEventListener('beforeunload', () => {
+      this.loginService.logout();
+    });
     const userId = this.loginService.getCurrentUser();
     if (userId !== null) {
       this.userId = userId;
@@ -51,6 +54,7 @@ export class HomePage implements OnInit, OnDestroy {
             window.localStorage.clear();
             this.loginService.logout();
             this.router.navigate(['/login']);
+            /* window.location.reload(); */
           },
           cssClass: 'logout-alert-button.confirm',
         },
@@ -93,6 +97,7 @@ export class HomePage implements OnInit, OnDestroy {
     if (this.userDataSubscription) {
       this.userDataSubscription.unsubscribe();
     }
+    localStorage.clear();
   }
 
 }
