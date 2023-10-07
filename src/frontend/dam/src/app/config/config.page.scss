@@ -78,3 +78,20 @@ ion-segment-button.md::part(indicator-background) {
     justify-content: center;
   }
 }
+
+.ion-text {
+  display: flex;
+}
+
+@media (min-width: 768px) {
+  .ion-text {
+    width: 100%;
+    justify-content: center;
+    size: 5;
+  }
+}
+
+/* .ion-col {
+  align-items: center;
+
+} */

@@ -26,9 +26,9 @@
 
   <div>
     <ion-title class="ion-text-center">Datos de modo automático</ion-title>
-      <ion-row>
-        <ion-col offset="4" size="2">
-          <ion-label>Set point</ion-label>
+      <ion-row class="ion-align-items-center">
+        <ion-col offset="4" size="3">
+          <ion-label class="ion-text">Set point</ion-label>
         </ion-col>
         <ion-col size="2.1">  
           <ng-container *ngIf="tipo === 'Temperatura'">
@@ -40,8 +40,8 @@
         </ion-col>
       </ion-row>
       <ion-row class="ion-align-items-center">
-        <ion-col offset="4" size="2">
-          <ion-label class="ion-text-center">Hora de encendido (formato 24 hs):</ion-label>
+        <ion-col offset="4" size="3">
+          <ion-label class="ion-text">Hora de encendido (formato 24 hs):</ion-label>
         </ion-col>
         <ion-col size="1">
           <ion-input class="custom-input" type="number" min="0" max="23" [(ngModel)]="horaEncendido"></ion-input>
@@ -52,8 +52,8 @@
         </ion-col>
       </ion-row>
       <ion-row class="ion-align-items-center">
-        <ion-col offset="4" size="2">
-          <ion-label class="ion-text-center">Hora de apagado (formato 24 hs):</ion-label>
+        <ion-col offset="4" size="3">
+          <ion-label class="ion-text">Hora de apagado (formato 24 hs):</ion-label>
         </ion-col>
         <ion-col size="1">
           <ion-input class="custom-input" type="number" min="0" max="23" [(ngModel)]="horaApagado"></ion-input>
@@ -63,7 +63,6 @@
           <ion-input class="custom-input" type="number" min="0" max="59" [(ngModel)]="minutoApagado"></ion-input>
         </ion-col>
       </ion-row>
-
   </div>
   <div class="center-content">
     <ion-title class="ion-text-center">Selección de modo</ion-title>
