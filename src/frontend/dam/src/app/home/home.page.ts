@@ -92,7 +92,6 @@ export class HomePage implements OnInit, OnDestroy {
       this.userDataSubscription.unsubscribe();
     }
     localStorage.removeItem('userId');
-    window.localStorage.clear();
   }
 
 }
