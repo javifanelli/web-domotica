@@ -10,7 +10,6 @@ import { Medicion } from '../interfaces/medicion';
   styleUrls: ['./grafico.page.scss'],
 })
 export class GraficoPage implements OnInit {
-
   dispositivoId!: string;
   mediciones: Medicion[] = [];
   tipo!: string;
@@ -28,13 +27,16 @@ export class GraficoPage implements OnInit {
       this.tipo = data[0].tipo;
       this.renderChart();
     });
+    setInterval(() => {
+      this.updateChart();
+    }, 5 * 60 * 1000);
   }
 
   renderChart() {
     this.myChart = Highcharts.chart('chart-container', {
-        title: {
-          text: this.tipo
-          },
+      title: {
+        text: this.tipo
+      },
       xAxis: {
         type: 'datetime'
       },
@@ -48,28 +50,37 @@ export class GraficoPage implements OnInit {
       },
       plotOptions: {
         series: {
-          pointStart: Date.UTC(2023, 4, 10),
-          pointInterval: 24 * 3600 * 1000 // one day
+          pointStart: 0,
+          pointInterval: 24 * 3600 * 1000
         }
       },
       series: [
         {
-            data: this.mediciones.map(medicion => [new Date(medicion.fecha).getTime(), medicion.valor]),
-            type: 'line',
-            name: 'Data',
-            marker: {
+          data: this.mediciones.map(medicion => [new Date(medicion.fecha).getTime(), medicion.valor]),
+          type: 'line',
+          name: 'Data',
+          marker: {
             enabled: false
-        }
+          }
         }
       ],
     });
   }
-  
+
+  updateChart() {
+    this.dispositivoService.getGrafico(this.dispositivoId).subscribe((data: Medicion[]) => {
+      this.mediciones = data;
+      this.tipo = data[0].tipo;
+      if (this.myChart) {
+        this.myChart.series[0].setData(this.mediciones.map(medicion => [new Date(medicion.fecha).getTime(), medicion.valor]));
+      }
+    });
+  }
+
   ngOnDestroy() {
     if (this.myChart) {
       this.myChart.destroy();
       console.log('Chart destroyed');
     }
   }
-  
 }
