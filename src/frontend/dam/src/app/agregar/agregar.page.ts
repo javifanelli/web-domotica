@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Dispositivo } from '../interfaces/dispositivo';
 import { DispositivoService } from '../services/dispositivo.service';
 import { AlertController } from '@ionic/angular';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-agregar',
@@ -10,7 +11,6 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./agregar.page.scss'],
 })
 export class AgregarPage {
-
   nuevoDispositivo: Dispositivo = {
     dispositivoId: '',
     nombre: '',
@@ -47,18 +47,29 @@ export class AgregarPage {
     await alert.present();
   }
 
-  agregarDispositivo() {
-    this.dispositivoService.agregarDispositivo(this.nuevoDispositivo).subscribe({
-      next: (response) => {
-        console.log('Dispositivo agregado correctamente:', response);
-        this.mostrarMensajeExitoso();
-        this.router.navigate(['/dispositivos']);
-      },
-      error: (error) => {
-        console.error('Error al agregar el dispositivo:', error);
-        this.mostrarMensajeError();
-      }
-    });
+  verificarID(dispositivoId: string): boolean {
+    const posicion = 2;
+    return dispositivoId.charAt(posicion) === '2' &&
+      dispositivoId.charAt(posicion + 1) === '8' &&
+      dispositivoId.charAt(posicion + 2) === '1' &&
+      dispositivoId.charAt(posicion + 3) === '9';
   }
 
+  async onAgrega(form: NgForm) {
+    if (form.valid && this.verificarID(this.nuevoDispositivo.dispositivoId)) {
+      await this.agregarDispositivo();
+    }
+  }
+
+  async agregarDispositivo() {
+    try {
+      const response = await this.dispositivoService.agregarDispositivo(this.nuevoDispositivo).toPromise();
+      console.log('Dispositivo agregado correctamente:', response);
+      await this.mostrarMensajeExitoso();
+      this.router.navigate(['/dispositivos']);
+    } catch (error) {
+      console.error('Error al agregar el dispositivo:', error);
+      await this.mostrarMensajeError();
+    }
+  }
 }

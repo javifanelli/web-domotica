@@ -24,3 +24,15 @@
 .lista {
   min-width: 100%;
 }
+
+ion-item.invalid-id ion-input {
+  --border-color: red;
+}
+
+.success-button {
+  --background: var(--ion-color-success);
+}
+
+.disabled-button {
+  --background: var(--ion-color-medium);
+}

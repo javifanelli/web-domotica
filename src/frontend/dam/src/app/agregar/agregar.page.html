@@ -1,48 +1,50 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-title class="titulo">Agregar dispositivo</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-toolbar>
+    <ion-title class="titulo">Agregar dispositivo</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-  <ion-content>
-    <ion-list class="custom-card">
-      <ion-item>
-        <ion-label position="floating">Ubicación</ion-label>
-        <ion-input [(ngModel)]="nuevoDispositivo.ubicacion" type="text" required [clearInput]="true"></ion-input>
-      </ion-item>
-      <ion-note  *ngIf="nuevoDispositivo.ubicacion?.length===0">Ubicación requerida</ion-note>
-      <ion-item>
-        <ion-label position="floating">Nombre</ion-label>
-        <ion-input [(ngModel)]="nuevoDispositivo.nombre" type="text" required [clearInput]="true"></ion-input>
-      </ion-item>
-      <ion-note  *ngIf="nuevoDispositivo.nombre?.length===0">Nombre requerido</ion-note>
-      <ion-item>
+<ion-content>
+  <form #agregaForm="ngForm" novalidate (keyup.enter)="onAgrega(agregaForm)"></form>
+  <ion-list class="custom-card">
+    <ion-item>
+      <ion-label position="floating">Ubicación</ion-label>
+      <ion-input [(ngModel)]="nuevoDispositivo.ubicacion" type="text" required [clearInput]="true"></ion-input>
+    </ion-item>
+    <ion-note  *ngIf="nuevoDispositivo.ubicacion?.length===0">Ubicación requerida</ion-note>
+    <ion-item>
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input [(ngModel)]="nuevoDispositivo.nombre" type="text" required [clearInput]="true"></ion-input>
+    </ion-item>
+    <ion-note  *ngIf="nuevoDispositivo.nombre?.length===0">Nombre requerido</ion-note>
+    <ion-item [class.invalid-id]="!verificarID(nuevoDispositivo.dispositivoId)">
       <ion-label position="floating">ID fabricante</ion-label>
-        <ion-input maxlength="13" minlength="13" [(ngModel)]="nuevoDispositivo.dispositivoId" type="text" required [clearInput]="true"></ion-input>
-      </ion-item>
-      <ion-note *ngIf="nuevoDispositivo.dispositivoId.length !== 13">El ID debe contener 13 dígitos</ion-note>
-      <ion-item>
-        <ion-label>Tipo</ion-label>
-        <ion-select placeholder="Tipo" interface="popover" class="lista" [(ngModel)]="nuevoDispositivo.tipo" required>
-          <ion-select-option value="Temperatura">Temperatura</ion-select-option>
-          <ion-select-option value="Luz dimmer">Luz dimmer</ion-select-option>
-        </ion-select>
-      </ion-item>
-      <ion-item *ngIf="nuevoDispositivo.tipo === 'Temperatura'">
-        <ion-label position="floating">Valor alarma</ion-label>
-        <ion-input min="25" max="40" [(ngModel)]="nuevoDispositivo.alarma" type="number" required></ion-input>
-        <ion-note *ngIf="nuevoDispositivo.alarma < 25 || nuevoDispositivo.alarma > 40">El valor de la alarma debe estar entre 25 y 40</ion-note>
-      </ion-item>
-      <ion-item *ngIf="nuevoDispositivo.tipo === 'Temperatura'">
-        <ion-select placeholder="Estado alarma" interface="popover" class="lista" [(ngModel)]="nuevoDispositivo.act_al" required>
-          <ion-select-option value="0">Desactivada</ion-select-option>
-          <ion-select-option value="1">Activada</ion-select-option>
-        </ion-select>
-      </ion-item>
-    </ion-list>
-    <div class="button-container">
-      <ion-button color="success" (click)="agregarDispositivo()"><ion-icon name="checkmark"></ion-icon>Confirmar</ion-button>
-      <ion-button [routerLink]="'/home'"><ion-icon slot="start" name="home"></ion-icon>Inicio</ion-button>
-    </div>
-    </ion-content>
-  
+      <ion-input maxlength="13" minlength="13" [(ngModel)]="nuevoDispositivo.dispositivoId" type="text" required [clearInput]="true"></ion-input>
+    </ion-item>
+    <ion-note *ngIf="nuevoDispositivo.dispositivoId.length !== 13">El ID debe contener 13 dígitos</ion-note>
+    <ion-item>
+      <ion-label>Tipo</ion-label>
+      <ion-select placeholder="Tipo" interface="popover" class="lista" [(ngModel)]="nuevoDispositivo.tipo" required>
+        <ion-select-option value="Temperatura">Temperatura</ion-select-option>
+        <ion-select-option value="Luz dimmer">Luz dimmer</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="nuevoDispositivo.tipo === 'Temperatura'">
+      <ion-label position="floating">Valor alarma</ion-label>
+      <ion-input min="25" max="40" [(ngModel)]="nuevoDispositivo.alarma" type="number" required></ion-input>
+      <ion-note *ngIf="nuevoDispositivo.alarma < 25 || nuevoDispositivo.alarma > 40">El valor de la alarma debe estar entre 25 y 40</ion-note>
+    </ion-item>
+    <ion-item *ngIf="nuevoDispositivo.tipo === 'Temperatura'">
+      <ion-select placeholder="Estado alarma" interface="popover" class="lista" [(ngModel)]="nuevoDispositivo.act_al" required>
+        <ion-select-option value="0">Desactivada</ion-select-option>
+        <ion-select-option value="1">Activada</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <div class="button-container">
+    <ion-button [ngClass]="{'success-button': agregaForm.valid, 'disabled-button': !agregaForm.valid}" (click)="onAgrega(agregaForm)" [disabled]="!agregaForm.valid">
+        <ion-icon name="checkmark"></ion-icon>Confirmar
+      </ion-button>
+    <ion-button [routerLink]="'/home'"><ion-icon slot="start" name="home"></ion-icon>Inicio</ion-button>
+  </div>
+  </ion-content>
