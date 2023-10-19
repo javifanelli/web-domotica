@@ -19,7 +19,7 @@ console.log("Iniciando DB");
     console.log("Conexión exitosa a", configmariadb.database, "a", configmariadb.host,":",configmariadb.port);
     connection.release();
   } catch (err) {
-    console.log('Error al establecer la conexión:', err);
+    console.log("Error al establecer la conexión:", err);
     process.exit(1);
   }
 })();
