@@ -1,19 +1,44 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Sistema de monitoreo y control de ambientes a distancia</ion-title>
-    <div class="button-container">
-      <ion-button [routerLink]="'/usuario/' + userId" slot="start" color="primary">
-        <ion-icon slot="start" name="person"></ion-icon>Usuario</ion-button>
-      <ion-button (click)="logout()" slot="end" color="primary">
-        <ion-icon slot="start" name="log-out"></ion-icon>Log out
-      </ion-button>
-      <ion-button [routerLink]="'/ayuda'" slot="end" color="primary">
-        <ion-icon name="help"></ion-icon>Manual de usuario
-      </ion-button>      
+<ion-menu contentId="main-content">
+  <ion-header>
+    <div>
+    <ion-toolbar><ion-menu-toggle>
+        <ion-menu-button></ion-menu-button>
+      </ion-menu-toggle>
+    </ion-toolbar>
     </div>
+  </ion-header>
+  <ion-content class="ion-padding">
+    
+    <ion-list>
+      <ion-item [routerLink]="'/usuario/' + userId">
+        <ion-icon slot="start" name="person"></ion-icon>
+        Usuario
+      </ion-item>
+      <ion-item [routerLink]="'/agregar/'">
+        <ion-icon slot="start" name="add"></ion-icon>
+        Agregar dispositivo
+      </ion-item>
+      <ion-item [routerLink]="'/ayuda'">
+        <ion-icon slot="start" name="help"></ion-icon>
+        Manual de usuario
+      </ion-item>
+      <ion-item (click)="logout()" [routerLink]="''" color="danger">
+        <ion-icon slot="start" name="log-out"></ion-icon>
+        Log out
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>Menú
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content [fullscreen]="true">
+
+<ion-content [fullscreen]="true" id="main-content">
   <ion-toolbar>
     <h5 class="subtitulo">Listado de dispositivos</h5>
   </ion-toolbar>
