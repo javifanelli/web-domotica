@@ -2,8 +2,8 @@
   <div class="card-container">
     <ion-card *ngFor="let dispositivo of devices" class="custom-card">
       <ion-card-header>
-        <ion-card-title>
-          {{ dispositivo.ubicacion }}
+        <ion-card-title [routerLink]="'/dispositivos/' + dispositivo.dispositivoId">
+          {{ dispositivo.ubicacion }} 
           <ion-icon *ngIf="dispositivo.tipo === 'Temperatura'" name="thermometer"></ion-icon>
           <ion-icon *ngIf="dispositivo.tipo === 'Luz dimmer'" name="sunny"></ion-icon>
         </ion-card-title>
@@ -29,5 +29,4 @@
     </div>
     </ion-card>
   </div>
-
 </ion-content>

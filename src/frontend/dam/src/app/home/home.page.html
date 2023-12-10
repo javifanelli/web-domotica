@@ -1,15 +1,14 @@
 <ion-menu contentId="main-content">
   <ion-header>
-    <div>
-    <ion-toolbar><ion-menu-toggle>
-        <ion-menu-button></ion-menu-button>
-      </ion-menu-toggle>
+    <ion-toolbar>
+      <ion-title class="text-center">Menú</ion-title>
     </ion-toolbar>
-    </div>
   </ion-header>
   <ion-content class="ion-padding">
-    
     <ion-list>
+      <ion-item [routerLink]="''"><ion-icon slot="start" name="close-outline"></ion-icon>
+        <ion-menu-toggle>Cerrar</ion-menu-toggle>
+      </ion-item>
       <ion-item [routerLink]="'/usuario/' + userId">
         <ion-icon slot="start" name="person"></ion-icon>
         Usuario
@@ -18,11 +17,15 @@
         <ion-icon slot="start" name="add"></ion-icon>
         Agregar dispositivo
       </ion-item>
+      <ion-item [routerLink]="'/video'">
+        <ion-icon slot="start" name="videocam"></ion-icon>
+        Dispositivo de video
+      </ion-item>
       <ion-item [routerLink]="'/ayuda'">
         <ion-icon slot="start" name="help"></ion-icon>
-        Manual de usuario
+        Manual de uso
       </ion-item>
-      <ion-item (click)="logout()" [routerLink]="''" color="danger">
+      <ion-item (click)="logout()" [routerLink]="''">
         <ion-icon slot="start" name="log-out"></ion-icon>
         Log out
       </ion-item>
@@ -33,7 +36,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>Menú
+      <ion-menu-button></ion-menu-button><ion-text class="menu">Menú</ion-text>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
