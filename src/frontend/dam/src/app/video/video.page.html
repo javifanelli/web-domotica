@@ -1,3 +1,13 @@
+<ion-header>
+    <ion-toolbar>
+        <div class="header-container">
+            <ion-button [routerLink]="'/home'" class="volver-button"><ion-icon slot="start" name="arrow-back"></ion-icon>Volver</ion-button>
+      </div>
+            <ion-title class="titulo">Sistema de videovigilancia</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+
 <ion-content [fullscreen]="true">
     <iframe src="http://192.168.0.4:8765" width="100%" height="100%"></iframe>
 </ion-content>
