@@ -1,13 +1,27 @@
 <ion-header>
-    <ion-toolbar>
-        <div class="header-container">
-            <ion-button [routerLink]="'/home'" class="volver-button"><ion-icon slot="start" name="arrow-back"></ion-icon>Volver</ion-button>
-      </div>
-            <ion-title class="titulo">Sistema de videovigilancia</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
+<ion-menu contentId="main-content">
+    <ion-content class="ion-padding">
+      <ion-list>
+        <ion-item [routerLink]="''"><ion-icon slot="start" name="close-outline"></ion-icon>
+          <ion-menu-toggle>Cerrar</ion-menu-toggle>
+        </ion-item>
+        <ion-item [routerLink]="'/agregar/'">
+          <ion-icon slot="start" name="add"></ion-icon>
+          Agregar dispositivo
+        </ion-item>
+        <ion-item [routerLink]="'/video'">
+          <ion-icon slot="start" name="videocam"></ion-icon>
+          Dispositivo de video
+        </ion-item>
+        <ion-item [routerLink]="'/ayuda'">
+          <ion-icon slot="start" name="help"></ion-icon>
+          Manual de uso
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+</ion-header>
 
 <ion-content [fullscreen]="true">
-    <iframe src="http://192.168.0.4:8765" width="100%" height="100%"></iframe>
+    <iframe [src]="'http://' + dvrConfig.address + ':' + dvrConfig.port" width="100%" height="100%"></iframe>
 </ion-content>

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { catchError, map, finalize } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-video',
@@ -9,28 +11,37 @@ import { HttpClient } from '@angular/common/http';
 export class VideoPage {
   dvrConfig: { address: string; port: number };
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.dvrConfig = {
+      address: 'defaultAddress',
+      port: 8080,
+    };
+  }
 
   ngOnInit() {
     this.loadDvrConfig();
   }
 
-  async loadDvrConfig() {
-    try {
-      // Lee el archivo config.json
-      const config = await this.http.get<{ dvrAddress: string; dvrPort: number }>('assets/config.json').toPromise();
-
-      // Almacena los datos en la variable dvrConfig
-      this.dvrConfig = {
-        address: config.dvrAddress,
-        port: config.dvrPort,
-      };
-
-      console.log('Configuración de DVR cargada:', this.dvrConfig);
-    } catch (error) {
-      console.error('Error al cargar la configuración de DVR:', error);
-    }
+  loadDvrConfig() {
+    this.http.get<{ dvrAddress: string; dvrPort: number }>('../assets/video.json')
+      .pipe(
+        catchError(error => {
+          console.error('Error al cargar la configuración de DVR:', error);
+          return of(null);
+        }),
+        finalize(() => {
+          // Código que se ejecuta tanto en caso de éxito como de error
+        })
+      )
+      .subscribe(config => {
+        if (config) {
+          this.dvrConfig = {
+            address: config.dvrAddress,
+            port: config.dvrPort,
+          };
+          console.log('Configuración de DVR cargada:', this.dvrConfig);
+        }
+      });
   }
 
-  // Otros métodos y lógica para tu página
 }
