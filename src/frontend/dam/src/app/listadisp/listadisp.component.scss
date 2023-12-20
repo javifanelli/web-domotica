@@ -66,6 +66,42 @@ div.valor {
   }
 }
 
+.clima-card {
+  width: calc(50% - 20px);
+  margin: 10px;
+  min-height: 200px;
+  
+  ion-card-header {
+    ion-card-title {
+      font-size: 1.2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    ion-icon {
+      font-size: 1.2rem;
+    }
+  }
+  
+  ion-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    text-align: center;
+  }
+  
+  ion-item[detail="false"] {
+    display: flex;
+    justify-content: center;
+  }
+  
+  ion-button {
+    margin: 7px;
+  }
+}
+
 .button-container {
   display: flex;
   justify-content: center;

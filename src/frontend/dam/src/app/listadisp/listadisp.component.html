@@ -1,5 +1,8 @@
 <ion-content>
   <div class="card-container">
+    <ion-card class="clima-card">Clima
+      <ion-card-header><ion-card-title></ion-card-title></ion-card-header>
+    </ion-card>
     <ion-card *ngFor="let dispositivo of devices" class="custom-card">
       <ion-card-header>
         <ion-card-title [routerLink]="'/dispositivos/' + dispositivo.dispositivoId">
