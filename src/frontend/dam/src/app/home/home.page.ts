@@ -5,6 +5,7 @@ import { AlertController } from '@ionic/angular';
 import { DispositivoService } from '../services/dispositivo.service';
 import { Usuario } from '../interfaces/usuario';
 import { Subscription } from 'rxjs';
+import { VideoService } from '../services/video.service';
 
 @Component({
   selector: 'app-home',
@@ -15,12 +16,14 @@ export class HomePage implements OnInit, OnDestroy {
   userData!: Usuario;
   userId!: number;
   userDataSubscription: Subscription | undefined;
+  dvrConfig: { dvrAddress: string; dvrPort: number } | undefined;
 
   constructor(
     private loginService: LoginService,
     private router: Router,
     private alertController: AlertController,
-    private usuarioService: DispositivoService
+    private usuarioService: DispositivoService,
+    private videoService: VideoService
   ) {}
 
   ngOnInit() {
@@ -28,7 +31,7 @@ export class HomePage implements OnInit, OnDestroy {
     if (userId !== null) {
       this.userId = userId;
       console.log("El id en ngoninit de home es:", this.userId);
-      this.loadUserData();
+      this.loadDvrConfig();
     } else {
       console.error("El usuario actual es nulo");
     }
@@ -77,7 +80,23 @@ export class HomePage implements OnInit, OnDestroy {
       console.error('No se proporcionó un userId en home.');
     }
   }
-
+  
+  loadDvrConfig() {
+    // Llama al servicio para obtener la configuración del DVR
+    this.videoService.getVideoData().subscribe({
+        next: (config: { dvrAddress: string; dvrPort: number }[]) => {
+            if (config && config.length > 0) {
+                this.dvrConfig = config[0];
+                console.log('Configuración del DVR cargada:', this.dvrConfig);
+            } else {
+                console.error('Configuración del DVR no encontrada en video.json');
+            }
+        },
+        error: (error) => {
+            console.error('Error al cargar la configuración del DVR:', error);
+        },
+    });
+  }
   async mostrarAviso() {
     const alert = await this.alertController.create({
       header: 'Aviso',

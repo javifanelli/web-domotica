@@ -49,10 +49,7 @@ const routes: Routes = [
     path: 'ayuda',
     loadChildren: () => import('./ayuda/ayuda.module').then(m => m.AyudaPageModule)
   },
-  {
-    path: 'video',
-    loadChildren: () => import('./video/video.module').then(m => m.VideoPageModule)
-  },
+ 
 ];
 
 @NgModule({
