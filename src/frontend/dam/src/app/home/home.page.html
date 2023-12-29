@@ -9,7 +9,7 @@
         <ion-icon slot="start" name="add"></ion-icon>
         Agregar dispositivo
       </ion-item>
-      <ion-item [routerLink]="dvrConfig?.dvrAddress + ':' + dvrConfig?.dvrPort">
+      <ion-item (click)="openVideoDevice()">
         <ion-icon slot="start" name="videocam"></ion-icon>
         Dispositivo de video
       </ion-item>      

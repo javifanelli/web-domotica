@@ -6,6 +6,7 @@ import { DispositivoService } from '../services/dispositivo.service';
 import { Usuario } from '../interfaces/usuario';
 import { Subscription } from 'rxjs';
 import { VideoService } from '../services/video.service';
+import { Video } from '../interfaces/video';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,8 @@ export class HomePage implements OnInit, OnDestroy {
   userData!: Usuario;
   userId!: number;
   userDataSubscription: Subscription | undefined;
-  dvrConfig: { dvrAddress: string; dvrPort: number } | undefined;
+  dvrDataSubscription: Subscription | undefined;
+  dvrConfig!: Video;
 
   constructor(
     private loginService: LoginService,
@@ -30,14 +32,18 @@ export class HomePage implements OnInit, OnDestroy {
     const userId = this.loginService.getCurrentUser();
     if (userId !== null) {
       this.userId = userId;
-      console.log("El id en ngoninit de home es:", this.userId);
-      this.loadDvrConfig();
     } else {
       console.error("El usuario actual es nulo");
     }
+    this.loadUserData();
+    this.loadDvrConfig();
   }
-  
+
   async logout() {
+    // Realiza el logout después de cargar la configuración del DVR y los datos del usuario
+    await this.loadUserData();
+    await this.loadDvrConfig();
+
     const alert = await this.alertController.create({
       header: 'Cerrar sesión',
       message: '¿Estás seguro de que quieres cerrar sesión?',
@@ -74,7 +80,7 @@ export class HomePage implements OnInit, OnDestroy {
         },
         error: (error) => {
           console.error('Error al cargar los datos del usuario en home:', error);
-        }
+        },
       });
     } else {
       console.error('No se proporcionó un userId en home.');
@@ -82,26 +88,32 @@ export class HomePage implements OnInit, OnDestroy {
   }
   
   loadDvrConfig() {
-    // Llama al servicio para obtener la configuración del DVR
-    this.videoService.getVideoData().subscribe({
-        next: (config: { dvrAddress: string; dvrPort: number }[]) => {
-            if (config && config.length > 0) {
-                this.dvrConfig = config[0];
-                console.log('Configuración del DVR cargada:', this.dvrConfig);
-            } else {
-                console.error('Configuración del DVR no encontrada en video.json');
-            }
-        },
-        error: (error) => {
-            console.error('Error al cargar la configuración del DVR:', error);
-        },
+    this.dvrDataSubscription = this.videoService.getVideoData().subscribe({
+      next: (configs) => {
+        console.log('Configuración del DVR cargada: ', configs);
+        this.dvrConfig = configs;
+      },
+      error: (error) => {
+        console.error('Error al cargar la configuración del DVR:', error);
+      },
     });
   }
+  
+  openVideoDevice() {
+    console.log("Abriendo DVR", this.dvrConfig);
+    if (this.dvrConfig) {
+      const videoUrl = `http://${this.dvrConfig.dvrAddress}:${this.dvrConfig.dvrPort}`;
+      window.open(videoUrl, '_blank');
+    } else {
+      console.error('Configuración del DVR no disponible.');
+    }
+  }
+  
   async mostrarAviso() {
     const alert = await this.alertController.create({
       header: 'Aviso',
       message: 'Debe actualizar los datos de usuario.',
-      buttons: ['Aceptar']
+      buttons: ['Aceptar'],
     });
     await alert.present();
   }
@@ -109,6 +121,9 @@ export class HomePage implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.userDataSubscription) {
       this.userDataSubscription.unsubscribe();
+    }
+    if (this.dvrDataSubscription) {
+      this.dvrDataSubscription.unsubscribe();
     }
     localStorage.removeItem('userId');
   }
