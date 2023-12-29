@@ -2,17 +2,17 @@
   <ion-content class="ion-padding">
     <ion-list>
       <ion-item [routerLink]="'/usuario/' + userId">
-        <ion-icon slot="start" name="person"></ion-icon>
-        Usuario
+        <ion-icon slot="start" name="cog-outline"></ion-icon>
+        Configuración
       </ion-item>
       <ion-item [routerLink]="'/agregar/'">
         <ion-icon slot="start" name="add"></ion-icon>
         Agregar dispositivo
       </ion-item>
-      <ion-item (click)="openVideoDevice()">
+      <ion-item (click)="openVideoDevice()" [routerLink]="''">
         <ion-icon slot="start" name="videocam"></ion-icon>
         Dispositivo de video
-      </ion-item>      
+      </ion-item>
       <ion-item [routerLink]="'/ayuda'">
         <ion-icon slot="start" name="help"></ion-icon>
         Manual de uso
