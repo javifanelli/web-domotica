@@ -23,13 +23,30 @@ echo \
   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update*
-Hacer Docker que sea *sudo*
+Hacer Docker que sea "sudo"
 *sudo groupadd docker
 sudo usermod -aG docker $USER*
 
+Fuentes:
+https://docs.docker.com/engine/install/raspberry-pi-os/
+https://docs.docker.com/engine/install/linux-postinstall/
+
+### Instalación y configuración de GitHub
+Instalar Git
+*sudo apt-get install git gh*
+Configurar cuenta de Github. Asignar usuario
+*git config --global user.name "javifanelli"
+git config --global user.email "javifanelli@gmail.com"*
+Clonar el repositorio
+*sudo git clone https://github.com/javifanelli/web-domotica*
+
+Fuentes:
+https://linuxize.com/post/how-to-install-git-on-raspberry-pi/
+https://docs.github.com/en/get-started/quickstart/set-up-git
+
 ### Instalación de nvm y nodejs:
-*curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash*
-*nvm install 18.16.0*
+*sudo apt install nodejs
+sudo apt install npm*
 Luego deben instalarse los complementos de Angular e Ionic en el editor de código que se utilice para poder hacer andar el proyecto (en este caso se utilizó Visual Studio Code). 
 *sudo npm install -g @angular/cli*, *sudo npm install -g @ionic/cli* y *sudo npm install @angular/core@15.0.0*
 
