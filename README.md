@@ -1,4 +1,4 @@
-# Trabajo final - Especialización en Internet de las cosas
+# Sistema de domótica
 
 El siguiente proyecto es el componente Web app full stack con Ionic como frontend del trabajo práctico final para la carrera de Especialización en Internet de las Cosas, FIUBA. El proyecto consta de 3 componentes, el presente para el servidor, el ubicado [aquí](https://github.com/javifanelli/embebido_luz-proyecto) para el control de dimmer de luz y el ubicado [aquí] para el control de temperatura (https://github.com/javifanelli/embebido_temp-proyecto).
 
