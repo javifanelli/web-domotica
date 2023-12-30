@@ -7,9 +7,27 @@ El trabajo está realizado en el entorno Docker y está hecho a partir del repos
 Realizado por César Javier Fanelli.
 
 ## Pasos preliminares para correr la aplicación
-Primero hay que instalar docker en el servidor con los comandos:
-*curl -sSL https://get.docker.com | sh*
-Luego instalar nvm y nodejs:
+### Instalación de Docker
+Remover todos los paquetes que pueden causar conflictos
+*for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do sudo apt-get remove $pkg; done*
+Luego instalar Docker
+*# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl gnupg
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/raspbian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg*
+*# Set up Docker's APT repository:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/raspbian \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update*
+Hacer Docker que sea *sudo*
+*sudo groupadd docker
+sudo usermod -aG docker $USER*
+
+### Instalación de nvm y nodejs:
 *curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash*
 *nvm install 18.16.0*
 Luego deben instalarse los complementos de Angular e Ionic en el editor de código que se utilice para poder hacer andar el proyecto (en este caso se utilizó Visual Studio Code). 
