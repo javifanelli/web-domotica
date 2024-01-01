@@ -9,8 +9,11 @@ Realizado por César Javier Fanelli.
 ## Pasos preliminares para correr la aplicación
 ### Instalación de Docker
 Remover todos los paquetes que pueden causar conflictos
+
 *for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do sudo apt-get remove $pkg; done*
+
 Luego instalar Docker
+
 *# Add Docker's official GPG key:
 sudo apt-get update
 sudo apt-get install ca-certificates curl gnupg
@@ -23,7 +26,9 @@ echo \
   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update*
+
 Hacer Docker que sea "sudo"
+
 *sudo groupadd docker
 sudo usermod -aG docker $USER*
 
