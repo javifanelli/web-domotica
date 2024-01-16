@@ -7,6 +7,12 @@ El trabajo está realizado en el entorno Docker y está hecho a partir del repos
 Realizado por César Javier Fanelli.
 
 ## Pasos preliminares para correr la aplicación
+
+### Hacer usuario "sudo"
+Ejecutar el comando
+
+*sudo usermod -aG sudo  $USER*
+
 ### Instalación de Docker
 Remover todos los paquetes que pueden causar conflictos
 
@@ -58,9 +64,12 @@ https://linuxize.com/post/how-to-install-git-on-raspberry-pi/
 https://docs.github.com/en/get-started/quickstart/set-up-git
 
 ### Instalación de nvm y nodejs:
+
 *sudo apt install nodejs
 sudo apt install npm*
-Luego deben instalarse los complementos de Angular e Ionic en el editor de código que se utilice para poder hacer andar el proyecto (en este caso se utilizó Visual Studio Code). 
+
+Luego deben instalarse los complementos de Angular e Ionic en el editor de código que se utilice para poder hacer andar el proyecto (en este caso se utilizó Visual Studio Code).
+
 *sudo npm install -g @angular/cli*, *sudo npm install -g @ionic/cli* y *sudo npm install @angular/core@15.0.0*
 
 *sudo npm install express*
