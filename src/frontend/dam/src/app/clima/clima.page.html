@@ -1,0 +1,26 @@
+<!-- clima.page.html -->
+
+<ion-header>
+    <ion-toolbar>
+      <ion-title>
+        Clima
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-card class="clima-card">
+      <ion-card-header>
+        <ion-card-title>Condiciones Climáticas</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <!-- Mostrar datos del clima aquí -->
+        <div *ngIf="climaData">
+          <p>Temperatura: {{ climaData.Temperature.Imperial.Value }}°F</p>
+          <p>Estado del cielo: {{ climaData.WeatherText }}</p>
+          <!-- Otros detalles del clima según la respuesta de la API -->
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </ion-content>
+  
