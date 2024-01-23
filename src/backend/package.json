@@ -1,5 +1,5 @@
 {
-  "name": "daw_project",
+  "name": "proyecto_domotica",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,7 +7,7 @@
     "start": "nodemon --ignore 'clima.json' index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Agustin Bassi, Brian Ducca",
+  "author": "Javier Fanelli",
   "license": "MIT",
   "dependencies": {
     "axios": "^1.6.5",
