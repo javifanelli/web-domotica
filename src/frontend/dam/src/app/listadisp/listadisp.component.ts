@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Dispositivo } from '../interfaces/dispositivo';
+import { Clima } from '../interfaces/clima';
 import { DispositivoService } from '../services/dispositivo.service';
+import { ClimaService } from '../services/clima.service';
 import { Subscription } from 'rxjs';
 import { catchError, tap, finalize } from 'rxjs/operators';
 import { AlertController } from '@ionic/angular';
@@ -13,11 +15,13 @@ import { AlertController } from '@ionic/angular';
 export class ListaDispComponent implements OnInit, OnDestroy {
   constructor(
     private deviceService: DispositivoService,
+    private weatherService: ClimaService,
     private alertController: AlertController
   ) {}
 
   devices?: Dispositivo[];
   subscription!: Subscription;
+  clima?: Clima;
 
   ngOnInit(): void {
     this.subscription = this.deviceService.getListaDisp().subscribe((data) => {

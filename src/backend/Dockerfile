@@ -10,6 +10,8 @@ RUN npm install --global jsonwebtoken
 
 RUN npm install --global mqtt
 
+RUN npm install --global axios
+
 WORKDIR /src/backend
 
 COPY package*.json ./

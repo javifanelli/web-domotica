@@ -2,6 +2,7 @@
   <div class="card-container">
     <ion-card class="clima-card" [routerLink]="'/clima'">
       <ion-card-header><ion-card-title>Clima<ion-icon name="cloudy-night"></ion-icon></ion-card-title></ion-card-header>
+      <div>Temperatura: </div>
     </ion-card>
     <ion-card *ngFor="let dispositivo of devices" class="custom-card">
       <ion-card-header>
