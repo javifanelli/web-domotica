@@ -27,6 +27,16 @@ export class ListaDispComponent implements OnInit, OnDestroy {
     this.subscription = this.deviceService.getListaDisp().subscribe((data) => {
       this.devices = data;
     });
+  
+    this.weatherService.obtenerDatosClima().subscribe(
+      (datosClima) => {
+        this.clima = datosClima;
+        console.log('Datos del clima recibidos correctamente:', datosClima);
+      },
+      (error) => {
+        console.error('Error al obtener datos del clima en el componente:', error);
+      }
+    );
   }
 
   async confirmarBorrar(dispositivoId: string) {

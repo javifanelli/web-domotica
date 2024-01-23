@@ -183,15 +183,11 @@ app.post('/enviardatos', async (req, res) => {
   }
 });
 
-app.post('/datosclima', async (req, res) => {
+app.get('/datosclima', async (req, res) => {
   try {
-    const ciudad = 'tu_ciudad'; // Reemplaza con la ciudad que desees
+    const ciudad = '2920';
     const datosClima = await obtenerDatosClima(ciudad);
-
     console.log('Datos del clima:', datosClima);
-
-    // Aquí puedes agregar lógica adicional para procesar los datos del clima si es necesario
-
     res.status(200).send({ message: 'Datos del clima obtenidos correctamente' });
   } catch (error) {
     console.error('Error al obtener los datos del clima:', error);
@@ -210,6 +206,7 @@ app.use('/borrartabla', borrarTablaRouter);
 app.use('/usuario', usuariosRouter);
 app.use('/agregar', agregaRouter);
 app.use('/modificar', modificarDispositivoRouter);
+
 
 app.listen(PORT, function (req, res) {
   console.log('NodeJS API running correctly on:', PORT);

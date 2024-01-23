@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class HomeService {
-  uri = 'http://192.168.0.70:8000'
+  URLServer = 'http://192.168.0.70:8000'
 
   config = {
     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }

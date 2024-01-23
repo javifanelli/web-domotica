@@ -7,7 +7,7 @@ import { firstValueFrom } from 'rxjs';
   providedIn: 'root',
 })
 export class LoginService {
-  uri = 'http://192.168.0.70:8000';
+  URLServer = 'http://192.168.0.70:8000';
   token: string;
 
   constructor(private http: HttpClient, private router: Router) {
@@ -16,7 +16,7 @@ export class LoginService {
 
   async login(username: string, password: string): Promise<boolean> {
     try {
-      let response = await firstValueFrom(this.http.post<any>(this.uri + '/authenticate', { username: username, password: password }));
+      let response = await firstValueFrom(this.http.post<any>(this.URLServer + '/authenticate', { username: username, password: password }));
       if (response && response.token) {
         this.router.navigate(['home']);
         localStorage.setItem('token', response.token);
