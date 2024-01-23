@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --ignore 'clima.json' index.js",
+    "start": "nodemon --ignore './data/clima.json' index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Javier Fanelli",
