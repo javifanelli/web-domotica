@@ -1,7 +1,7 @@
 [
   {
-    "LocalObservationDateTime": "2024-01-23T00:20:00-03:00",
-    "EpochTime": 1705980000,
+    "LocalObservationDateTime": "2024-01-24T22:20:00-03:00",
+    "EpochTime": 1706145600,
     "WeatherText": "Despejado",
     "WeatherIcon": 33,
     "HasPrecipitation": false,
@@ -9,12 +9,12 @@
     "IsDayTime": false,
     "Temperature": {
       "Metric": {
-        "Value": 23.2,
+        "Value": 23.7,
         "Unit": "C",
         "UnitType": 17
       },
       "Imperial": {
-        "Value": 74,
+        "Value": 75,
         "Unit": "F",
         "UnitType": 18
       }

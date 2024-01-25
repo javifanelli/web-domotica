@@ -14,7 +14,7 @@ const transporter = require('./nodemailer');
 const { authRouter } = require('./auth');
 const { JWT_Secret } = require('./auth');
 const { dispositivosRouter, ultMedicionRouter, graficoRouter, medicionesRouter, deleteDispositivoRouter, estadoConexionRouter, borrarTablaRouter, usuariosRouter, agregaRouter, modificarDispositivoRouter } = require('./dispositivos');
-const { obtenerDatosClima } = require('./clima');
+const clima = require('./clima');
 
 var corsOptions = {
   origin: '*',
@@ -185,15 +185,16 @@ app.post('/enviardatos', async (req, res) => {
 
 app.get('/datosclima', async (req, res) => {
   try {
-    const ciudad = '2920';
-    const datosClima = await obtenerDatosClima(ciudad);
+    const datosClima = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/clima.json'), 'utf8'));
     console.log('Datos del clima:', datosClima);
-    res.status(200).send({ message: 'Datos del clima obtenidos correctamente' });
+    res.status(200).send({ datosClima });
   } catch (error) {
     console.error('Error al obtener los datos del clima:', error);
     res.status(500).send({ message: 'Error al obtener los datos del clima' });
   }
 });
+
+clima.actualizarAutomaticamente();
 
 app.use('/', authRouter);
 app.use('/dispositivos', dispositivosRouter);
