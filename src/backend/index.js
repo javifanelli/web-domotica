@@ -9,6 +9,7 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const mqtt = require('mqtt');
 const fs = require('fs');
+const path = require('path');
 const mqttClient = require('./mqtt-handler');
 const transporter = require('./nodemailer');
 const { authRouter } = require('./auth');

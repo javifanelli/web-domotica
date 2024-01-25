@@ -1,7 +1,7 @@
 [
   {
-    "LocalObservationDateTime": "2024-01-24T22:20:00-03:00",
-    "EpochTime": 1706145600,
+    "LocalObservationDateTime": "2024-01-24T22:55:00-03:00",
+    "EpochTime": 1706147700,
     "WeatherText": "Despejado",
     "WeatherIcon": 33,
     "HasPrecipitation": false,
